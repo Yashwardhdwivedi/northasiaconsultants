@@ -1,0 +1,202 @@
+body{
+font-family:'Inter',sans-serif;
+margin:0;
+background:#F4F8FB;
+color:#1f2937;
+}
+
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 60px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo{
+font-weight:700;
+font-size:20px;
+color:#0A66C2;
+}
+
+.nav-links{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#374151;
+font-weight:500;
+}
+
+
+/* SECTION */
+
+.apply-section{
+padding:100px 20px;
+display:flex;
+justify-content:center;
+}
+
+.apply-card{
+background:white;
+padding:50px;
+border-radius:12px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+max-width:900px;
+width:100%;
+text-align:center;
+}
+
+.apply-card h1{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.apply-card p{
+color:#6b7280;
+margin-bottom:40px;
+}
+
+
+/* FORM GRID */
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:16px;
+margin-bottom:30px;
+}
+
+input,select{
+padding:14px;
+border-radius:8px;
+border:1px solid #d1d5db;
+font-size:14px;
+background:#fafafa;
+width:100%;
+box-sizing:border-box;
+}
+
+input:focus,select:focus{
+outline:none;
+border-color:#0A66C2;
+background:white;
+}
+
+
+/* UPLOAD */
+
+.upload-container{
+display:flex;
+justify-content:center;
+margin:30px 0;
+}
+
+.upload-container input{
+display:none;
+}
+
+.upload-box{
+display:flex;
+align-items:center;
+gap:15px;
+
+border:2px dashed #cbd5e1;
+border-radius:10px;
+padding:20px 30px;
+background:#f9fafb;
+cursor:pointer;
+transition:0.3s;
+}
+
+.upload-box:hover{
+border-color:#0A66C2;
+background:#f0f7ff;
+}
+
+.upload-icon{
+font-size:28px;
+}
+
+.upload-text p{
+margin:0;
+font-size:13px;
+color:#6b7280;
+}
+
+
+/* CHECKBOX */
+
+.checkbox{
+display:block;
+margin-bottom:20px;
+font-size:14px;
+}
+
+
+/* BUTTON */
+
+.submit-btn{
+background:#0A66C2;
+color:white;
+border:none;
+padding:16px;
+border-radius:10px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+width:100%;
+}
+
+.submit-btn:hover{
+background:#084a9e;
+}
+
+
+/* FOOTER */
+
+footer{
+background:#0A2540;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:60px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.navbar{
+flex-direction:column;
+gap:10px;
+padding:15px;
+}
+
+.nav-links{
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+}
+
+.apply-card{
+padding:30px 20px;
+}
+
+.apply-card h1{
+font-size:24px;
+}
+
+}
