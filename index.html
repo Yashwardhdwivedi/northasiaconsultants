@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,30 +11,16 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font -->
+<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- Icons -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 body{
 font-family:'Inter',sans-serif;
-}
-
-/* hero gradient */
-
-.hero-bg{
-background:linear-gradient(135deg,#38bdf8,#3b82f6,#6366f1);
-}
-
-/* hover glow */
-
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 15px 30px rgba(0,0,0,0.1);
 }
 
 /* scroll progress */
@@ -45,7 +32,20 @@ left:0;
 height:4px;
 background:#3b82f6;
 width:0%;
-z-index:100;
+z-index:999;
+}
+
+/* hero gradient */
+
+.hero-bg{
+background:linear-gradient(135deg,#7dd3fc,#60a5fa,#818cf8);
+}
+
+/* hover card */
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
 }
 
 </style>
@@ -58,7 +58,7 @@ z-index:100;
 
 <!-- NAVBAR -->
 
-<nav class="fixed w-full z-50 backdrop-blur-md bg-white/70 border-b">
+<nav class="fixed w-full z-50 backdrop-blur-lg bg-white/60 border-b border-white/40">
 
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
@@ -66,7 +66,7 @@ z-index:100;
 North Asia
 </h1>
 
-<div class="hidden md:flex space-x-8 text-gray-700 font-medium">
+<div class="hidden md:flex space-x-8 font-medium text-gray-700">
 
 <a href="/" class="hover:text-blue-600">Home</a>
 <a href="#">About</a>
@@ -82,9 +82,9 @@ North Asia
 
 </div>
 
-<div id="mobileMenu" class="hidden px-6 pb-4 md:hidden">
+<div id="mobileMenu" class="hidden md:hidden px-6 pb-4">
 
-<a class="block py-2" href="/">Home</a>
+<a class="block py-2">Home</a>
 <a class="block py-2">About</a>
 <a class="block py-2">Services</a>
 <a class="block py-2">Industries</a>
@@ -98,32 +98,38 @@ North Asia
 
 <!-- HERO -->
 
-<section class="hero-bg text-white pt-32 pb-20">
+<section class="hero-bg text-white pt-36 pb-28 relative overflow-hidden">
 
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+<!-- abstract shapes -->
 
-<div>
+<div class="absolute -top-32 -left-32 w-96 h-96 bg-white opacity-20 blur-3xl rounded-full"></div>
+<div class="absolute top-20 right-0 w-96 h-96 bg-purple-200 opacity-20 blur-3xl rounded-full"></div>
+
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+
+<div class="bg-white/10 backdrop-blur-md p-10 rounded-2xl border border-white/20 shadow-xl">
 
 <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
 
-Connecting Talent With Global Opportunities
+Connecting Talent With  
+Global Opportunities
 
 </h1>
 
 <p class="text-lg mb-8">
 
-North Asia Consultants helps companies hire skilled
-professionals across international markets.
+North Asia Consultants specializes in international recruitment,
+helping companies hire skilled professionals across industries.
 
 </p>
 
 <div class="flex flex-wrap gap-4">
 
-<button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
+<button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold shadow">
 Hire Talent
 </button>
 
-<button class="border border-white px-6 py-3 rounded-lg">
+<button class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-blue-600">
 Submit Resume
 </button>
 
@@ -131,9 +137,14 @@ Submit Resume
 
 </div>
 
-<img
-src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
-class="rounded-xl shadow-lg w-full">
+<div class="relative">
+
+<div class="absolute inset-0 bg-blue-500 blur-3xl opacity-30 rounded-3xl"></div>
+
+<img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+class="relative rounded-2xl shadow-2xl w-full">
+
+</div>
 
 </div>
 
@@ -160,8 +171,8 @@ Global Talent Network
 </h3>
 
 <p>
-Access professionals across Asia,
-Middle East and Europe.
+Access skilled professionals across Asia,
+Middle East and international markets.
 </p>
 
 </div>
@@ -175,8 +186,8 @@ Industry Expertise
 </h3>
 
 <p>
-Recruitment experts specializing in
-multiple industries.
+Recruitment specialists across multiple
+industries ensuring the best match.
 </p>
 
 </div>
@@ -190,8 +201,8 @@ Fast Hiring
 </h3>
 
 <p>
-Efficient hiring process that
-reduces recruitment time.
+Streamlined hiring process reducing
+time-to-hire for companies.
 </p>
 
 </div>
@@ -222,8 +233,8 @@ Industries We Serve
 
 <p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Recruitment for offshore engineers
-and refinery specialists.
+Recruitment for offshore engineers,
+pipeline technicians and refinery experts.
 
 </p>
 
@@ -237,7 +248,7 @@ and refinery specialists.
 
 <p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Civil engineers and infrastructure experts.
+Civil engineers and infrastructure specialists.
 
 </p>
 
@@ -291,7 +302,7 @@ What Our Clients Say
 
 <p class="text-lg mb-4">
 North Asia Consultants helped us hire
-qualified engineers very quickly.
+qualified engineers quickly.
 </p>
 
 <strong>HR Manager – Energy Company</strong>
@@ -333,8 +344,7 @@ North Asia Consultants
 </h3>
 
 <p>
-Connecting companies with skilled
-professionals across global industries.
+Connecting companies with skilled professionals across global industries.
 </p>
 
 </div>
@@ -346,11 +356,9 @@ Company
 </h4>
 
 <ul class="space-y-2">
-
 <li>About</li>
 <li>Services</li>
 <li>Industries</li>
-
 </ul>
 
 </div>
@@ -362,9 +370,7 @@ Candidates
 </h4>
 
 <ul class="space-y-2">
-
 <li>Submit Resume</li>
-
 </ul>
 
 </div>
@@ -438,3 +444,4 @@ document.getElementById("progress").style.width=scrolled+"%"
 
 </body>
 </html>
+```
