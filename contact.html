@@ -1,317 +1,869 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Contact | North Asia Consultants</title>
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-font-family:'Inter',sans-serif;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | North Asia Consultants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+ 
+    :root {
+      --blue: #0a66c2;
+      --blue-dark: #004182;
+      --blue-light: #e8f0fa;
+      --green: #057642;
+      --white: #ffffff;
+      --bg: #f3f2ef;
+      --border: #e0e0e0;
+      --text: #191919;
+      --muted: #666666;
+      --radius: 10px;
+    }
+ 
+    /* ===== SCROLL PROGRESS ===== */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), #38bdf8); width: 0%; z-index: 9999; transition: width .1s; }
+ 
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+ 
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+ 
+    /* ===== TOPBAR ===== */
+    .topbar { background: var(--blue); padding: 10px 16px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; text-align: center; }
+    .topbar p { font-size: 13px; color: rgba(255,255,255,0.92); line-height: 1.4; }
+    .topbar strong { color: #fff; font-weight: 600; }
+    .topbar a { color: #fff; font-weight: 600; font-size: 13px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.35); transition: background .2s; white-space: nowrap; }
+    .topbar a:hover { background: rgba(255,255,255,0.3); }
+ 
+    /* ===== NAVBAR ===== */
+    nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 900; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+    .logo-text { line-height: 1.2; }
+    .logo-name { font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .logo-name span { color: var(--blue); }
+    .logo-tagline { font-size: 10px; color: var(--muted); }
+    .nav-search { flex: 1; max-width: 380px; position: relative; }
+    .nav-search input { width: 100%; height: 38px; border: 1.5px solid #d0d0d0; border-radius: 20px; padding: 0 16px 0 38px; font-size: 13px; font-family: inherit; outline: none; background: #f8f9fa; color: var(--text); transition: border-color .2s, box-shadow .2s; }
+    .nav-search input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(10,102,194,0.1); }
+    .nav-search .s-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #888; }
+    .nav-links { display: flex; align-items: center; }
+    .nav-links a { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 10px; height: 64px; color: var(--muted); font-size: 11px; font-weight: 500; gap: 3px; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; }
+    .nav-links a svg { width: 20px; height: 20px; }
+    .nav-links a:hover { color: var(--text); border-bottom-color: var(--text); }
+    .nav-links a.active { color: var(--text); border-bottom-color: var(--text); font-weight: 600; }
+    .nav-cta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+    .btn-outline-nav { padding: 7px 16px; border: 1.5px solid var(--blue); border-radius: 20px; color: var(--blue); font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
+    .btn-outline-nav:hover { background: var(--blue-light); }
+    .btn-solid-nav { padding: 7px 16px; background: var(--blue); border-radius: 20px; color: #fff; font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
+    .btn-solid-nav:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text); }
+    #mobileMenu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 12px 20px 20px; }
+    #mobileMenu.open { display: block; animation: fadeUp .25s ease; }
+    #mobileMenu a { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 15px; color: #333; border-bottom: 1px solid #f5f5f5; font-weight: 500; }
+    #mobileMenu a:last-child { border: none; }
+    #mobileMenu a svg { width: 18px; height: 18px; color: var(--blue); }
+    .mob-cta-row { display: flex; gap: 10px; margin-top: 14px; }
+    .mob-cta-row a { flex: 1; text-align: center; padding: 10px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+    .mob-cta-row .mc-outline { border: 1.5px solid var(--blue); color: var(--blue); }
+    .mob-cta-row .mc-solid { background: var(--blue); color: #fff; }
+ 
+    /* ===== PAGE HERO ===== */
+    .page-hero { background: linear-gradient(135deg, #0d47a1 0%, #0a66c2 50%, #1565c0 100%); position: relative; overflow: hidden; padding: 52px 20px 52px; }
+    .page-hero-dots { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 32px 32px; }
+    .page-hero-glow { position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+    .page-hero-glow2 { position: absolute; bottom: -60px; left: -60px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; animation: fadeUp .6s ease both; }
+    .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+    .breadcrumb a { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500; }
+    .breadcrumb a:hover { color: #fff; }
+    .breadcrumb span { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .breadcrumb .current { font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; }
+    .page-hero h1 { font-size: clamp(26px, 4vw, 44px); font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.65; }
+ 
+    /* ===== PAGE WRAP ===== */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+ 
+    /* ===== CONTACT GRID ===== */
+    .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
+ 
+    /* ===== CONTACT FORM CARD ===== */
+    .form-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+    .form-card-header { padding: 22px 24px 0; }
+    .form-card-header h2 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .form-card-header p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .form-body { padding: 20px 24px 24px; }
+ 
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+    .form-group label span { color: #ef4444; margin-left: 2px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #d8d8d8;
+      border-radius: 8px; font-size: 13px; font-family: inherit;
+      color: var(--text); background: #fafafa; outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(10,102,194,0.08); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #bbb; }
+    .form-group select { cursor: pointer; color: #555; }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+ 
+    .form-type-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .type-tab {
+      flex: 1; padding: 9px 12px; border: 1.5px solid #e0e0e0;
+      border-radius: 8px; font-size: 12px; font-weight: 600;
+      color: #666; background: #f8f9fa; cursor: pointer;
+      transition: all .2s; text-align: center; display: flex;
+      align-items: center; justify-content: center; gap: 6px;
+    }
+    .type-tab svg { width: 14px; height: 14px; }
+    .type-tab:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+    .type-tab.active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+ 
+    .form-submit {
+      width: 100%; padding: 13px; background: var(--blue); color: #fff;
+      border: none; border-radius: 20px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 6px;
+    }
+    .form-submit:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(10,102,194,0.3); }
+    .form-submit svg { width: 16px; height: 16px; }
+    .form-submit.loading { pointer-events: none; opacity: 0.8; }
+    .form-submit .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+ 
+    .form-success {
+      display: none; text-align: center; padding: 36px 24px;
+      animation: slideUp .4s ease;
+    }
+    .form-success.show { display: block; }
+    .success-icon { width: 64px; height: 64px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+    .success-icon svg { width: 32px; height: 32px; color: var(--green); }
+    .form-success h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .form-success p { font-size: 13px; color: var(--muted); line-height: 1.65; max-width: 340px; margin: 0 auto 20px; }
+    .form-success a { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; padding: 10px 22px; border-radius: 20px; font-size: 13px; font-weight: 600; transition: background .2s; }
+    .form-success a:hover { background: var(--blue-dark); }
+ 
+    /* ===== QUICK CONTACT METHODS ===== */
+    .quick-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .qm-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px; display: flex; flex-direction: column; align-items: flex-start;
+      gap: 10px; transition: all .25s; cursor: pointer;
+    }
+    .qm-card:hover { border-color: rgba(10,102,194,0.3); box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .qm-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .qm-icon.blue { background: var(--blue-light); }
+    .qm-icon.green { background: #f0fdf4; }
+    .qm-icon.orange { background: #fff7ed; }
+    .qm-icon.indigo { background: #eef2ff; }
+    .qm-icon svg { width: 18px; height: 18px; }
+    .qm-icon.blue svg { color: var(--blue); }
+    .qm-icon.green svg { color: #16a34a; }
+    .qm-icon.orange svg { color: #ea580c; }
+    .qm-icon.indigo svg { color: #4f46e5; }
+    .qm-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .qm-value { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .qm-action { font-size: 11px; color: var(--blue); font-weight: 600; }
+ 
+    /* ===== TEAM SECTION ===== */
+    .team-section { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; }
+    .team-header { padding: 20px 22px 0; }
+    .team-header h2 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .team-header p { font-size: 13px; color: var(--muted); }
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .team-card {
+      padding: 22px; display: flex; flex-direction: column; align-items: center; text-align: center;
+      position: relative; transition: background .2s;
+    }
+    .team-card:first-child { border-right: 1px solid #f0f0f0; }
+    .team-card::after { content: ''; position: absolute; bottom: 0; left: 20px; right: 20px; height: 1px; background: #f5f5f5; }
+    .team-card:hover { background: #fafafa; }
+ 
+    /* Avatar with initials */
+    .team-avatar-wrap { position: relative; margin-bottom: 14px; }
+    .team-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700; color: #fff;
+      position: relative; animation: float 4s ease-in-out infinite;
+    }
+    .team-avatar.td { background: linear-gradient(135deg, #0a66c2, #004182); animation-delay: 0s; }
+    .team-avatar.yw { background: linear-gradient(135deg, #057642, #065f46); animation-delay: 1s; }
+    .team-avatar-ring {
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px dashed rgba(10,102,194,0.2);
+      animation: spin 12s linear infinite;
+    }
+    .team-avatar-ring.green { border-color: rgba(5,118,66,0.2); }
+ 
+    .team-role-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--blue-light); color: var(--blue);
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; padding: 3px 10px; border-radius: 100px;
+      margin-bottom: 8px;
+    }
+    .team-role-badge.green-badge { background: #f0fdf4; color: var(--green); }
+    .team-role-badge svg { width: 10px; height: 10px; }
+ 
+    .team-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .team-title { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+    .team-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 14px; }
+    .team-chip { background: #f5f5f5; color: #555; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 100px; border: 1px solid #e8e8e8; }
+    .team-social { display: flex; gap: 7px; }
+    .team-soc-btn {
+      width: 30px; height: 30px; border-radius: 7px; border: 1.5px solid var(--border);
+      background: #f8f9fa; display: flex; align-items: center; justify-content: center;
+      color: #666; transition: all .2s;
+    }
+    .team-soc-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .team-soc-btn svg { width: 13px; height: 13px; }
+ 
+    /* ===== SIDEBAR ===== */
+    .sidebar-col { display: flex; flex-direction: column; gap: 0; }
+    .sidebar-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+    .sc-pad { padding: 18px 20px; }
+    .sc-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+    .sc-title svg { width: 16px; height: 16px; color: var(--blue); }
+ 
+    /* Contact info rows */
+    .ci-row { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid #f8f8f8; }
+    .ci-row:last-child { border: none; padding-bottom: 0; }
+    .ci-ico { width: 34px; height: 34px; border-radius: 8px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ci-ico svg { width: 16px; height: 16px; color: var(--blue); }
+    .ci-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+    .ci-val { font-size: 13px; font-weight: 600; color: var(--text); }
+    .ci-val a { color: var(--blue); }
+    .ci-val a:hover { text-decoration: underline; }
+ 
+    .wa-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #25d366; color: #fff; padding: 11px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 14px; transition: background .2s; }
+    .wa-btn:hover { background: #1db954; }
+    .wa-btn svg { width: 16px; height: 16px; }
+ 
+    /* Office hours */
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f8f8f8; font-size: 13px; }
+    .hours-row:last-child { border: none; padding-bottom: 0; }
+    .hours-day { color: #555; font-weight: 500; }
+    .hours-time { color: var(--text); font-weight: 600; }
+    .hours-closed { color: #ef4444; font-weight: 600; }
+    .dot-online { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; animation: pulse 2s infinite; }
+ 
+    /* Response time banner */
+    .response-banner {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 1px solid rgba(5,118,66,0.2); border-radius: var(--radius);
+      padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .rb-icon { width: 38px; height: 38px; background: #16a34a; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .rb-icon svg { width: 18px; height: 18px; color: #fff; }
+    .rb-t { font-size: 13px; font-weight: 700; color: #15803d; }
+    .rb-s { font-size: 11px; color: #16a34a; margin-top: 1px; }
+ 
+    /* Location map placeholder */
+    .map-placeholder {
+      background: linear-gradient(135deg, var(--blue-light), #f0f7ff);
+      border: 1px solid rgba(10,102,194,0.15); border-radius: var(--radius);
+      padding: 22px 20px; text-align: center; margin-bottom: 16px;
+      position: relative; overflow: hidden;
+    }
+    .map-placeholder::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(10,102,194,0.06); border-radius: 50%; }
+    .map-icon { width: 44px; height: 44px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; animation: float 3s ease-in-out infinite; }
+    .map-icon svg { width: 22px; height: 22px; color: #fff; }
+    .map-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .map-addr { font-size: 12px; color: var(--muted); line-height: 1.65; margin-bottom: 12px; }
+    .map-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; padding: 8px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; transition: background .2s; }
+    .map-btn:hover { background: var(--blue-dark); }
+    .map-btn svg { width: 13px; height: 13px; }
+ 
+    /* ===== FOOTER ===== */
+    footer { background: #fff; border-top: 1px solid var(--border); margin-top: 20px; padding: 40px 20px 24px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 28px; border-bottom: 1px solid #eee; }
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.75; margin: 12px 0 16px; }
+    .footer-social { display: flex; gap: 8px; }
+    .fs-btn { width: 32px; height: 32px; border-radius: 6px; background: #f5f5f5; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: #555; transition: all .2s; }
+    .fs-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .fs-btn svg { width: 14px; height: 14px; }
+    .fc h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .fc ul li a { font-size: 13px; color: var(--muted); transition: color .2s; }
+    .fc ul li a:hover { color: var(--blue); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-top: 20px; }
+    .footer-bottom p { font-size: 12px; color: #aaa; }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { font-size: 12px; color: #888; transition: color .2s; }
+    .footer-links a:hover { color: var(--blue); }
+ 
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .quick-methods { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 680px) {
+      .nav-search, .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-cta { display: none; }
+      .nav-inner { height: 56px; }
+      .quick-methods { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .team-card:first-child { border-right: none; border-bottom: 1px solid #f0f0f0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .page-wrap { padding: 16px 14px; }
+    }
+    @media (max-width: 420px) {
+      .quick-methods { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50 text-gray-800">
-
-<!-- NAVBAR -->
-
-<nav class="bg-white shadow-md fixed w-full z-50">
-
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-<h1 class="text-2xl font-bold text-blue-600">North Asia</h1>
-
-<div class="hidden md:flex space-x-8 font-medium">
-
-<a href="index.html" class="hover:text-blue-600">Home</a>
-<a href="about.html" class="hover:text-blue-600">About</a>
-<a href="services.html" class="hover:text-blue-600">Services</a>
-<a href="industries.html" class="hover:text-blue-600">Industries</a>
-<a href="candidates.html" class="hover:text-blue-600">Candidates</a>
-<a href="employers.html" class="hover:text-blue-600">Employers</a>
-<a href="contact.html" class="text-blue-600 font-semibold">Contact</a>
-
-</div>
-
-<button class="md:hidden" onclick="toggleMenu()">☰</button>
-
-</div>
-
-<div id="mobileMenu" class="hidden md:hidden bg-white px-6 pb-4">
-
-<a class="block py-2" href="index.html">Home</a>
-<a class="block py-2" href="about.html">About</a>
-<a class="block py-2" href="services.html">Services</a>
-<a class="block py-2" href="industries.html">Industries</a>
-<a class="block py-2" href="candidates.html">Candidates</a>
-<a class="block py-2" href="employers.html">Employers</a>
-<a class="block py-2" href="contact.html">Contact</a>
-
-</div>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="pt-32 pb-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-4xl mx-auto px-6">
-
-<h1 class="text-4xl md:text-5xl font-bold mb-6">
-Contact Our Recruitment Team
-</h1>
-
-<p class="text-lg">
-We are here to assist companies and professionals with recruitment solutions.
-</p>
-
-</div>
-
-</section>
-
-<!-- CONTACT INFO -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-3">📍 Office Address</h3>
-
-<p>
-North Asia Consultants<br>
-New Delhi, India
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-3">📞 Phone</h3>
-
-<p>+91 98765 43210</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-3">✉ Email</h3>
-
-<p>info@northasiaconsultants.com</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CONTACT FORM -->
-
-<section class="pb-20">
-
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold text-center mb-10">
-Send Us a Message
-</h2>
-
-<form class="bg-white p-10 rounded-xl shadow-lg space-y-6" data-aos="fade-up">
-
-<div>
-
-<label class="block font-medium mb-2">Full Name</label>
-
-<input type="text"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Email Address</label>
-
-<input type="email"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Phone Number</label>
-
-<input type="tel"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Message</label>
-
-<textarea rows="5"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500"></textarea>
-
-</div>
-
-<div class="text-center">
-
-<button
-class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-
-Send Message
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- GOOGLE MAP -->
-
-<section class="pb-20">
-
-<div class="max-w-6xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold text-center mb-10">
-Our Location
-</h2>
-
-<div class="rounded-xl overflow-hidden shadow-lg">
-
-<iframe
-src="https://maps.google.com/maps?q=New%20Delhi&t=&z=13&ie=UTF8&iwloc=&output=embed"
-width="100%"
-height="400"
-style="border:0;"
-allowfullscreen=""
-loading="lazy">
-</iframe>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="bg-gray-900 text-gray-300 py-12">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
-
-<div>
-
-<h3 class="text-xl font-bold text-white mb-4">
-North Asia Consultants
-</h3>
-
-<p>
-Connecting companies with skilled professionals
-across global industries.
-</p>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Quick Links
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="index.html">Home</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="industries.html">Industries</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-For Candidates
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="candidates.html">Submit Resume</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Contact
-</h4>
-
-<p>Email: info@northasiaconsultants.com</p>
-<p>Phone: +91 98765 43210</p>
-
-</div>
-
-</div>
-
-</footer>
-
-<!-- SCRIPTS -->
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<script>
-
-AOS.init({
-duration:1000,
-once:true
-})
-
-function toggleMenu(){
-document.getElementById("mobileMenu").classList.toggle("hidden")
-}
-
-</script>
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
-  authDomain: "northasiawebsite.firebaseapp.com",
-  projectId: "northasiawebsite",
-  storageBucket: "northasiawebsite.firebasestorage.app",
-  messagingSenderId: "643873729069",
-  appId: "1:643873729069:web:01e9a5f35a0f4815ece6a4",
-  measurementId: "G-SCECS03GC3"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-
-</script>
+<body>
+  <div id="progress"></div>
+ 
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <p>
+      <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+      <strong>Free for Employers</strong> — Zero fees. Now expanding across Gulf, Asia, Europe & beyond.
+    </p>
+    <a href="/contact.html">Get Started →</a>
+  </div>
+ 
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">N</div>
+        <div class="logo-text">
+          <div class="logo-name">North Asia <span>Consultants</span></div>
+          <div class="logo-tagline">Global Recruitment Experts</div>
+        </div>
+      </a>
+      <div class="nav-search">
+        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search jobs, roles, countries...">
+      </div>
+      <div class="nav-links">
+        <a href="/">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>
+          Home
+        </a>
+        <a href="/jobs.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+          Jobs
+        </a>
+        <a href="/industries.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
+          Industries
+        </a>
+        <a href="/about.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+          About
+        </a>
+        <a href="/contact.html" class="active">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+          Contact
+        </a>
+      </div>
+      <div class="nav-cta">
+        <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
+        <a href="/employers.html" class="btn-solid-nav">Hire Talent</a>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu">
+      <a href="/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>Home</a>
+      <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>Browse Jobs</a>
+      <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
+      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>About Us</a>
+      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <div class="mob-cta-row">
+        <a href="/candidates.html" class="mc-outline">Find Jobs</a>
+        <a href="/employers.html" class="mc-solid">Hire Talent</a>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-dots"></div>
+    <div class="page-hero-glow"></div>
+    <div class="page-hero-glow2"></div>
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span>›</span>
+        <span class="current">Contact Us</span>
+      </div>
+      <h1>Get in Touch</h1>
+      <p class="page-hero-sub">Whether you're an employer looking to hire or a candidate seeking your next role — we're ready to help. Reach out and we'll respond within 48 hours.</p>
+    </div>
+  </div>
+ 
+  <!-- PAGE BODY -->
+  <div class="page-wrap">
+ 
+    <!-- QUICK CONTACT METHODS -->
+    <div class="quick-methods reveal">
+      <a href="tel:+919326051900" class="qm-card">
+        <div class="qm-icon blue">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="qm-label">Phone</div>
+          <div class="qm-value">+91 93260 51900</div>
+          <div class="qm-action">Tap to call →</div>
+        </div>
+      </a>
+      <a href="mailto:info@northasiaconsultants.com" class="qm-card">
+        <div class="qm-icon orange">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+        </div>
+        <div>
+          <div class="qm-label">Email</div>
+          <div class="qm-value" style="word-break:break-all;">info@northasiaconsultants.com</div>
+          <div class="qm-action">Send email →</div>
+        </div>
+      </a>
+      <a href="https://wa.me/918988590035" target="_blank" class="qm-card">
+        <div class="qm-icon green">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div>
+          <div class="qm-label">WhatsApp</div>
+          <div class="qm-value">+91 89885 90035</div>
+          <div class="qm-action">Chat now →</div>
+        </div>
+      </a>
+      <a href="https://www.northasiaconsultants.com" target="_blank" class="qm-card">
+        <div class="qm-icon indigo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605z"/></svg>
+        </div>
+        <div>
+          <div class="qm-label">Website</div>
+          <div class="qm-value">northasiaconsultants.com</div>
+          <div class="qm-action">Visit site →</div>
+        </div>
+      </a>
+    </div>
+ 
+    <!-- RESPONSE BANNER -->
+    <div class="response-banner reveal reveal-delay-1">
+      <div class="rb-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+      </div>
+      <div>
+        <div class="rb-t"><span class="dot-online"></span>We typically respond within 48 hours</div>
+        <div class="rb-s">For urgent hiring needs, WhatsApp is your fastest route to our team.</div>
+      </div>
+    </div>
+ 
+    <!-- MAIN CONTACT GRID -->
+    <div class="contact-grid">
+ 
+      <!-- LEFT: Form + Team -->
+      <div>
+ 
+        <!-- CONTACT FORM -->
+        <div class="form-card reveal">
+          <div class="form-card-header">
+            <h2>Send Us a Message</h2>
+            <p>Tell us what you need and we'll get back to you within 48 hours.</p>
+          </div>
+          <div class="form-body" id="formBody">
+            <!-- I am tabs -->
+            <div style="margin-bottom:18px;">
+              <div style="font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">I am a...</div>
+              <div class="form-type-tabs">
+                <div class="type-tab active" onclick="setTab(this,'employer')" id="tabEmployer">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
+                  Employer / Hiring
+                </div>
+                <div class="type-tab" onclick="setTab(this,'candidate')" id="tabCandidate">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/></svg>
+                  Job Seeker
+                </div>
+                <div class="type-tab" onclick="setTab(this,'other')" id="tabOther">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+                  Other Inquiry
+                </div>
+              </div>
+            </div>
+ 
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name <span>*</span></label>
+                <input type="text" id="firstName" placeholder="e.g. Rahul">
+              </div>
+              <div class="form-group">
+                <label>Last Name <span>*</span></label>
+                <input type="text" id="lastName" placeholder="e.g. Sharma">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email Address <span>*</span></label>
+                <input type="email" id="email" placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="+91 00000 00000">
+              </div>
+            </div>
+            <div class="form-group" id="companyGroup">
+              <label>Company / Organisation</label>
+              <input type="text" id="company" placeholder="Your company name">
+            </div>
+            <div class="form-group">
+              <label>Subject <span>*</span></label>
+              <select id="subject">
+                <option value="">Select a subject...</option>
+                <option>Hiring / Staffing Enquiry</option>
+                <option>Submit My CV / Job Seeking</option>
+                <option>Industry Partnership</option>
+                <option>General Enquiry</option>
+                <option>Media / Press</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message <span>*</span></label>
+              <textarea id="message" placeholder="Tell us more about your requirements — role, location, timeline, or anything else that would help us serve you better..."></textarea>
+            </div>
+            <button class="form-submit" id="submitBtn" onclick="handleSubmit()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+              Send Message
+            </button>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out to North Asia Consultants. Our team will review your message and respond within 48 hours.</p>
+            <a href="/">← Back to Home</a>
+          </div>
+        </div>
+ 
+        <!-- MEET THE TEAM -->
+        <div class="team-section reveal">
+          <div class="team-header" style="padding:20px 22px 18px;">
+            <h2>Meet the Founders</h2>
+            <p>The people behind North Asia Consultants — building global recruitment from the ground up.</p>
+          </div>
+          <div class="team-grid">
+ 
+            <!-- Tanuj Dhiman -->
+            <div class="team-card">
+              <div class="team-avatar-wrap">
+                <div class="team-avatar td">TD</div>
+                <div class="team-avatar-ring"></div>
+              </div>
+              <div class="team-role-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                Founder
+              </div>
+              <div class="team-name">Tanuj Dhiman</div>
+              <div class="team-title">CEO & CFO<br>Chief Executive & Financial Officer</div>
+              <div class="team-chips">
+                <span class="team-chip">Strategy</span>
+                <span class="team-chip">Finance</span>
+                <span class="team-chip">Leadership</span>
+                <span class="team-chip">Gulf Markets</span>
+              </div>
+              <div class="team-social">
+                <a href="#" class="team-soc-btn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+                </a>
+                <a href="mailto:info@northasiaconsultants.com" class="team-soc-btn" title="Email">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+                </a>
+                <a href="https://wa.me/918988590035" target="_blank" class="team-soc-btn" title="WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+              </div>
+            </div>
+ 
+            <!-- Yash Wardhan Dwivedi -->
+            <div class="team-card">
+              <div class="team-avatar-wrap">
+                <div class="team-avatar yw">YW</div>
+                <div class="team-avatar-ring green"></div>
+              </div>
+              <div class="team-role-badge green-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                Co-Founder
+              </div>
+              <div class="team-name">Yash Wardhan Dwivedi</div>
+              <div class="team-title">CTO & COO<br>Chief Technology & Operations Officer</div>
+              <div class="team-chips">
+                <span class="team-chip">Technology</span>
+                <span class="team-chip">Operations</span>
+                <span class="team-chip">Product</span>
+                <span class="team-chip">Scaling</span>
+              </div>
+              <div class="team-social">
+                <a href="#" class="team-soc-btn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg>
+                </a>
+                <a href="mailto:info@northasiaconsultants.com" class="team-soc-btn" title="Email">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+                </a>
+                <a href="https://wa.me/918988590035" target="_blank" class="team-soc-btn" title="WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+              </div>
+            </div>
+ 
+          </div>
+        </div>
+ 
+      </div><!-- /left col -->
+ 
+      <!-- SIDEBAR -->
+      <div class="sidebar-col">
+ 
+        <!-- Contact details -->
+        <div class="sidebar-card reveal">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+              Contact Details
+            </div>
+            <div class="ci-row">
+              <div class="ci-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg></div>
+              <div>
+                <div class="ci-label">Phone</div>
+                <div class="ci-val"><a href="tel:+919326051900">+91 93260 51900</a></div>
+              </div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></div>
+              <div>
+                <div class="ci-label">Email</div>
+                <div class="ci-val"><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
+              </div>
+            </div>
+            <div class="ci-row">
+              <div class="ci-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605z"/></svg></div>
+              <div>
+                <div class="ci-label">Website</div>
+                <div class="ci-val"><a href="https://www.northasiaconsultants.com" target="_blank">northasiaconsultants.com</a></div>
+              </div>
+            </div>
+            <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+ 
+        <!-- Office hours -->
+        <div class="sidebar-card reveal reveal-delay-1">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg>
+              Office Hours
+            </div>
+            <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">9:00 AM – 6:00 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00 AM – 2:00 PM</span></div>
+            <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-closed">Closed</span></div>
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid #f5f5f5;font-size:12px;color:var(--muted);line-height:1.6;">
+              All times in <strong style="color:#333">IST (UTC+5:30)</strong>. For urgent matters outside office hours, please use WhatsApp.
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Location -->
+        <div class="map-placeholder reveal reveal-delay-2">
+          <div class="map-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="map-title">Our Base</div>
+          <div class="map-addr">Operating across India with a focus on Gulf, Asia & European placement markets.</div>
+          <a href="https://maps.google.com" target="_blank" class="map-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+            View on Maps
+          </a>
+        </div>
+ 
+        <!-- We place talent in -->
+        <div class="sidebar-card reveal reveal-delay-3">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/><path fill-rule="evenodd" d="M9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276z" clip-rule="evenodd"/></svg>
+              We Place Talent In
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇦🇪 UAE</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇸🇦 Saudi Arabia</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇶🇦 Qatar</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇰🇼 Kuwait</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇧🇭 Bahrain</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🇴🇲 Oman</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🌏 Asia</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🌍 Europe</span>
+              <span style="background:#f5f5f5;color:#333;font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--border);font-weight:500;">🌐 Global</span>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /sidebar -->
+    </div><!-- /contact-grid -->
+  </div><!-- /page-wrap -->
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <div class="logo-icon">N</div>
+            <div class="logo-text">
+              <div class="logo-name">North Asia <span>Consultants</span></div>
+              <div class="logo-tagline">Global Recruitment Experts</div>
+            </div>
+          </a>
+          <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers. Delivering excellence in global recruitment.</p>
+          <div class="footer-social">
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+            <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+          </div>
+        </div>
+        <div class="fc">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/services.html">Our Services</a></li>
+            <li><a href="/industries.html">Industries</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="fc">
+          <h4>For Employers</h4>
+          <ul>
+            <li><a href="/employers.html">Post a Job</a></li>
+            <li><a href="/employers.html">Our Process</a></li>
+            <li><a href="/employers.html">Why Choose Us</a></li>
+          </ul>
+        </div>
+        <div class="fc">
+          <h4>For Candidates</h4>
+          <ul>
+            <li><a href="/candidates.html">Browse Jobs</a></li>
+            <li><a href="/candidates.html">Submit Resume</a></li>
+            <li><a href="/candidates.html">Career Advice</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 North Asia Consultants. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="/sitemap.html">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+ 
+  <script>
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+ 
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('progress').style.width = (s / h * 100) + '%';
+    }, { passive: true });
+ 
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+ 
+    /* Tab switcher */
+    function setTab(el, type) {
+      document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      const cg = document.getElementById('companyGroup');
+      cg.style.display = (type === 'candidate') ? 'none' : 'block';
+    }
+ 
+    /* Form submit */
+    function handleSubmit() {
+      const first = document.getElementById('firstName').value.trim();
+      const last = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value.trim();
+ 
+      const required = [
+        { el: document.getElementById('firstName'), val: first },
+        { el: document.getElementById('lastName'), val: last },
+        { el: document.getElementById('email'), val: email },
+        { el: document.getElementById('subject'), val: subject },
+        { el: document.getElementById('message'), val: message },
+      ];
+ 
+      let valid = true;
+      required.forEach(f => {
+        if (!f.val) {
+          f.el.style.borderColor = '#ef4444';
+          f.el.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.1)';
+          valid = false;
+          setTimeout(() => { f.el.style.borderColor = ''; f.el.style.boxShadow = ''; }, 2500);
+        }
+      });
+      if (!email.includes('@')) {
+        document.getElementById('email').style.borderColor = '#ef4444';
+        valid = false;
+      }
+      if (!valid) return;
+ 
+      const btn = document.getElementById('submitBtn');
+      btn.classList.add('loading');
+      btn.innerHTML = '<div class="spinner"></div> Sending...';
+ 
+      setTimeout(() => {
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+      }, 1400);
+    }
+ 
+    /* Enter key on inputs */
+    document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(el => {
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' && el.tagName !== 'TEXTAREA') handleSubmit(); });
+    });
+  </script>
 </body>
 </html>
