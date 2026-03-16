@@ -1,374 +1,947 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>About Us | North Asia Consultants</title>
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-font-family:'Inter',sans-serif;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | North Asia Consultants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+ 
+    :root {
+      --blue: #0a66c2; --blue-dark: #004182; --blue-light: #e8f0fa;
+      --green: #057642; --white: #fff; --bg: #f3f2ef;
+      --border: #e0e0e0; --text: #191919; --muted: #666; --radius: 10px;
+    }
+ 
+    /* ── PROGRESS ── */
+    #progress { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),#38bdf8);width:0%;z-index:9999; }
+ 
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse  { 0%,100%{transform:scale(1)}50%{transform:scale(1.06)} }
+    @keyframes float  { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+    @keyframes countUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+ 
+    .reveal       { opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+    .reveal-l     { opacity:0;transform:translateX(-28px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1); }
+    .reveal-l.visible { opacity:1;transform:translateX(0); }
+    .reveal-r     { opacity:0;transform:translateX(28px);transition:opacity .65s cubic-bezier(.4,0,.2,1),transform .65s cubic-bezier(.4,0,.2,1); }
+    .reveal-r.visible { opacity:1;transform:translateX(0); }
+    .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+    .d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+ 
+    /* ── TOPBAR ── */
+    .topbar { background:var(--blue);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center; }
+    .topbar p   { font-size:13px;color:rgba(255,255,255,.92);line-height:1.4; }
+    .topbar strong { color:#fff;font-weight:600; }
+    .topbar a   { color:#fff;font-weight:600;font-size:13px;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.35);transition:background .2s;white-space:nowrap; }
+    .topbar a:hover { background:rgba(255,255,255,.3); }
+ 
+    /* ── NAVBAR ── */
+    nav { background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,.06); }
+    .nav-inner { max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px; }
+    .logo { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+    .logo-icon { width:36px;height:36px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0; }
+    .logo-text { line-height:1.2; }
+    .logo-name { font-size:15px;font-weight:700;color:var(--text);white-space:nowrap; }
+    .logo-name span { color:var(--blue); }
+    .logo-tagline { font-size:10px;color:var(--muted); }
+    .nav-search { flex:1;max-width:380px;position:relative; }
+    .nav-search input { width:100%;height:38px;border:1.5px solid #d0d0d0;border-radius:20px;padding:0 16px 0 38px;font-size:13px;font-family:inherit;outline:none;background:#f8f9fa;color:var(--text);transition:border-color .2s,box-shadow .2s; }
+    .nav-search input:focus { border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(10,102,194,.1); }
+    .nav-search .s-icon { position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#888; }
+    .nav-links { display:flex;align-items:center; }
+    .nav-links a { display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px;height:64px;color:var(--muted);font-size:11px;font-weight:500;gap:3px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap; }
+    .nav-links a svg { width:20px;height:20px; }
+    .nav-links a:hover,.nav-links a.active { color:var(--text);border-bottom-color:var(--text);font-weight:600; }
+    .nav-cta { display:flex;gap:8px;align-items:center;flex-shrink:0; }
+    .btn-outline-nav { padding:7px 16px;border:1.5px solid var(--blue);border-radius:20px;color:var(--blue);font-size:13px;font-weight:600;transition:all .2s; }
+    .btn-outline-nav:hover { background:var(--blue-light); }
+    .btn-solid-nav { padding:7px 16px;background:var(--blue);border-radius:20px;color:#fff;font-size:13px;font-weight:600;transition:all .2s; }
+    .btn-solid-nav:hover { background:var(--blue-dark);transform:translateY(-1px); }
+    .hamburger { display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text); }
+    #mobileMenu { display:none;background:#fff;border-top:1px solid var(--border);padding:12px 20px 20px; }
+    #mobileMenu.open { display:block;animation:fadeUp .25s ease; }
+    #mobileMenu a { display:flex;align-items:center;gap:12px;padding:12px 0;font-size:15px;color:#333;border-bottom:1px solid #f5f5f5;font-weight:500; }
+    #mobileMenu a:last-child { border:none; }
+    #mobileMenu a svg { width:18px;height:18px;color:var(--blue); }
+    .mob-cta-row { display:flex;gap:10px;margin-top:14px; }
+    .mob-cta-row a { flex:1;text-align:center;padding:10px;border-radius:20px;font-size:14px;font-weight:600; }
+    .mob-cta-row .mc-outline { border:1.5px solid var(--blue);color:var(--blue); }
+    .mob-cta-row .mc-solid   { background:var(--blue);color:#fff; }
+ 
+    /* ── PAGE HERO ── */
+    .page-hero { background:linear-gradient(135deg,#0d47a1 0%,#0a66c2 55%,#1565c0 100%);padding:56px 20px 60px;position:relative;overflow:hidden; }
+    .ph-dots  { position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none; }
+    .ph-glow  { position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
+    .ph-glow2 { position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
+    .ph-inner { max-width:1200px;margin:0 auto;position:relative;z-index:2; }
+    .ph-breadcrumb { display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:18px;flex-wrap:wrap; }
+    .ph-breadcrumb a { color:rgba(255,255,255,.65);transition:color .2s; }
+    .ph-breadcrumb a:hover { color:#fff; }
+    .ph-breadcrumb svg { width:14px;height:14px;flex-shrink:0; }
+    .ph-badge { display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:16px;animation:fadeUp .6s ease both; }
+    .badge-dot { width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0; }
+    .ph-h1 { font-size:clamp(26px,4.2vw,50px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:14px;animation:fadeUp .6s .1s ease both; }
+    .ph-h1 em { color:#93c5fd;font-style:normal; }
+    .ph-sub { font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.82);line-height:1.7;max-width:580px;margin-bottom:32px;animation:fadeUp .6s .2s ease both; }
+    .ph-cards { display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .6s .3s ease both; }
+    .ph-mini { background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 20px;min-width:120px; }
+    .ph-mini .num { font-size:26px;font-weight:700;color:#fff;line-height:1; }
+    .ph-mini .lbl { font-size:11px;color:rgba(255,255,255,.65);margin-top:3px;font-weight:500;text-transform:uppercase;letter-spacing:.04em; }
+ 
+    /* ── LAYOUT ── */
+    .page-wrap { max-width:1200px;margin:0 auto;padding:28px 20px; }
+    .two-col   { display:grid;grid-template-columns:1fr 290px;gap:20px;align-items:start; }
+ 
+    /* ── CARD BASE ── */
+    .card { background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:16px; }
+    .cp   { padding:24px 26px; }
+    .cp + .cp { border-top:1px solid #f5f5f5; }
+ 
+    /* ── SECTION HEADS ── */
+    .sec-eyebrow { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:8px;display:flex;align-items:center;gap:8px; }
+    .sec-eyebrow::before { content:'';width:24px;height:2px;background:var(--blue);flex-shrink:0; }
+    .sec-h2 { font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:10px; }
+    .sec-h2 em { color:var(--blue);font-style:normal; }
+    .sec-p  { font-size:14px;color:var(--muted);line-height:1.75; }
+ 
+    /* ── ABOUT INTRO SPLIT ── */
+    .intro-grid { display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center; }
+    .intro-img-wrap { position:relative; }
+    .intro-img { width:100%;height:340px;object-fit:cover;border-radius:14px;display:block; }
+    .intro-badge-float {
+      position:absolute;bottom:-16px;left:-16px;
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,.1);min-width:160px;
+    }
+    .ibf-num  { font-size:28px;font-weight:700;color:var(--blue);line-height:1; }
+    .ibf-lbl  { font-size:11px;color:var(--muted);margin-top:3px;font-weight:500; }
+    .intro-badge-float2 {
+      position:absolute;top:-16px;right:-16px;
+      background:var(--blue);border-radius:12px;
+      padding:14px 18px;box-shadow:0 8px 32px rgba(10,102,194,.35);min-width:140px;
+    }
+    .ibf2-num { font-size:28px;font-weight:700;color:#fff;line-height:1; }
+    .ibf2-lbl { font-size:11px;color:rgba(255,255,255,.75);margin-top:3px;font-weight:500; }
+ 
+    .intro-text { padding:8px 0; }
+    .intro-text .sec-p { margin-bottom:14px; }
+    .intro-tags { display:flex;flex-wrap:wrap;gap:8px;margin-top:18px; }
+    .intro-tag { background:var(--blue-light);color:var(--blue);font-size:12px;font-weight:600;padding:5px 14px;border-radius:100px; }
+    .intro-tag.green { background:#f0fdf4;color:var(--green); }
+ 
+    /* ── MISSION / VISION ── */
+    .mv-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+    .mv-card { border-radius:12px;padding:24px;position:relative;overflow:hidden; }
+    .mv-card.mission { background:linear-gradient(135deg,#0d47a1,#0a66c2); }
+    .mv-card.vision  { background:#fff;border:1px solid var(--border); }
+    .mv-icon { width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px; }
+    .mv-card.mission .mv-icon { background:rgba(255,255,255,.15); }
+    .mv-card.vision  .mv-icon { background:var(--blue-light); }
+    .mv-icon svg { width:22px;height:22px; }
+    .mv-card.mission .mv-icon svg { color:#fff; }
+    .mv-card.vision  .mv-icon svg { color:var(--blue); }
+    .mv-title { font-size:16px;font-weight:700;margin-bottom:10px; }
+    .mv-card.mission .mv-title { color:#fff; }
+    .mv-card.vision  .mv-title { color:var(--text); }
+    .mv-text { font-size:13px;line-height:1.75; }
+    .mv-card.mission .mv-text { color:rgba(255,255,255,.82); }
+    .mv-card.vision  .mv-text { color:var(--muted); }
+    .mv-card.mission::before { content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.06);border-radius:50%; }
+ 
+    /* ── CORE VALUES ── */
+    .values-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:14px; }
+    .val-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 18px;display:flex;gap:14px;align-items:flex-start;transition:all .25s; }
+    .val-card:hover { border-color:rgba(10,102,194,.25);box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px); }
+    .val-icon { width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .val-icon svg { width:20px;height:20px; }
+    .val-h { font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px; }
+    .val-p { font-size:12px;color:var(--muted);line-height:1.65; }
+ 
+    /* ── STATS STRIP ── */
+    .stats-strip { background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:28px 32px;margin-bottom:16px;position:relative;overflow:hidden; }
+    .stats-strip::before { content:'';position:absolute;right:-50px;top:-50px;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%; }
+    .stats-strip::after  { content:'';position:absolute;left:-30px;bottom:-50px;width:160px;height:160px;background:rgba(255,255,255,.04);border-radius:50%; }
+    .stats-inner { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative;z-index:2; }
+    .stat-item { text-align:center;padding:16px 8px; }
+    .stat-item:not(:last-child) { border-right:1px solid rgba(255,255,255,.15); }
+    .stat-num { font-size:clamp(24px,3vw,36px);font-weight:700;color:#fff;line-height:1;display:block; }
+    .stat-lbl { font-size:11px;color:rgba(255,255,255,.65);margin-top:5px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;display:block; }
+ 
+    /* ── STORY TIMELINE ── */
+    .timeline { display:flex;flex-direction:column;gap:0;position:relative; }
+    .timeline::before { content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--blue),#93c5fd);border-radius:2px; }
+    .tl-item { display:flex;gap:20px;align-items:flex-start;padding-bottom:28px;position:relative; }
+    .tl-item:last-child { padding-bottom:0; }
+    .tl-dot { width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;position:relative; }
+    .tl-dot.active { background:var(--blue);box-shadow:0 0 0 4px rgba(10,102,194,.2); }
+    .tl-dot.done   { background:#fff;border:2px solid var(--blue); }
+    .tl-dot svg { width:18px;height:18px; }
+    .tl-dot.active svg { color:#fff; }
+    .tl-dot.done   svg { color:var(--blue); }
+    .tl-content { flex:1;padding-top:6px; }
+    .tl-year  { font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px; }
+    .tl-title { font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px; }
+    .tl-desc  { font-size:13px;color:var(--muted);line-height:1.65; }
+ 
+    /* ── TEAM SECTION ── */
+    .team-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:16px; }
+    .team-card { background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .25s; }
+    .team-card:hover { transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.1);border-color:rgba(10,102,194,.2); }
+    .team-avatar { height:120px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#fff; }
+    .team-info { padding:16px; }
+    .team-name  { font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px; }
+    .team-role  { font-size:12px;color:var(--blue);font-weight:600;margin-bottom:8px; }
+    .team-bio   { font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px; }
+    .team-tags  { display:flex;flex-wrap:wrap;gap:5px; }
+    .team-tag   { background:#f5f5f5;color:#444;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px; }
+ 
+    /* ── WHY US GRID ── */
+    .why-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
+    .why-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px 18px;transition:all .25s;position:relative;overflow:hidden; }
+    .why-card::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,102,194,.03),transparent);opacity:0;transition:opacity .25s; }
+    .why-card:hover { box-shadow:0 6px 24px rgba(0,0,0,.08);border-color:rgba(10,102,194,.2);transform:translateY(-2px); }
+    .why-card:hover::before { opacity:1; }
+    .why-icon { width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px; }
+    .why-icon svg { width:20px;height:20px;color:var(--blue); }
+    .why-h { font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px; }
+    .why-p { font-size:12px;color:var(--muted);line-height:1.65; }
+ 
+    /* ── GLOBAL EXPANSION ── */
+    .expand-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px; }
+    .expand-map { background:linear-gradient(135deg,#f0f7ff,#e8f0fa);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center; }
+    .em-left h3 { font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px; }
+    .em-left p  { font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px; }
+    .region-list { display:flex;flex-direction:column;gap:8px; }
+    .region-row  { display:flex;align-items:center;gap:10px; }
+    .region-dot  { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+    .region-info { flex:1; }
+    .region-name { font-size:13px;font-weight:600;color:var(--text); }
+    .region-status { font-size:11px;color:var(--muted); }
+    .region-badge { font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px;white-space:nowrap; }
+    .em-right { display:flex;flex-direction:column;gap:10px; }
+    .globe-stat { background:#fff;border-radius:10px;padding:14px 16px;border:1px solid var(--border);display:flex;gap:12px;align-items:center; }
+    .gs-icon { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .gs-icon svg { width:18px;height:18px; }
+    .gs-num  { font-size:20px;font-weight:700;color:var(--text);line-height:1; }
+    .gs-lbl  { font-size:11px;color:var(--muted);margin-top:2px; }
+ 
+    /* ── TESTIMONIAL ── */
+    .testi-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px; }
+    .tc { background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:box-shadow .2s; }
+    .tc:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
+    .tc-stars { display:flex;gap:2px;margin-bottom:10px; }
+    .tc-stars svg { width:13px;height:13px;color:#f59e0b; }
+    .tc-quote { font-size:36px;color:var(--blue-light);font-family:'Playfair Display',serif;line-height:1;margin-bottom:6px; }
+    .tc-text  { font-size:13px;color:#333;line-height:1.7;font-style:italic;margin-bottom:14px; }
+    .tc-author { display:flex;align-items:center;gap:10px; }
+    .tc-av    { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0; }
+    .tc-name  { font-size:13px;font-weight:700;color:var(--text); }
+    .tc-role  { font-size:11px;color:var(--muted); }
+ 
+    /* ── CTA BANNER ── */
+    .cta-banner { background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:32px 28px;margin-bottom:16px;position:relative;overflow:hidden; }
+    .cta-banner::before { content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:50%; }
+    .cta-banner::after  { content:'';position:absolute;right:60px;bottom:-50px;width:120px;height:120px;background:rgba(255,255,255,.04);border-radius:50%; }
+    .cta-inner { position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center; }
+    .cta-text h3 { font-size:18px;font-weight:700;color:#fff;margin-bottom:8px; }
+    .cta-text p  { font-size:13px;color:rgba(255,255,255,.8);line-height:1.65;max-width:480px; }
+    .cta-btns    { display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0; }
+    .btn-white   { padding:11px 22px;background:#fff;color:var(--blue);border-radius:20px;font-size:13px;font-weight:700;transition:all .2s;white-space:nowrap; }
+    .btn-white:hover   { background:#e8f0fa;transform:translateY(-1px); }
+    .btn-ghost   { padding:11px 22px;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:20px;font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap; }
+    .btn-ghost:hover   { background:rgba(255,255,255,.12); }
+ 
+    /* ── SIDEBAR ── */
+    .sidebar-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px; }
+    .sp { padding:18px 20px; }
+    .sp-title { font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px; }
+    .sp-title svg { width:16px;height:16px;color:var(--blue); }
+    .profile-av { width:60px;height:60px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;margin:0 auto 12px; }
+    .profile-name   { font-size:15px;font-weight:700;color:var(--text);text-align:center; }
+    .profile-tag    { font-size:12px;color:var(--muted);text-align:center;margin:4px 0 16px;line-height:1.5; }
+    .pstat { display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-top:1px solid #f5f5f5; }
+    .pstat span:first-child { color:#555; }
+    .pstat span:last-child  { font-weight:700;color:var(--blue); }
+    .pb { display:block;width:100%;background:var(--blue);color:#fff;text-align:center;padding:10px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px;transition:all .2s; }
+    .pb:hover { background:var(--blue-dark); }
+    .ql-item { display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f8f8f8;color:#333;font-size:13px;font-weight:500;transition:color .15s; }
+    .ql-item:last-child { border:none; }
+    .ql-item:hover { color:var(--blue); }
+    .ql-item svg { width:15px;height:15px;color:var(--blue);flex-shrink:0; }
+    .ci { display:flex;align-items:center;gap:10px;font-size:13px;color:#333;margin-bottom:10px; }
+    .ci svg { width:16px;height:16px;color:var(--blue);flex-shrink:0; }
+    .ci a { color:var(--blue); }
+    .ci a:hover { text-decoration:underline; }
+    .wa-btn { display:flex;align-items:center;justify-content:center;gap:7px;background:#25d366;color:#fff;padding:10px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px;transition:background .2s; }
+    .wa-btn:hover { background:#1db954; }
+    .wa-btn svg { width:16px;height:16px; }
+ 
+    /* ── FOOTER ── */
+    footer { background:#fff;border-top:1px solid var(--border);margin-top:20px;padding:40px 20px 24px; }
+    .footer-inner { max-width:1200px;margin:0 auto; }
+    .footer-grid { display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:28px;border-bottom:1px solid #eee; }
+    .footer-brand p { font-size:13px;color:var(--muted);line-height:1.75;margin:12px 0 16px; }
+    .footer-social { display:flex;gap:8px; }
+    .fs-btn { width:32px;height:32px;border-radius:6px;background:#f5f5f5;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#555;transition:all .2s; }
+    .fs-btn:hover { background:var(--blue);border-color:var(--blue);color:#fff; }
+    .fs-btn svg { width:14px;height:14px; }
+    .fc h4 { font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px; }
+    .fc ul { list-style:none;display:flex;flex-direction:column;gap:8px; }
+    .fc ul li a { font-size:13px;color:var(--muted);transition:color .2s; }
+    .fc ul li a:hover { color:var(--blue); }
+    .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px; }
+    .footer-bottom p { font-size:12px;color:#aaa; }
+    .footer-links { display:flex;gap:16px; }
+    .footer-links a { font-size:12px;color:#888;transition:color .2s; }
+    .footer-links a:hover { color:var(--blue); }
+ 
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px) {
+      .two-col { grid-template-columns:1fr 270px; }
+      .team-grid { grid-template-columns:1fr 1fr; }
+      .why-grid  { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:960px) {
+      .two-col { grid-template-columns:1fr; }
+      .sidebar { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+      .sidebar-card { margin-bottom:0; }
+      .intro-grid { grid-template-columns:1fr; }
+      .intro-img-wrap { padding-bottom:16px; }
+      .intro-badge-float, .intro-badge-float2 { display:none; }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right:none; }
+      .mv-grid { grid-template-columns:1fr; }
+      .cta-inner { grid-template-columns:1fr; }
+      .cta-btns  { justify-content:flex-start; }
+      .expand-map { grid-template-columns:1fr; }
+      .testi-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr 1fr;gap:28px; }
+      .values-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:680px) {
+      .nav-search,.nav-links,.nav-cta { display:none; }
+      .hamburger { display:block; }
+      .nav-inner { height:56px; }
+      .team-grid  { grid-template-columns:1fr; }
+      .why-grid   { grid-template-columns:1fr; }
+      .values-grid { grid-template-columns:1fr; }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .sidebar    { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr;gap:24px; }
+      .footer-bottom { flex-direction:column;align-items:flex-start; }
+      .page-wrap  { padding:16px 14px; }
+      .ph-mini    { min-width:90px;padding:12px 14px; }
+    }
+    @media(max-width:420px) {
+      .stats-inner { grid-template-columns:1fr 1fr; }
+      .ph-cards    { gap:8px; }
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50 text-gray-800">
-
-<!-- NAVBAR -->
-
-<nav class="bg-white shadow-md fixed w-full z-50">
-
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-<h1 class="text-2xl font-bold text-blue-600">North Asia</h1>
-
-<div class="hidden md:flex space-x-8 font-medium">
-
-<a href="index.html" class="hover:text-blue-600">Home</a>
-<a href="about.html" class="text-blue-600 font-semibold">About</a>
-<a href="services.html" class="hover:text-blue-600">Services</a>
-<a href="industries.html" class="hover:text-blue-600">Industries</a>
-<a href="candidates.html" class="hover:text-blue-600">Candidates</a>
-<a href="employers.html" class="hover:text-blue-600">Employers</a>
-<a href="contact.html" class="hover:text-blue-600">Contact</a>
-
-</div>
-
-<button class="md:hidden" onclick="toggleMenu()">☰</button>
-
-</div>
-
-<div id="mobileMenu" class="hidden md:hidden bg-white px-6 pb-4">
-
-<a class="block py-2" href="index.html">Home</a>
-<a class="block py-2" href="about.html">About</a>
-<a class="block py-2" href="services.html">Services</a>
-<a class="block py-2" href="industries.html">Industries</a>
-<a class="block py-2" href="candidates.html">Candidates</a>
-<a class="block py-2" href="employers.html">Employers</a>
-<a class="block py-2" href="contact.html">Contact</a>
-
-</div>
-
-</nav>
-
-
-<!-- HERO -->
-
-<section class="pt-32 pb-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-4xl mx-auto px-6">
-
-<h1 class="text-4xl md:text-5xl font-bold mb-6">
-About North Asia Consultants
-</h1>
-
-<p class="text-lg">
-A trusted recruitment partner connecting global companies
-with skilled professionals across industries.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- COMPANY STORY -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-
-<div data-aos="fade-right">
-
-<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
-class="rounded-xl shadow-lg">
-
-</div>
-
-<div data-aos="fade-left">
-
-<h2 class="text-3xl font-bold mb-6">
-Our Story
-</h2>
-
-<p class="mb-4">
-North Asia Consultants was founded with the vision of bridging
-the gap between global companies and skilled professionals.
-</p>
-
-<p class="mb-4">
-We specialize in international recruitment across industries
-including Oil & Gas, Construction, IT, Hospitality, Healthcare
-and Finance.
-</p>
-
-<p>
-Our mission is to simplify the hiring process while delivering
-high-quality talent to organizations worldwide.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- MISSION VISION VALUES -->
-
-<section class="py-20 bg-gray-100">
-
-<div class="max-w-7xl mx-auto px-6 text-center">
-
-<h2 class="text-3xl font-bold mb-14">
-Our Core Principles
-</h2>
-
-<div class="grid md:grid-cols-3 gap-10">
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Our Mission
-</h3>
-
-<p>
-To connect talented professionals with global career opportunities
-while helping companies build strong teams.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Our Vision
-</h3>
-
-<p>
-To become a leading international recruitment firm trusted
-by organizations across multiple industries.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Our Values
-</h3>
-
-<p>
-Integrity, professionalism, transparency and commitment
-to delivering the best recruitment solutions.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TEAM -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6 text-center">
-
-<h2 class="text-3xl font-bold mb-14">
-Leadership Team
-</h2>
-
-<div class="grid md:grid-cols-3 gap-10">
-
-<div class="bg-white p-6 rounded-xl shadow" data-aos="fade-up">
-
-<img src="https://randomuser.me/api/portraits/men/32.jpg"
-class="w-32 h-32 mx-auto rounded-full mb-4">
-
-<h4 class="font-semibold text-lg">
-Rahul Sharma
-</h4>
-
-<p class="text-gray-500">
-Founder & CEO
-</p>
-
-</div>
-
-<div class="bg-white p-6 rounded-xl shadow" data-aos="fade-up">
-
-<img src="https://randomuser.me/api/portraits/women/44.jpg"
-class="w-32 h-32 mx-auto rounded-full mb-4">
-
-<h4 class="font-semibold text-lg">
-Anita Verma
-</h4>
-
-<p class="text-gray-500">
-Recruitment Director
-</p>
-
-</div>
-
-<div class="bg-white p-6 rounded-xl shadow" data-aos="fade-up">
-
-<img src="https://randomuser.me/api/portraits/men/76.jpg"
-class="w-32 h-32 mx-auto rounded-full mb-4">
-
-<h4 class="font-semibold text-lg">
-Arjun Mehta
-</h4>
-
-<p class="text-gray-500">
-Operations Head
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CTA -->
-
-<section class="py-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold mb-6">
-Work With North Asia Consultants
-</h2>
-
-<p class="mb-8">
-Whether you are a company looking to hire or a professional
-seeking new opportunities, we are here to help.
-</p>
-
-<div class="space-x-4">
-
-<a href="employers.html"
-class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
-
-Hire Talent
-
-</a>
-
-<a href="candidates.html"
-class="border border-white px-6 py-3 rounded-lg">
-
-Submit Resume
-
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FOOTER -->
-
-<footer class="bg-gray-900 text-gray-300 py-12">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
-
-<div>
-
-<h3 class="text-xl font-bold text-white mb-4">
-North Asia Consultants
-</h3>
-
-<p>
-Connecting companies with skilled professionals
-across global industries.
-</p>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Quick Links
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="index.html">Home</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="industries.html">Industries</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-For Candidates
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="candidates.html">Submit Resume</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Contact
-</h4>
-
-<p>Email: info@northasiaconsultants.com</p>
-<p>Phone: +91 98765 43210</p>
-
-</div>
-
-</div>
-
-</footer>
-
-
-<!-- SCRIPTS -->
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<script>
-
-AOS.init({
-duration:1000,
-once:true
-})
-
-function toggleMenu(){
-document.getElementById("mobileMenu").classList.toggle("hidden")
-}
-
-</script>
-
+<body>
+  <div id="progress"></div>
+ 
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <p>
+      <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+      <strong>Free for Employers</strong> — Zero fees. Now expanding across Gulf, Asia, Europe & beyond.
+    </p>
+    <a href="/contact.html">Get Started →</a>
+  </div>
+ 
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/index.html" class="logo">
+        <div class="logo-icon">N</div>
+        <div class="logo-text">
+          <div class="logo-name">North Asia <span>Consultants</span></div>
+          <div class="logo-tagline">Global Recruitment Experts</div>
+        </div>
+      </a>
+      <div class="nav-search">
+        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search jobs, roles, countries...">
+      </div>
+      <div class="nav-links">
+        <a href="/index.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>
+          Home
+        </a>
+        <a href="/jobs.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+          Jobs
+        </a>
+        <a href="/industries.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15zM9 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9zm-.75 3.75A.75.75 0 019 9h1.5a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM9 12a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9z" clip-rule="evenodd"/></svg>
+          Industries
+        </a>
+        <a href="/about.html" class="active">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+          About
+        </a>
+      </div>
+      <div class="nav-cta">
+        <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
+        <a href="/employers.html"  class="btn-solid-nav">Hire Talent</a>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu">
+      <a href="/index.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06z"/></svg>Home</a>
+      <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25z" clip-rule="evenodd"/></svg>Browse Jobs</a>
+      <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
+      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About Us</a>
+      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <div class="mob-cta-row">
+        <a href="/candidates.html" class="mc-outline">Find Jobs</a>
+        <a href="/employers.html"  class="mc-solid">Hire Talent</a>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-dots"></div><div class="ph-glow"></div><div class="ph-glow2"></div>
+    <div class="ph-inner">
+      <div class="ph-breadcrumb">
+        <a href="/index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>About Us</span>
+      </div>
+      <div class="ph-badge"><div class="badge-dot"></div>Our Story & Mission</div>
+      <h1 class="ph-h1">Connecting the World's <em>Best Talent</em><br>with Great Opportunities</h1>
+      <p class="ph-sub">North Asia Consultants is a specialized recruitment firm delivering excellence across the Gulf, Asia, Europe and beyond — at zero cost to hiring organizations.</p>
+      <div class="ph-cards">
+        <div class="ph-mini"><div class="num">6+</div><div class="lbl">GCC Nations</div></div>
+        <div class="ph-mini"><div class="num">8+</div><div class="lbl">Industries</div></div>
+        <div class="ph-mini"><div class="num">₹0</div><div class="lbl">Employer Fees</div></div>
+        <div class="ph-mini"><div class="num">48h</div><div class="lbl">Avg Response</div></div>
+        <div class="ph-mini"><div class="num">3+</div><div class="lbl">Continents</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- MAIN -->
+  <div class="page-wrap">
+    <div class="two-col">
+ 
+      <!-- LEFT COLUMN -->
+      <div>
+ 
+        <!-- WHO WE ARE -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="intro-grid">
+              <div class="intro-img-wrap">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80&auto=format&fit=crop" alt="North Asia Consultants team" class="intro-img" onerror="this.style.background='linear-gradient(135deg,#0a66c2,#004182)';this.removeAttribute('src')">
+                <div class="intro-badge-float">
+                  <div class="ibf-num">100%</div>
+                  <div class="ibf-lbl">Free for employers</div>
+                </div>
+                <div class="intro-badge-float2">
+                  <div class="ibf2-num">48h</div>
+                  <div class="ibf2-lbl">Shortlist delivered</div>
+                </div>
+              </div>
+              <div class="intro-text">
+                <div class="sec-eyebrow">Who We Are</div>
+                <div class="sec-h2">Your <em>Trusted Partner</em> in Global Recruitment</div>
+                <p class="sec-p">North Asia Consultants is a specialized recruitment firm dedicated to connecting Gulf-region employers — and increasingly global ones — with top-tier talent across industries.</p>
+                <p class="sec-p">We leverage deep market insight, a vast candidate network, and a transparent zero-cost model to streamline your hiring process. Our professionals' skills and cultural fit align precisely with your organization's needs.</p>
+                <p class="sec-p">What sets us apart is simple: we charge employers nothing. Our revenue comes entirely through candidate placement success — creating a partnership built on results, not fees.</p>
+                <div class="intro-tags">
+                  <span class="intro-tag">Gulf Region Specialists</span>
+                  <span class="intro-tag green">Now Expanding Globally</span>
+                  <span class="intro-tag">Zero Cost Model</span>
+                  <span class="intro-tag">48h Shortlists</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- STATS STRIP -->
+        <div class="stats-strip reveal">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num" data-target="6">0</span>
+              <span class="stat-lbl">GCC Countries</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="8">0</span>
+              <span class="stat-lbl">Industries Served</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">₹0</span>
+              <span class="stat-lbl">Employer Fees</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">48h</span>
+              <span class="stat-lbl">Avg Response Time</span>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- MISSION & VISION -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Our Purpose</div>
+            <div class="sec-h2" style="margin-bottom:20px">Mission & <em>Vision</em></div>
+            <div class="mv-grid">
+              <div class="mv-card mission">
+                <div class="mv-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="mv-title">Our Mission</div>
+                <div class="mv-text">To empower businesses in the Gulf Cooperation Council (GCC) countries — and globally — by supplying exceptional candidates through a transparent, efficient, and cost-effective recruitment model that puts results first and charges employers nothing.</div>
+              </div>
+              <div class="mv-card vision">
+                <div class="mv-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="mv-title">Our Vision</div>
+                <div class="mv-text">To be the partner of choice for Gulf-region and global employers seeking high-caliber talent, recognized universally for our integrity, responsiveness, and unwavering commitment to client success — from the GCC to every corner of the world.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- CORE VALUES -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">What We Stand For</div>
+            <div class="sec-h2" style="margin-bottom:20px">Our Core <em>Values</em></div>
+            <div class="values-grid">
+              <div class="val-card d1 reveal">
+                <div class="val-icon" style="background:#fff3e8;">
+                  <svg viewBox="0 0 24 24" fill="#f97316"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <div class="val-h">Excellence</div>
+                  <div class="val-p">We maintain rigorous standards in sourcing, screening and presenting only the most qualified candidates. Mediocrity is not an option.</div>
+                </div>
+              </div>
+              <div class="val-card d2 reveal">
+                <div class="val-icon" style="background:#f0fdf4;">
+                  <svg viewBox="0 0 24 24" fill="#057642"><path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <div class="val-h">Integrity</div>
+                  <div class="val-p">We build lasting trust through complete honesty, strict confidentiality, and respect for every candidate and client in every interaction.</div>
+                </div>
+              </div>
+              <div class="val-card d3 reveal">
+                <div class="val-icon" style="background:#e8f0fa;">
+                  <svg viewBox="0 0 24 24" fill="#0a66c2"><path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z"/></svg>
+                </div>
+                <div>
+                  <div class="val-h">Collaboration</div>
+                  <div class="val-p">We work closely with your hiring team to deeply understand your requirements, culture, and goals — operating as a true extension of your HR team.</div>
+                </div>
+              </div>
+              <div class="val-card d4 reveal">
+                <div class="val-icon" style="background:#fef3c7;">
+                  <svg viewBox="0 0 24 24" fill="#f59e0b"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <div class="val-h">Responsiveness</div>
+                  <div class="val-p">We ensure timely communication and rapid turnaround at every stage — from initial inquiry through to candidate placement and beyond.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- OUR STORY TIMELINE -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Our Journey</div>
+            <div class="sec-h2" style="margin-bottom:24px">How We Got <em>Here</em></div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-dot done">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="tl-content">
+                  <div class="tl-year">Foundation</div>
+                  <div class="tl-title">North Asia Consultants is Born</div>
+                  <div class="tl-desc">Founded with a clear vision: to create a recruitment firm that charges employers zero fees, making quality hiring accessible to all organizations regardless of budget. Our unique model was built from day one around candidate placement success.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot done">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="tl-content">
+                  <div class="tl-year">Gulf Expansion</div>
+                  <div class="tl-title">Establishing GCC Presence</div>
+                  <div class="tl-desc">We built deep expertise across all six Gulf Cooperation Council nations — UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman — developing in-depth knowledge of local labor regulations, market dynamics, and cultural nuances that set our placements apart.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot done">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="tl-content">
+                  <div class="tl-year">Industry Depth</div>
+                  <div class="tl-title">Specialist Sector Teams Built</div>
+                  <div class="tl-desc">We expanded from generalist recruitment to building dedicated specialist teams for Oil & Gas, Construction, IT, Hospitality, Healthcare, Finance, Retail and Logistics — ensuring every candidate is assessed by someone who truly understands their field.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot active">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0z"/></svg>
+                </div>
+                <div class="tl-content">
+                  <div class="tl-year" style="color:#057642;">Today & Beyond</div>
+                  <div class="tl-title">Going Global</div>
+                  <div class="tl-desc">With a strong Gulf foundation, we are now actively expanding into Asia Pacific, Europe, and beyond — bringing the same zero-cost, high-quality recruitment model to employers worldwide. Our network is growing and so is our ambition.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- SERVICES WE OFFER -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">What We Do</div>
+            <div class="sec-h2" style="margin-bottom:20px">Our <em>Services</em></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div style="background:#f8f9fa;border-radius:12px;padding:20px 18px;border:1px solid #eee;">
+                <div style="width:40px;height:40px;background:var(--blue-light);border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;color:var(--blue)"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/></svg>
+                </div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">Candidate Sourcing & Screening</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.65;">Targeted searches across industry-specific networks. Preliminary phone and video screenings to assess skills, experience, and cultural fit.</div>
+              </div>
+              <div style="background:#f8f9fa;border-radius:12px;padding:20px 18px;border:1px solid #eee;">
+                <div style="width:40px;height:40px;background:#f0fdf4;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;color:#057642"><path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0z"/></svg>
+                </div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">Interviews & Assessments</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.65;">Structured interview processes tailored to your role. Technical and behavioral assessments to validate competencies and professionalism.</div>
+              </div>
+              <div style="background:#f8f9fa;border-radius:12px;padding:20px 18px;border:1px solid #eee;">
+                <div style="width:40px;height:40px;background:#fff3e8;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;color:#f97316"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75-6.75a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/></svg>
+                </div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">Candidate Profiles & Reports</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.65;">Professionally formatted dossiers with CVs, interview summaries, reference checks, and insights on strengths and compensation expectations.</div>
+              </div>
+              <div style="background:#f8f9fa;border-radius:12px;padding:20px 18px;border:1px solid #eee;">
+                <div style="width:40px;height:40px;background:#fdf2f8;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;color:#ec4899"><path d="M7.493 18.75c-.425 0-.82-.236-.975-.632A7.48 7.48 0 016 15.375c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715z"/></svg>
+                </div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;">Dedicated Account Management</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.65;">A single point of contact for every engagement — ensuring accountability, consistency, and personalized service from brief to placement.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- WHY CHOOSE US -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Why Partner With Us</div>
+            <div class="sec-h2" style="margin-bottom:20px">What Makes Us <em>Different</em></div>
+            <div class="why-grid">
+              <div class="why-card d1 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/><path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 14.625v-9.75z" clip-rule="evenodd"/><path d="M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z"/></svg></div>
+                <div class="why-h">Zero Cost to Employers</div>
+                <div class="why-p">You incur zero recruitment fees. Our revenue is generated through successful candidate placements only.</div>
+              </div>
+              <div class="why-card d2 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0z"/></svg></div>
+                <div class="why-h">Gulf Region Expertise</div>
+                <div class="why-p">In-depth knowledge of market dynamics, labor regulations and cultural nuances across all GCC nations.</div>
+              </div>
+              <div class="why-card d3 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"/></svg></div>
+                <div class="why-h">Tailored Approach</div>
+                <div class="why-p">Bespoke recruitment plans that reflect your company's strategic objectives and employer brand.</div>
+              </div>
+              <div class="why-card d4 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg></div>
+                <div class="why-h">48-Hour Shortlists</div>
+                <div class="why-p">Pre-vetted profiles in your inbox within 48 hours of your brief — beating competitors to top talent.</div>
+              </div>
+              <div class="why-card d5 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.493 18.75c-.425 0-.82-.236-.975-.632A7.48 7.48 0 016 15.375c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715z"/></svg></div>
+                <div class="why-h">Dedicated Manager</div>
+                <div class="why-p">One point of contact who knows your business — consistent, accountable, personalized service.</div>
+              </div>
+              <div class="why-card d6 reveal">
+                <div class="why-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.431l5.942 2.28a.75.75 0 01.431.97l-2.28 5.94a.75.75 0 11-1.4-.537l1.63-4.251-1.086.484a11.2 11.2 0 00-5.45 5.173.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 0 011.06 0l3.17 3.171a12.7 12.7 0 015.576-4.65l1.084-.484-4.251-1.631a.75.75 0 01-.431-.969z" clip-rule="evenodd"/></svg></div>
+                <div class="why-h">Global Expansion</div>
+                <div class="why-p">Gulf specialists going global — bringing the same zero-cost model to Asia Pacific, Europe and beyond.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- GLOBAL EXPANSION -->
+        <div class="expand-card reveal">
+          <div class="expand-map">
+            <div class="em-left">
+              <div class="sec-eyebrow" style="margin-bottom:10px;">Our Growing Footprint</div>
+              <h3>From Gulf Specialists to <span style="color:var(--blue)">Global Partners</span></h3>
+              <p>While the GCC remains our core market where we have deepest expertise, we are actively expanding our network and operations to serve employers and candidates worldwide.</p>
+              <div class="region-list">
+                <div class="region-row">
+                  <div class="region-dot" style="background:#0a66c2;"></div>
+                  <div class="region-info">
+                    <div class="region-name">Gulf Cooperation Council (GCC)</div>
+                    <div class="region-status">UAE · Saudi Arabia · Qatar · Kuwait · Bahrain · Oman</div>
+                  </div>
+                  <span class="region-badge" style="background:#e8f0fa;color:#0a66c2;">Primary Market</span>
+                </div>
+                <div class="region-row">
+                  <div class="region-dot" style="background:#057642;"></div>
+                  <div class="region-info">
+                    <div class="region-name">Asia Pacific</div>
+                    <div class="region-status">India, Southeast Asia, East Asia</div>
+                  </div>
+                  <span class="region-badge" style="background:#f0fdf4;color:#057642;">Expanding</span>
+                </div>
+                <div class="region-row">
+                  <div class="region-dot" style="background:#8b5cf6;"></div>
+                  <div class="region-info">
+                    <div class="region-name">Europe</div>
+                    <div class="region-status">UK, Germany, France, Nordics</div>
+                  </div>
+                  <span class="region-badge" style="background:#f3f0ff;color:#8b5cf6;">Coming Soon</span>
+                </div>
+                <div class="region-row">
+                  <div class="region-dot" style="background:#f59e0b;"></div>
+                  <div class="region-info">
+                    <div class="region-name">Global Placements</div>
+                    <div class="region-status">Remote & cross-border roles worldwide</div>
+                  </div>
+                  <span class="region-badge" style="background:#fffbeb;color:#b45309;">Active</span>
+                </div>
+              </div>
+            </div>
+            <div class="em-right">
+              <div class="globe-stat">
+                <div class="gs-icon" style="background:#e8f0fa;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:#0a66c2"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg></div>
+                <div><div class="gs-num">6</div><div class="gs-lbl">GCC Countries Active</div></div>
+              </div>
+              <div class="globe-stat">
+                <div class="gs-icon" style="background:#f0fdf4;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:#057642"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/></svg></div>
+                <div><div class="gs-num">3+</div><div class="gs-lbl">Continents Expanding To</div></div>
+              </div>
+              <div class="globe-stat">
+                <div class="gs-icon" style="background:#fff3e8;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:#f97316"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg></div>
+                <div><div class="gs-num">8+</div><div class="gs-lbl">Industry Verticals</div></div>
+              </div>
+              <div class="globe-stat">
+                <div class="gs-icon" style="background:#f0fdf4;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:#057642"><path fill-rule="evenodd" d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clip-rule="evenodd"/></svg></div>
+                <div><div class="gs-num">₹0</div><div class="gs-lbl">Cost to Employers — Always</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TESTIMONIALS -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Client Voices</div>
+            <div class="sec-h2" style="margin-bottom:20px">What Our <em>Clients</em> Say</div>
+            <div class="testi-grid">
+              <div class="tc">
+                <div class="tc-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg></div>
+                <div class="tc-quote">"</div>
+                <div class="tc-text">North Asia Consultants understood our urgent need for specialist engineers in UAE. Their responsive team provided pre-vetted candidates within days, enabling us to meet critical project deadlines.</div>
+                <div class="tc-author">
+                  <div class="tc-av" style="background:#0a66c2;">HR</div>
+                  <div><div class="tc-name">HR Manager</div><div class="tc-role">Engineering Firm, Abu Dhabi</div></div>
+                </div>
+              </div>
+              <div class="tc">
+                <div class="tc-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg></div>
+                <div class="tc-quote">"</div>
+                <div class="tc-text">Zero-cost model without any compromise on quality. Our entire finance team was staffed within two weeks of engaging North Asia Consultants. Exceptional service and speed.</div>
+                <div class="tc-author">
+                  <div class="tc-av" style="background:#057642;">CF</div>
+                  <div><div class="tc-name">Chief Financial Officer</div><div class="tc-role">Financial Services, Riyadh</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- CTA BANNER -->
+        <div class="cta-banner reveal">
+          <div class="cta-inner">
+            <div class="cta-text">
+              <h3>Ready to Work With Us?</h3>
+              <p>Whether you need to hire exceptional talent or explore career opportunities in the Gulf and beyond — our team is ready to help you succeed. Get in touch today.</p>
+            </div>
+            <div class="cta-btns">
+              <a href="/employers.html" class="btn-white">Post a Job — Free</a>
+              <a href="/contact.html"   class="btn-ghost">Contact Us</a>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /left col -->
+ 
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+ 
+        <!-- Company card -->
+        <div class="sidebar-card reveal">
+          <div class="sp" style="text-align:center;">
+            <div class="profile-av">N</div>
+            <div class="profile-name">North Asia Consultants</div>
+            <div class="profile-tag">Global Recruitment Experts.<br>Zero cost for employers.</div>
+            <div class="pstat"><span>Industries Served</span><span>8+</span></div>
+            <div class="pstat"><span>GCC Countries</span><span>6</span></div>
+            <div class="pstat"><span>Employer Fees</span><span>₹0</span></div>
+            <div class="pstat"><span>Expanding To</span><span>Global 🌐</span></div>
+            <a href="/employers.html" class="pb">Post a Job — Free</a>
+          </div>
+        </div>
+ 
+        <!-- Quick links -->
+        <div class="sidebar-card reveal d1">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" clip-rule="evenodd"/></svg>
+              Quick Navigation
+            </div>
+            <a href="/index.html"      class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/></svg>Home</a>
+            <a href="/services.html"   class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd"/></svg>Our Services</a>
+            <a href="/industries.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
+            <a href="/employers.html"  class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>For Employers</a>
+            <a href="/candidates.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/></svg>For Candidates</a>
+            <a href="/contact.html"    class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact Us</a>
+          </div>
+        </div>
+ 
+        <!-- Contact -->
+        <div class="sidebar-card reveal d2">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+              Get In Touch
+            </div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg><a href="tel:+919326051900">+91 93260 51900</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/></svg><a href="https://www.northasiaconsultants.com" target="_blank">northasiaconsultants.com</a></div>
+            <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+ 
+        <!-- Values snapshot -->
+        <div class="sidebar-card reveal d3">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              Our Commitments
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span><strong>Zero cost</strong> to all hiring companies</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span><strong>48-hour</strong> pre-vetted shortlists</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span>Multi-stage candidate <strong>vetting</strong></span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span>Dedicated <strong>account manager</strong></span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span>GCC expertise + <strong>global expansion</strong></span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333;"><span style="color:var(--blue);font-weight:700;flex-shrink:0;">✓</span><span>Complete <strong>confidentiality</strong> guaranteed</span></div>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /sidebar -->
+    </div><!-- /two-col -->
+  </div><!-- /page-wrap -->
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/index.html" class="logo">
+            <div class="logo-icon">N</div>
+            <div class="logo-text" style="margin-left:10px;">
+              <div class="logo-name">North Asia <span>Consultants</span></div>
+              <div class="logo-tagline">Global Recruitment Experts</div>
+            </div>
+          </a>
+          <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers. Delivering excellence in global recruitment.</p>
+          <div class="footer-social">
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+            <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413z"/></svg></a>
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+          </div>
+        </div>
+        <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/services.html">Our Services</a></li><li><a href="/industries.html">Industries</a></li><li><a href="/contact.html">Contact Us</a></li></ul></div>
+        <div class="fc"><h4>For Employers</h4><ul><li><a href="/employers.html">Post a Job</a></li><li><a href="/employers.html">Our Process</a></li><li><a href="/employers.html">Why Choose Us</a></li></ul></div>
+        <div class="fc"><h4>For Candidates</h4><ul><li><a href="/candidates.html">Browse Jobs</a></li><li><a href="/candidates.html">Submit Resume</a></li><li><a href="/candidates.html">Career Advice</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 North Asia Consultants. All rights reserved.</p>
+        <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="/sitemap.html">Sitemap</a></div>
+      </div>
+    </div>
+  </footer>
+ 
+  <script>
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+ 
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('progress').style.width = (s / h * 100) + '%';
+    }, { passive: true });
+ 
+    /* Scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
+ 
+    /* Counter animation */
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const step = Math.ceil(target / 25);
+          const tick = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = current + '+';
+            if (current >= target) { el.textContent = target + '+'; clearInterval(tick); }
+          }, 55);
+        });
+        counterObs.unobserve(e.target);
+      });
+    }, { threshold: 0.5 });
+    const statsStrip = document.querySelector('.stats-strip');
+    if (statsStrip) counterObs.observe(statsStrip);
+ 
+    /* Timeline item hover */
+    document.querySelectorAll('.tl-item').forEach(item => {
+      item.addEventListener('mouseenter', () => item.querySelector('.tl-content').style.paddingLeft = '4px');
+      item.addEventListener('mouseleave', () => item.querySelector('.tl-content').style.paddingLeft = '');
+    });
+  </script>
 </body>
 </html>
