@@ -1,172 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>North Asia Consultants | Global Recruitment Experts</title>
 
-<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- AOS Animation -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
+
 body{
 font-family:'Inter',sans-serif;
+scroll-behavior:smooth;
 }
+
+/* moving gradient background */
+
+.hero-gradient{
+background: linear-gradient(270deg,#2563eb,#4f46e5,#06b6d4);
+background-size:600% 600%;
+animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* hover glow */
+
+.glow:hover{
+box-shadow:0 0 25px rgba(59,130,246,0.6);
+transform:translateY(-6px);
+}
+
+/* scroll progress */
+
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+background:#2563eb;
+width:0%;
+z-index:9999;
+}
+
 </style>
 
 </head>
 
 <body class="bg-gray-50 text-gray-800">
 
+<div id="progress"></div>
+
 <!-- NAVBAR -->
 
-<nav class="bg-white shadow-md fixed w-full z-50">
+<nav class="fixed w-full z-50 backdrop-blur-lg bg-white/70 shadow">
+
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-<h1 class="text-2xl font-bold text-blue-600">North Asia</h1>
+<h1 class="text-2xl font-bold text-blue-600">
+North Asia
+</h1>
 
 <div class="hidden md:flex space-x-8 font-medium">
 
-<a href="index.html" class="hover:text-blue-600">Home</a>
-<a href="about.html" class="hover:text-blue-600">About</a>
-<a href="services.html" class="hover:text-blue-600">Services</a>
-<a href="industries.html" class="hover:text-blue-600">Industries</a>
-<a href="candidates.html" class="hover:text-blue-600">Candidates</a>
-<a href="employers.html" class="hover:text-blue-600">Employers</a>
-<a href="contact.html" class="hover:text-blue-600">Contact</a>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Services</a>
+<a href="#">Industries</a>
+<a href="#">Candidates</a>
+<a href="#">Employers</a>
+<a href="#">Contact</a>
 
 </div>
 
-<button class="md:hidden" onclick="toggleMenu()">
-☰
-</button>
-
 </div>
 
-<div id="mobileMenu" class="hidden md:hidden bg-white px-6 pb-4">
-
-<a class="block py-2" href="index.html">Home</a>
-<a class="block py-2" href="about.html">About</a>
-<a class="block py-2" href="services.html">Services</a>
-<a class="block py-2" href="industries.html">Industries</a>
-<a class="block py-2" href="candidates.html">Candidates</a>
-<a class="block py-2" href="employers.html">Employers</a>
-<a class="block py-2" href="contact.html">Contact</a>
-
-</div>
 </nav>
 
 <!-- HERO -->
 
-<section class="pt-32 pb-20 bg-gradient-to-r from-blue-600 to-blue-400 text-white">
+<section class="hero-gradient text-white pt-36 pb-24">
 
 <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
 
-<div data-aos="fade-right">
+<div>
 
-<h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+<h1 class="text-5xl font-bold leading-tight mb-6">
+
 Connecting Talent With
 Global Opportunities
+
 </h1>
 
 <p class="text-lg mb-8">
-North Asia Consultants specializes in international recruitment,
-helping companies hire skilled professionals across multiple industries.
+
+North Asia Consultants helps companies hire skilled
+professionals worldwide across multiple industries.
+
 </p>
 
 <div class="space-x-4">
 
-<a href="employers.html"
-class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
-
+<button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
 Hire Talent
+</button>
 
-</a>
-
-<a href="candidates.html"
-class="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600">
-
+<button class="border border-white px-6 py-3 rounded-lg">
 Submit Resume
-
-</a>
-
-</div>
-
-</div>
-
-<div data-aos="fade-left">
-
-<img
-src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
-class="rounded-xl shadow-lg"
->
+</button>
 
 </div>
 
 </div>
 
-</section>
-
-<!-- WHY CHOOSE US -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6 text-center">
-
-<h2 class="text-3xl font-bold mb-12">
-Why Choose North Asia Consultants
-</h2>
-
-<div class="grid md:grid-cols-3 gap-10">
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Global Talent Network
-</h3>
-
-<p>
-Access to skilled professionals across Asia,
-Middle East and international markets.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Industry Expertise
-</h3>
-
-<p>
-Our recruiters specialize in multiple industries
-ensuring the right talent for every role.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="zoom-in">
-
-<h3 class="text-xl font-semibold mb-4">
-Fast Hiring Process
-</h3>
-
-<p>
-Streamlined recruitment process to reduce
-time-to-hire for companies.
-</p>
-
-</div>
-
-</div>
+<img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+class="rounded-xl shadow-lg">
 
 </div>
 
@@ -174,117 +136,142 @@ time-to-hire for companies.
 
 <!-- INDUSTRIES -->
 
-<section class="py-20 bg-gray-100">
+<section class="py-24">
 
 <div class="max-w-7xl mx-auto px-6">
 
-<h2 class="text-3xl font-bold text-center mb-14">
+<h2 class="text-3xl font-bold text-center mb-16">
 Industries We Serve
 </h2>
 
 <div class="grid md:grid-cols-4 gap-8">
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<!-- card -->
+
+<div onclick="toggleIndustry('oil')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-oil-well text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Oil & Gas</h3>
 
+<p id="oil" class="hidden text-sm mt-2 text-gray-600">
+
+Recruitment for offshore engineers,
+pipeline technicians and refinery experts.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('construction')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-building text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Construction</h3>
 
+<p id="construction" class="hidden text-sm mt-2 text-gray-600">
+
+Civil engineers, site supervisors
+and project managers for infrastructure.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('hospitality')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-hotel text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Hospitality</h3>
 
+<p id="hospitality" class="hidden text-sm mt-2 text-gray-600">
+
+Staffing hotels, resorts and restaurants
+with professional hospitality staff.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('it')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-laptop-code text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">IT</h3>
 
+<p id="it" class="hidden text-sm mt-2 text-gray-600">
+
+Hiring software developers, cloud engineers
+and cybersecurity specialists.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('health')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-heart-pulse text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Healthcare</h3>
 
+<p id="health" class="hidden text-sm mt-2 text-gray-600">
+
+Doctors, nurses and medical technicians
+for global hospitals.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('finance')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-chart-line text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Finance</h3>
 
+<p id="finance" class="hidden text-sm mt-2 text-gray-600">
+
+Analysts, accountants and financial
+consultants for institutions.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('retail')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-store text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Retail</h3>
 
+<p id="retail" class="hidden text-sm mt-2 text-gray-600">
+
+Sales managers and retail professionals
+for global brands.
+
+</p>
+
 </div>
 
-<div class="bg-white p-6 rounded-xl shadow text-center" data-aos="fade-up">
+<div onclick="toggleIndustry('logistics')" 
+class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+
+<i class="fas fa-truck text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Logistics</h3>
 
-</div>
+<p id="logistics" class="hidden text-sm mt-2 text-gray-600">
 
-</div>
+Supply chain managers and transportation
+specialists.
 
-</div>
-
-</section>
-
-<!-- SERVICES -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold text-center mb-14">
-Our Recruitment Services
-</h2>
-
-<div class="grid md:grid-cols-3 gap-10">
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-4">
-Candidate Sourcing
-</h3>
-
-<p>
-Identifying and attracting top talent
-through our extensive recruitment network.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-4">
-Resume Screening
-</h3>
-
-<p>
-Detailed candidate evaluation to match
-skills with job requirements.
-</p>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<h3 class="text-xl font-semibold mb-4">
-Shortlisting
-</h3>
-
-<p>
-Providing companies with the best
-qualified candidates ready for interviews.
 </p>
 
 </div>
@@ -295,56 +282,26 @@ qualified candidates ready for interviews.
 
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIAL SLIDER -->
 
-<section class="py-20 bg-gray-100">
+<section class="py-24 bg-gray-100">
 
-<div class="max-w-7xl mx-auto px-6 text-center">
+<div class="max-w-5xl mx-auto text-center px-6">
 
-<h2 class="text-3xl font-bold mb-14">
-What Our Clients Say
+<h2 class="text-3xl font-bold mb-12">
+What Clients Say
 </h2>
 
-<div class="grid md:grid-cols-3 gap-8">
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
+<div id="testimonial" class="text-lg">
 
 <p class="mb-4">
-North Asia Consultants helped us hire skilled
-engineers quickly for our oil and gas projects.
+
+North Asia Consultants helped us hire
+qualified engineers for our projects quickly.
+
 </p>
 
-<h4 class="font-semibold">
-HR Manager
-</h4>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<p class="mb-4">
-Professional recruitment service with
-excellent candidate quality.
-</p>
-
-<h4 class="font-semibold">
-Construction Company
-</h4>
-
-</div>
-
-<div class="bg-white p-8 rounded-xl shadow" data-aos="fade-up">
-
-<p class="mb-4">
-Reliable partner for international
-hospitality staffing.
-</p>
-
-<h4 class="font-semibold">
-Hotel Group
-</h4>
-
-</div>
+<strong>HR Manager – Oil & Gas Company</strong>
 
 </div>
 
@@ -356,73 +313,52 @@ Hotel Group
 
 <section class="py-20 bg-blue-600 text-white text-center">
 
-<div class="max-w-4xl mx-auto px-6">
-
 <h2 class="text-3xl font-bold mb-6">
-
 Looking For Talent Or Jobs?
-
 </h2>
 
-<p class="mb-8 text-lg">
-
-Join thousands of companies and professionals
-working with North Asia Consultants.
-
+<p class="mb-8">
+Join companies and professionals working with us.
 </p>
 
-<div class="space-x-4">
-
-<a href="employers.html"
-class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
-
-Hire Talent
-
-</a>
-
-<a href="candidates.html"
-class="border border-white px-6 py-3 rounded-lg">
-
-Submit Resume
-
-</a>
-
-</div>
-
-</div>
+<button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
+Get Started
+</button>
 
 </section>
 
 <!-- FOOTER -->
 
-<footer class="bg-gray-900 text-gray-300 py-12">
+<footer class="bg-gray-900 text-gray-300 py-14">
 
 <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
 
 <div>
 
-<h3 class="text-xl font-bold text-white mb-4">
+<h3 class="text-xl text-white font-bold mb-4">
 North Asia Consultants
 </h3>
 
 <p>
+
 Connecting companies with skilled
 professionals across global industries.
+
 </p>
 
 </div>
 
 <div>
 
-<h4 class="font-semibold mb-4 text-white">
-Quick Links
+<h4 class="text-white font-semibold mb-4">
+Company
 </h4>
 
 <ul class="space-y-2">
 
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="industries.html">Industries</a></li>
+<li>About</li>
+<li>Services</li>
+<li>Industries</li>
 
 </ul>
 
@@ -430,13 +366,13 @@ Quick Links
 
 <div>
 
-<h4 class="font-semibold mb-4 text-white">
-For Candidates
+<h4 class="text-white font-semibold mb-4">
+Candidates
 </h4>
 
 <ul class="space-y-2">
 
-<li><a href="candidates.html">Submit Resume</a></li>
+<li>Submit Resume</li>
 
 </ul>
 
@@ -444,7 +380,7 @@ For Candidates
 
 <div>
 
-<h4 class="font-semibold mb-4 text-white">
+<h4 class="text-white font-semibold mb-4">
 Contact
 </h4>
 
@@ -459,42 +395,60 @@ Contact
 
 <!-- SCRIPTS -->
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
 <script>
 
-AOS.init({
-duration:1000,
-once:true
-})
+function toggleIndustry(id){
 
-function toggleMenu(){
+document.getElementById(id).classList.toggle("hidden")
 
-document.getElementById("mobileMenu").classList.toggle("hidden")
+}
+
+/* testimonial slider */
+
+const testimonials=[
+{
+text:"North Asia Consultants helped us hire engineers quickly.",
+author:"HR Manager – Oil & Gas"
+},
+{
+text:"Excellent recruitment partner for hospitality staffing.",
+author:"Hotel Group"
+},
+{
+text:"Highly professional and reliable hiring solutions.",
+author:"Construction Company"
+}
+]
+
+let i=0
+
+setInterval(()=>{
+
+document.getElementById("testimonial").innerHTML=
+
+`<p class="mb-4">${testimonials[i].text}</p>
+<strong>${testimonials[i].author}</strong>`
+
+i=(i+1)%testimonials.length
+
+},4000)
+
+/* scroll progress */
+
+window.onscroll=function(){
+
+let winScroll=document.body.scrollTop||document.documentElement.scrollTop
+
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight
+
+let scrolled=(winScroll/height)*100
+
+document.getElementById("progress").style.width=scrolled+"%"
 
 }
 
 </script>
-<script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
-  authDomain: "northasiawebsite.firebaseapp.com",
-  projectId: "northasiawebsite",
-  storageBucket: "northasiawebsite.firebasestorage.app",
-  messagingSenderId: "643873729069",
-  appId: "1:643873729069:web:01e9a5f35a0f4815ece6a4",
-  measurementId: "G-SCECS03GC3"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-
-</script>
 </body>
+
 </html>
