@@ -7,13 +7,13 @@
 
 <title>North Asia Consultants | Global Recruitment Experts</title>
 
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+<!-- Icons -->
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -21,28 +21,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 body{
 font-family:'Inter',sans-serif;
-scroll-behavior:smooth;
 }
 
-/* moving gradient background */
+/* hero gradient */
 
-.hero-gradient{
-background: linear-gradient(270deg,#2563eb,#4f46e5,#06b6d4);
-background-size:600% 600%;
-animation:gradientMove 12s ease infinite;
-}
-
-@keyframes gradientMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+.hero-bg{
+background:linear-gradient(135deg,#38bdf8,#3b82f6,#6366f1);
 }
 
 /* hover glow */
 
-.glow:hover{
-box-shadow:0 0 25px rgba(59,130,246,0.6);
+.card:hover{
 transform:translateY(-6px);
+box-shadow:0 15px 30px rgba(0,0,0,0.1);
 }
 
 /* scroll progress */
@@ -52,9 +43,9 @@ position:fixed;
 top:0;
 left:0;
 height:4px;
-background:#2563eb;
+background:#3b82f6;
 width:0%;
-z-index:9999;
+z-index:100;
 }
 
 </style>
@@ -67,17 +58,17 @@ z-index:9999;
 
 <!-- NAVBAR -->
 
-<nav class="fixed w-full z-50 backdrop-blur-lg bg-white/70 shadow">
+<nav class="fixed w-full z-50 backdrop-blur-md bg-white/70 border-b">
 
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-<h1 class="text-2xl font-bold text-blue-600">
+<h1 class="text-xl md:text-2xl font-bold text-blue-600">
 North Asia
 </h1>
 
-<div class="hidden md:flex space-x-8 font-medium">
+<div class="hidden md:flex space-x-8 text-gray-700 font-medium">
 
-<a href="#">Home</a>
+<a href="/" class="hover:text-blue-600">Home</a>
 <a href="#">About</a>
 <a href="#">Services</a>
 <a href="#">Industries</a>
@@ -87,33 +78,46 @@ North Asia
 
 </div>
 
+<button class="md:hidden text-xl" onclick="toggleMenu()">☰</button>
+
+</div>
+
+<div id="mobileMenu" class="hidden px-6 pb-4 md:hidden">
+
+<a class="block py-2" href="/">Home</a>
+<a class="block py-2">About</a>
+<a class="block py-2">Services</a>
+<a class="block py-2">Industries</a>
+<a class="block py-2">Candidates</a>
+<a class="block py-2">Employers</a>
+<a class="block py-2">Contact</a>
+
 </div>
 
 </nav>
 
 <!-- HERO -->
 
-<section class="hero-gradient text-white pt-36 pb-24">
+<section class="hero-bg text-white pt-32 pb-20">
 
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
 <div>
 
-<h1 class="text-5xl font-bold leading-tight mb-6">
+<h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
 
-Connecting Talent With
-Global Opportunities
+Connecting Talent With Global Opportunities
 
 </h1>
 
 <p class="text-lg mb-8">
 
 North Asia Consultants helps companies hire skilled
-professionals worldwide across multiple industries.
+professionals across international markets.
 
 </p>
 
-<div class="space-x-4">
+<div class="flex flex-wrap gap-4">
 
 <button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
 Hire Talent
@@ -127,8 +131,72 @@ Submit Resume
 
 </div>
 
-<img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
-class="rounded-xl shadow-lg">
+<img
+src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"
+class="rounded-xl shadow-lg w-full">
+
+</div>
+
+</section>
+
+<!-- WHY CHOOSE US -->
+
+<section class="py-20">
+
+<div class="max-w-7xl mx-auto px-6 text-center">
+
+<h2 class="text-3xl font-bold mb-12">
+Why Choose North Asia Consultants
+</h2>
+
+<div class="grid md:grid-cols-3 gap-10">
+
+<div class="card bg-white p-8 rounded-xl shadow">
+
+<i class="fa-solid fa-globe text-3xl text-blue-600 mb-4"></i>
+
+<h3 class="text-xl font-semibold mb-3">
+Global Talent Network
+</h3>
+
+<p>
+Access professionals across Asia,
+Middle East and Europe.
+</p>
+
+</div>
+
+<div class="card bg-white p-8 rounded-xl shadow">
+
+<i class="fa-solid fa-briefcase text-3xl text-blue-600 mb-4"></i>
+
+<h3 class="text-xl font-semibold mb-3">
+Industry Expertise
+</h3>
+
+<p>
+Recruitment experts specializing in
+multiple industries.
+</p>
+
+</div>
+
+<div class="card bg-white p-8 rounded-xl shadow">
+
+<i class="fa-solid fa-clock text-3xl text-blue-600 mb-4"></i>
+
+<h3 class="text-xl font-semibold mb-3">
+Fast Hiring
+</h3>
+
+<p>
+Efficient hiring process that
+reduces recruitment time.
+</p>
+
+</div>
+
+</div>
 
 </div>
 
@@ -136,141 +204,68 @@ class="rounded-xl shadow-lg">
 
 <!-- INDUSTRIES -->
 
-<section class="py-24">
+<section class="py-20 bg-gray-100">
 
 <div class="max-w-7xl mx-auto px-6">
 
-<h2 class="text-3xl font-bold text-center mb-16">
+<h2 class="text-3xl font-bold text-center mb-12">
 Industries We Serve
 </h2>
 
-<div class="grid md:grid-cols-4 gap-8">
+<div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
 
-<!-- card -->
+<div class="card bg-white p-6 rounded-xl shadow group">
 
-<div onclick="toggleIndustry('oil')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
-
-<i class="fas fa-oil-well text-3xl text-blue-600 mb-3"></i>
+<i class="fa-solid fa-oil-well text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Oil & Gas</h3>
 
-<p id="oil" class="hidden text-sm mt-2 text-gray-600">
+<p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Recruitment for offshore engineers,
-pipeline technicians and refinery experts.
+Recruitment for offshore engineers
+and refinery specialists.
 
 </p>
 
 </div>
 
-<div onclick="toggleIndustry('construction')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+<div class="card bg-white p-6 rounded-xl shadow group">
 
-<i class="fas fa-building text-3xl text-blue-600 mb-3"></i>
+<i class="fa-solid fa-building text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Construction</h3>
 
-<p id="construction" class="hidden text-sm mt-2 text-gray-600">
+<p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Civil engineers, site supervisors
-and project managers for infrastructure.
+Civil engineers and infrastructure experts.
 
 </p>
 
 </div>
 
-<div onclick="toggleIndustry('hospitality')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+<div class="card bg-white p-6 rounded-xl shadow group">
 
-<i class="fas fa-hotel text-3xl text-blue-600 mb-3"></i>
+<i class="fa-solid fa-hotel text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">Hospitality</h3>
 
-<p id="hospitality" class="hidden text-sm mt-2 text-gray-600">
+<p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Staffing hotels, resorts and restaurants
-with professional hospitality staff.
+Staffing hotels, resorts and restaurants.
 
 </p>
 
 </div>
 
-<div onclick="toggleIndustry('it')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
+<div class="card bg-white p-6 rounded-xl shadow group">
 
-<i class="fas fa-laptop-code text-3xl text-blue-600 mb-3"></i>
+<i class="fa-solid fa-laptop-code text-3xl text-blue-600 mb-3"></i>
 
 <h3 class="font-semibold text-lg">IT</h3>
 
-<p id="it" class="hidden text-sm mt-2 text-gray-600">
+<p class="text-sm text-gray-600 mt-2 opacity-0 group-hover:opacity-100 transition">
 
-Hiring software developers, cloud engineers
-and cybersecurity specialists.
-
-</p>
-
-</div>
-
-<div onclick="toggleIndustry('health')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
-
-<i class="fas fa-heart-pulse text-3xl text-blue-600 mb-3"></i>
-
-<h3 class="font-semibold text-lg">Healthcare</h3>
-
-<p id="health" class="hidden text-sm mt-2 text-gray-600">
-
-Doctors, nurses and medical technicians
-for global hospitals.
-
-</p>
-
-</div>
-
-<div onclick="toggleIndustry('finance')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
-
-<i class="fas fa-chart-line text-3xl text-blue-600 mb-3"></i>
-
-<h3 class="font-semibold text-lg">Finance</h3>
-
-<p id="finance" class="hidden text-sm mt-2 text-gray-600">
-
-Analysts, accountants and financial
-consultants for institutions.
-
-</p>
-
-</div>
-
-<div onclick="toggleIndustry('retail')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
-
-<i class="fas fa-store text-3xl text-blue-600 mb-3"></i>
-
-<h3 class="font-semibold text-lg">Retail</h3>
-
-<p id="retail" class="hidden text-sm mt-2 text-gray-600">
-
-Sales managers and retail professionals
-for global brands.
-
-</p>
-
-</div>
-
-<div onclick="toggleIndustry('logistics')" 
-class="glow cursor-pointer bg-white p-6 rounded-xl shadow transition">
-
-<i class="fas fa-truck text-3xl text-blue-600 mb-3"></i>
-
-<h3 class="font-semibold text-lg">Logistics</h3>
-
-<p id="logistics" class="hidden text-sm mt-2 text-gray-600">
-
-Supply chain managers and transportation
-specialists.
+Software engineers and IT specialists.
 
 </p>
 
@@ -282,26 +277,24 @@ specialists.
 
 </section>
 
-<!-- TESTIMONIAL SLIDER -->
+<!-- TESTIMONIAL -->
 
-<section class="py-24 bg-gray-100">
+<section class="py-20">
 
-<div class="max-w-5xl mx-auto text-center px-6">
+<div class="max-w-4xl mx-auto text-center px-6">
 
-<h2 class="text-3xl font-bold mb-12">
-What Clients Say
+<h2 class="text-3xl font-bold mb-10">
+What Our Clients Say
 </h2>
 
-<div id="testimonial" class="text-lg">
+<div id="testimonial">
 
-<p class="mb-4">
-
+<p class="text-lg mb-4">
 North Asia Consultants helped us hire
-qualified engineers for our projects quickly.
-
+qualified engineers very quickly.
 </p>
 
-<strong>HR Manager – Oil & Gas Company</strong>
+<strong>HR Manager – Energy Company</strong>
 
 </div>
 
@@ -340,10 +333,8 @@ North Asia Consultants
 </h3>
 
 <p>
-
 Connecting companies with skilled
 professionals across global industries.
-
 </p>
 
 </div>
@@ -393,14 +384,10 @@ Contact
 
 </footer>
 
-<!-- SCRIPTS -->
-
 <script>
 
-function toggleIndustry(id){
-
-document.getElementById(id).classList.toggle("hidden")
-
+function toggleMenu(){
+document.getElementById("mobileMenu").classList.toggle("hidden")
 }
 
 /* testimonial slider */
@@ -415,7 +402,7 @@ text:"Excellent recruitment partner for hospitality staffing.",
 author:"Hotel Group"
 },
 {
-text:"Highly professional and reliable hiring solutions.",
+text:"Highly professional recruitment service.",
 author:"Construction Company"
 }
 ]
@@ -426,7 +413,7 @@ setInterval(()=>{
 
 document.getElementById("testimonial").innerHTML=
 
-`<p class="mb-4">${testimonials[i].text}</p>
+`<p class="text-lg mb-4">${testimonials[i].text}</p>
 <strong>${testimonials[i].author}</strong>`
 
 i=(i+1)%testimonials.length
@@ -450,5 +437,4 @@ document.getElementById("progress").style.width=scrolled+"%"
 </script>
 
 </body>
-
 </html>
