@@ -1,356 +1,924 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Industries | North Asia Consultants</title>
-
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-body{
-font-family:'Inter',sans-serif;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industries We Serve | North Asia Consultants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+ 
+    :root {
+      --blue: #0a66c2;
+      --blue-dark: #004182;
+      --blue-light: #e8f0fa;
+      --green: #057642;
+      --white: #ffffff;
+      --bg: #f3f2ef;
+      --border: #e0e0e0;
+      --text: #191919;
+      --muted: #666666;
+      --radius: 10px;
+    }
+ 
+    /* ===================== SCROLL PROGRESS ===================== */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), #38bdf8); width: 0%; z-index: 9999; }
+ 
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse    { 0%,100% { transform:scale(1); } 50% { transform:scale(1.06); } }
+    @keyframes float    { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+    @keyframes spin     { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+ 
+    .reveal { opacity:0; transform:translateY(24px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-left  { opacity:0; transform:translateX(-24px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal-left.visible  { opacity:1; transform:translateX(0); }
+    .reveal-right { opacity:0; transform:translateX(24px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal-right.visible { opacity:1; transform:translateX(0); }
+    .rd1 { transition-delay:.08s; } .rd2 { transition-delay:.16s; } .rd3 { transition-delay:.24s; }
+    .rd4 { transition-delay:.32s; } .rd5 { transition-delay:.40s; } .rd6 { transition-delay:.48s; }
+ 
+    /* ===================== TOPBAR ===================== */
+    .topbar { background:var(--blue); padding:10px 16px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; text-align:center; }
+    .topbar p  { font-size:13px; color:rgba(255,255,255,.92); line-height:1.4; }
+    .topbar strong { color:#fff; font-weight:600; }
+    .topbar a  { color:#fff; font-weight:600; font-size:13px; background:rgba(255,255,255,.2); padding:3px 12px; border-radius:100px; border:1px solid rgba(255,255,255,.35); transition:background .2s; white-space:nowrap; }
+    .topbar a:hover { background:rgba(255,255,255,.3); }
+ 
+    /* ===================== NAVBAR ===================== */
+    nav { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:900; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+    .nav-inner { max-width:1200px; margin:0 auto; padding:0 20px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .logo-icon { width:36px; height:36px; background:var(--blue); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:16px; flex-shrink:0; }
+    .logo-text { line-height:1.2; }
+    .logo-name { font-size:15px; font-weight:700; color:var(--text); white-space:nowrap; }
+    .logo-name span { color:var(--blue); }
+    .logo-tagline { font-size:10px; color:var(--muted); }
+    .nav-search { flex:1; max-width:380px; position:relative; }
+    .nav-search input { width:100%; height:38px; border:1.5px solid #d0d0d0; border-radius:20px; padding:0 16px 0 38px; font-size:13px; font-family:inherit; outline:none; background:#f8f9fa; color:var(--text); transition:border-color .2s, box-shadow .2s; }
+    .nav-search input:focus { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(10,102,194,.1); }
+    .nav-search .s-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:#888; }
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 10px; height:64px; color:var(--muted); font-size:11px; font-weight:500; gap:3px; border-bottom:2px solid transparent; transition:all .2s; white-space:nowrap; }
+    .nav-links a svg { width:20px; height:20px; }
+    .nav-links a:hover, .nav-links a.active { color:var(--text); border-bottom-color:var(--text); font-weight:600; }
+    .nav-cta { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+    .btn-outline-nav { padding:7px 16px; border:1.5px solid var(--blue); border-radius:20px; color:var(--blue); font-size:13px; font-weight:600; transition:all .2s; }
+    .btn-outline-nav:hover { background:var(--blue-light); }
+    .btn-solid-nav { padding:7px 16px; background:var(--blue); border-radius:20px; color:#fff; font-size:13px; font-weight:600; transition:all .2s; }
+    .btn-solid-nav:hover { background:var(--blue-dark); transform:translateY(-1px); }
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; color:var(--text); }
+    #mobileMenu { display:none; background:#fff; border-top:1px solid var(--border); padding:12px 20px 20px; }
+    #mobileMenu.open { display:block; animation:fadeUp .25s ease; }
+    #mobileMenu a { display:flex; align-items:center; gap:12px; padding:12px 0; font-size:15px; color:#333; border-bottom:1px solid #f5f5f5; font-weight:500; }
+    #mobileMenu a:last-child { border:none; }
+    #mobileMenu a svg { width:18px; height:18px; color:var(--blue); }
+    .mob-cta-row { display:flex; gap:10px; margin-top:14px; }
+    .mob-cta-row a { flex:1; text-align:center; padding:10px; border-radius:20px; font-size:14px; font-weight:600; }
+    .mob-cta-row .mc-outline { border:1.5px solid var(--blue); color:var(--blue); }
+    .mob-cta-row .mc-solid  { background:var(--blue); color:#fff; }
+ 
+    /* ===================== PAGE HERO ===================== */
+    .page-hero { background:linear-gradient(135deg,#0d47a1 0%,#0a66c2 55%,#1565c0 100%); padding:52px 20px 56px; position:relative; overflow:hidden; }
+    .ph-dots  { position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px); background-size:30px 30px; pointer-events:none; }
+    .ph-glow  { position:absolute; top:-100px; right:-100px; width:420px; height:420px; background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 65%); border-radius:50%; pointer-events:none; }
+    .ph-glow2 { position:absolute; bottom:-60px; left:-60px; width:280px; height:280px; background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%); border-radius:50%; pointer-events:none; }
+    .ph-inner { max-width:1200px; margin:0 auto; position:relative; z-index:2; }
+    .ph-breadcrumb { display:flex; align-items:center; gap:6px; font-size:13px; color:rgba(255,255,255,.65); margin-bottom:18px; flex-wrap:wrap; }
+    .ph-breadcrumb a { color:rgba(255,255,255,.65); transition:color .2s; }
+    .ph-breadcrumb a:hover { color:#fff; }
+    .ph-breadcrumb svg { width:14px; height:14px; flex-shrink:0; }
+    .ph-breadcrumb span { color:#fff; }
+    .ph-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.28); color:#fff; font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:5px 14px; border-radius:100px; margin-bottom:16px; animation:fadeUp .6s ease both; }
+    .ph-badge svg { width:13px; height:13px; }
+    .ph-h1 { font-size:clamp(26px,4vw,46px); font-weight:700; color:#fff; line-height:1.15; margin-bottom:14px; animation:fadeUp .6s .1s ease both; }
+    .ph-h1 em { color:#93c5fd; font-style:normal; }
+    .ph-sub { font-size:clamp(13px,2vw,15px); color:rgba(255,255,255,.8); line-height:1.7; max-width:580px; margin-bottom:28px; animation:fadeUp .6s .2s ease both; }
+    .ph-stats { display:flex; flex-wrap:wrap; gap:20px; animation:fadeUp .6s .3s ease both; }
+    .ph-stat { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:10px; padding:14px 20px; min-width:110px; }
+    .ph-stat .num { font-size:24px; font-weight:700; color:#fff; line-height:1; }
+    .ph-stat .lbl { font-size:11px; color:rgba(255,255,255,.65); margin-top:3px; font-weight:500; text-transform:uppercase; letter-spacing:.04em; }
+ 
+    /* ===================== LAYOUT ===================== */
+    .page-wrap { max-width:1200px; margin:0 auto; padding:28px 20px; }
+ 
+    /* ===================== FILTER BAR ===================== */
+    .filter-bar { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:14px 20px; margin-bottom:20px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .filter-label { font-size:13px; font-weight:600; color:var(--text); flex-shrink:0; }
+    .filter-chips { display:flex; gap:8px; flex-wrap:wrap; flex:1; }
+    .fchip { padding:6px 16px; border-radius:100px; font-size:13px; font-weight:500; cursor:pointer; border:1.5px solid var(--border); background:#f8f9fa; color:var(--muted); transition:all .2s; white-space:nowrap; }
+    .fchip:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-light); }
+    .fchip.active { background:var(--blue); border-color:var(--blue); color:#fff; font-weight:600; }
+    .filter-count { font-size:12px; color:var(--muted); flex-shrink:0; margin-left:auto; }
+ 
+    /* ===================== INDUSTRIES GRID ===================== */
+    .industries-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px; }
+ 
+    .ind-card {
+      background:#fff; border:1px solid var(--border); border-radius:14px;
+      overflow:hidden; transition:all .3s cubic-bezier(.4,0,.2,1);
+      cursor:pointer; position:relative;
+    }
+    .ind-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:4px;
+      background:var(--ind-color, var(--blue));
+      transform:scaleX(0); transform-origin:left; transition:transform .3s;
+    }
+    .ind-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.1); border-color:rgba(10,102,194,.2); }
+    .ind-card:hover::before { transform:scaleX(1); }
+ 
+    .ic-header { padding:24px 24px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .ic-icon { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .3s; }
+    .ind-card:hover .ic-icon { transform:scale(1.08); }
+    .ic-icon svg { width:24px; height:24px; }
+    .ic-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+ 
+    .ic-body { padding:16px 24px 20px; }
+    .ic-title { font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
+    .ic-desc  { font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:16px; }
+ 
+    .ic-roles { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+    .ic-role  { display:flex; align-items:center; gap:8px; font-size:12px; color:#444; }
+    .ic-role::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--ind-color, var(--blue)); flex-shrink:0; }
+ 
+    .ic-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+    .ic-tag  { background:#f5f5f5; color:#444; font-size:11px; font-weight:500; padding:3px 10px; border-radius:100px; }
+ 
+    .ic-footer { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:1px solid #f0f0f0; }
+    .ic-stat { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:4px; }
+    .ic-stat svg { width:13px; height:13px; }
+    .ic-link { font-size:13px; font-weight:600; color:var(--blue); display:flex; align-items:center; gap:4px; transition:gap .2s; }
+    .ind-card:hover .ic-link { gap:8px; }
+    .ic-link svg { width:14px; height:14px; }
+ 
+    /* ===================== ROLES SPOTLIGHT ===================== */
+    .spotlight { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:24px; }
+    .spotlight-head { padding:20px 24px; border-bottom:1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    .spotlight-title { font-size:17px; font-weight:700; color:var(--text); display:flex; align-items:center; gap:8px; }
+    .spotlight-title svg { width:18px; height:18px; color:var(--blue); }
+    .spotlight-sub { font-size:13px; color:var(--muted); }
+ 
+    .roles-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+    .role-item { padding:16px 20px; border-right:1px solid #f5f5f5; border-bottom:1px solid #f5f5f5; transition:background .2s; cursor:default; }
+    .role-item:hover { background:#f9f9f9; }
+    .role-item:nth-child(4n) { border-right:none; }
+    .ri-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
+    .ri-title { font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px; }
+    .ri-loc   { font-size:11px; color:var(--muted); }
+ 
+    /* ===================== HOW WE HELP STRIP ===================== */
+    .help-strip { background:linear-gradient(135deg,#0d47a1,#0a66c2); border-radius:var(--radius); padding:32px 28px; margin-bottom:24px; position:relative; overflow:hidden; }
+    .help-strip::before { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:rgba(255,255,255,.06); border-radius:50%; }
+    .help-strip::after  { content:''; position:absolute; right:60px; bottom:-50px; width:120px; height:120px; background:rgba(255,255,255,.04); border-radius:50%; }
+    .hs-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
+    .hs-text h3 { font-size:20px; font-weight:700; color:#fff; margin-bottom:8px; }
+    .hs-text p  { font-size:14px; color:rgba(255,255,255,.8); line-height:1.65; max-width:520px; }
+    .hs-actions { display:flex; gap:10px; flex-shrink:0; flex-wrap:wrap; }
+    .hs-btn-white  { padding:11px 22px; background:#fff; color:var(--blue); border-radius:20px; font-size:13px; font-weight:700; transition:all .2s; white-space:nowrap; }
+    .hs-btn-white:hover  { background:#e8f0fa; transform:translateY(-1px); }
+    .hs-btn-ghost  { padding:11px 22px; border:1.5px solid rgba(255,255,255,.4); color:#fff; border-radius:20px; font-size:13px; font-weight:600; transition:all .2s; white-space:nowrap; }
+    .hs-btn-ghost:hover  { background:rgba(255,255,255,.12); }
+ 
+    /* ===================== PROCESS SECTION ===================== */
+    .process-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:24px; }
+    .pc-title { font-size:17px; font-weight:700; color:var(--text); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .pc-title svg { width:18px; height:18px; color:var(--blue); }
+    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; position:relative; }
+    .ps-line { position:absolute; top:22px; left:calc(12.5% + 16px); right:calc(12.5% + 16px); height:2px; background:linear-gradient(90deg,var(--blue),#93c5fd); z-index:0; }
+    .ps { text-align:center; padding:0 4px; position:relative; z-index:1; }
+    .ps-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-size:15px; font-weight:700; background:#fff; border:2px solid var(--blue); color:var(--blue); }
+    .ps-num.done { background:var(--blue); color:#fff; }
+    .ps-num svg { width:18px; height:18px; }
+    .ps-t { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .ps-d { font-size:11px; color:var(--muted); line-height:1.5; }
+ 
+    /* ===================== TESTIMONIALS ===================== */
+    .testi-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+    .tc { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:box-shadow .2s; }
+    .tc:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
+    .tc-stars { display:flex; gap:2px; margin-bottom:10px; }
+    .tc-stars svg { width:13px; height:13px; color:#f59e0b; }
+    .tc-text { font-size:13px; color:#333; line-height:1.7; font-style:italic; margin-bottom:14px; }
+    .tc-author { display:flex; align-items:center; gap:10px; }
+    .tc-av { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+    .tc-name { font-size:13px; font-weight:700; color:var(--text); }
+    .tc-role { font-size:11px; color:var(--muted); }
+    .tc-ind  { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:600; padding:2px 8px; border-radius:100px; margin-top:3px; }
+ 
+    /* ===================== SIDEBAR ===================== */
+    .two-col { display:grid; grid-template-columns:1fr 290px; gap:20px; align-items:start; }
+    .sidebar-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:16px; }
+    .sc-pad { padding:18px 20px; }
+    .sc-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:6px; }
+    .sc-title svg { width:16px; height:16px; color:var(--blue); }
+ 
+    /* Hiring CTA sidebar */
+    .hire-cta { background:linear-gradient(135deg,#0a66c2,#004182); border-radius:var(--radius); padding:22px 20px; margin-bottom:16px; text-align:center; }
+    .hire-cta h3 { font-size:16px; font-weight:700; color:#fff; margin-bottom:8px; }
+    .hire-cta p  { font-size:13px; color:rgba(255,255,255,.8); line-height:1.6; margin-bottom:16px; }
+    .hire-cta a  { display:block; background:#fff; color:var(--blue); padding:10px; border-radius:20px; font-size:13px; font-weight:700; transition:all .2s; }
+    .hire-cta a:hover { background:#e8f0fa; }
+ 
+    /* Industry quick-nav */
+    .ind-nav-item { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid #f8f8f8; cursor:pointer; transition:color .15s; color:#333; font-size:13px; font-weight:500; }
+    .ind-nav-item:last-child { border:none; }
+    .ind-nav-item:hover { color:var(--blue); }
+    .ind-nav-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .ind-nav-item svg { width:15px; height:15px; margin-left:auto; color:#ccc; transition:color .15s; }
+    .ind-nav-item:hover svg { color:var(--blue); }
+ 
+    /* Contact sidebar */
+    .ci { display:flex; align-items:center; gap:10px; font-size:13px; color:#333; margin-bottom:10px; }
+    .ci svg { width:16px; height:16px; color:var(--blue); flex-shrink:0; }
+    .ci a { color:var(--blue); }
+    .ci a:hover { text-decoration:underline; }
+    .wa-btn { display:flex; align-items:center; justify-content:center; gap:7px; background:#25d366; color:#fff; padding:10px; border-radius:20px; font-size:13px; font-weight:600; margin-top:14px; transition:background .2s; }
+    .wa-btn:hover { background:#1db954; }
+    .wa-btn svg { width:16px; height:16px; }
+ 
+    /* ===================== FOOTER ===================== */
+    footer { background:#fff; border-top:1px solid var(--border); margin-top:20px; padding:40px 20px 24px; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:28px; border-bottom:1px solid #eee; }
+    .footer-brand p { font-size:13px; color:var(--muted); line-height:1.75; margin:12px 0 16px; }
+    .footer-social { display:flex; gap:8px; }
+    .fs-btn { width:32px; height:32px; border-radius:6px; background:#f5f5f5; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:#555; transition:all .2s; }
+    .fs-btn:hover { background:var(--blue); border-color:var(--blue); color:#fff; }
+    .fs-btn svg { width:14px; height:14px; }
+    .fc h4 { font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; }
+    .fc ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .fc ul li a { font-size:13px; color:var(--muted); transition:color .2s; }
+    .fc ul li a:hover { color:var(--blue); }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:20px; }
+    .footer-bottom p { font-size:12px; color:#aaa; }
+    .footer-links { display:flex; gap:16px; }
+    .footer-links a { font-size:12px; color:#888; transition:color .2s; }
+    .footer-links a:hover { color:var(--blue); }
+ 
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width:1100px) {
+      .two-col { grid-template-columns:1fr 270px; }
+      .industries-grid { grid-template-columns:repeat(2,1fr); }
+      .roles-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:960px) {
+      .two-col { grid-template-columns:1fr; }
+      .sidebar { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+      .sidebar-card, .hire-cta { margin-bottom:0; }
+      .hs-inner { grid-template-columns:1fr; }
+      .hs-actions { justify-content:flex-start; }
+      .roles-grid { grid-template-columns:repeat(2,1fr); }
+      .process-steps { grid-template-columns:1fr 1fr; gap:16px; }
+      .ps-line { display:none; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
+      .testi-row { grid-template-columns:1fr; }
+    }
+    @media (max-width:680px) {
+      .nav-search, .nav-links, .nav-cta { display:none; }
+      .hamburger { display:block; }
+      .nav-inner { height:56px; }
+      .industries-grid { grid-template-columns:1fr; }
+      .roles-grid { grid-template-columns:1fr 1fr; }
+      .filter-chips { gap:6px; }
+      .fchip { font-size:12px; padding:5px 12px; }
+      .sidebar { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; gap:24px; }
+      .footer-bottom { flex-direction:column; align-items:flex-start; }
+      .ph-stats { gap:10px; }
+      .ph-stat { padding:12px 16px; min-width:90px; }
+      .page-wrap { padding:16px 14px; }
+    }
+    @media (max-width:420px) {
+      .roles-grid { grid-template-columns:1fr; }
+      .process-steps { grid-template-columns:1fr; }
+      .industries-grid { grid-template-columns:1fr; }
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50 text-gray-800">
-
-<!-- NAVBAR -->
-
-<nav class="bg-white shadow-md fixed w-full z-50">
-
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-<h1 class="text-2xl font-bold text-blue-600">North Asia</h1>
-
-<div class="hidden md:flex space-x-8 font-medium">
-
-<a href="index.html" class="hover:text-blue-600">Home</a>
-<a href="about.html" class="hover:text-blue-600">About</a>
-<a href="services.html" class="hover:text-blue-600">Services</a>
-<a href="industries.html" class="text-blue-600 font-semibold">Industries</a>
-<a href="candidates.html" class="hover:text-blue-600">Candidates</a>
-<a href="employers.html" class="hover:text-blue-600">Employers</a>
-<a href="contact.html" class="hover:text-blue-600">Contact</a>
-
-</div>
-
-<button class="md:hidden" onclick="toggleMenu()">☰</button>
-
-</div>
-
-<div id="mobileMenu" class="hidden md:hidden bg-white px-6 pb-4">
-
-<a class="block py-2" href="index.html">Home</a>
-<a class="block py-2" href="about.html">About</a>
-<a class="block py-2" href="services.html">Services</a>
-<a class="block py-2" href="industries.html">Industries</a>
-<a class="block py-2" href="candidates.html">Candidates</a>
-<a class="block py-2" href="employers.html">Employers</a>
-<a class="block py-2" href="contact.html">Contact</a>
-
-</div>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="pt-32 pb-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-4xl mx-auto px-6">
-
-<h1 class="text-4xl md:text-5xl font-bold mb-6">
-Industries We Serve
-</h1>
-
-<p class="text-lg">
-We provide recruitment solutions across multiple industries worldwide.
-</p>
-
-</div>
-
-</section>
-
-<!-- INDUSTRIES GRID -->
-
-<section class="py-20">
-
-<div class="max-w-7xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold text-center mb-14">
-Our Expertise Across Industries
-</h2>
-
-<div class="grid md:grid-cols-4 gap-10">
-
-<!-- Oil & Gas -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1581093458791-9f3c3250c1a3" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Oil & Gas</h3>
-
-<p class="text-sm text-gray-600">
-Skilled engineers and technicians for energy sector projects.
-</p>
-
-</div>
-
-</div>
-
-<!-- Construction -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Construction</h3>
-
-<p class="text-sm text-gray-600">
-Recruitment for infrastructure and construction projects.
-</p>
-
-</div>
-
-</div>
-
-<!-- Hospitality -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Hospitality</h3>
-
-<p class="text-sm text-gray-600">
-Hospitality staff for hotels, resorts and restaurants.
-</p>
-
-</div>
-
-</div>
-
-<!-- IT -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Information Technology</h3>
-
-<p class="text-sm text-gray-600">
-Software developers and IT professionals for tech companies.
-</p>
-
-</div>
-
-</div>
-
-<!-- Healthcare -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1584515933487-779824d29309" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Healthcare</h3>
-
-<p class="text-sm text-gray-600">
-Doctors, nurses and healthcare professionals.
-</p>
-
-</div>
-
-</div>
-
-<!-- Finance -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Finance</h3>
-
-<p class="text-sm text-gray-600">
-Finance experts and accounting professionals.
-</p>
-
-</div>
-
-</div>
-
-<!-- Retail -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1607082349566-187342175e2f" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Retail</h3>
-
-<p class="text-sm text-gray-600">
-Retail managers, sales teams and operations staff.
-</p>
-
-</div>
-
-</div>
-
-<!-- Logistics -->
-
-<div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden" data-aos="fade-up">
-
-<img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d" class="h-40 w-full object-cover">
-
-<div class="p-6 text-center">
-
-<h3 class="font-semibold text-lg mb-2">Logistics</h3>
-
-<p class="text-sm text-gray-600">
-Supply chain and logistics professionals worldwide.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="py-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold mb-6">
-Looking For Talent In Your Industry?
-</h2>
-
-<p class="mb-8">
-Our recruitment specialists are ready to help your organization
-find the best professionals.
-</p>
-
-<a href="employers.html"
-class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold">
-
-Hire Talent
-
-</a>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="bg-gray-900 text-gray-300 py-12">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
-
-<div>
-
-<h3 class="text-xl font-bold text-white mb-4">
-North Asia Consultants
-</h3>
-
-<p>
-Connecting companies with skilled professionals
-across global industries.
-</p>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Quick Links
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-For Candidates
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="candidates.html">Submit Resume</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Contact
-</h4>
-
-<p>Email: info@northasiaconsultants.com</p>
-<p>Phone: +91 98765 43210</p>
-
-</div>
-
-</div>
-
-</footer>
-
-<!-- SCRIPTS -->
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<script>
-
-AOS.init({
-duration:1000,
-once:true
-})
-
-function toggleMenu(){
-document.getElementById("mobileMenu").classList.toggle("hidden")
-}
-
-</script>
-
+<body>
+  <div id="progress"></div>
+ 
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <p>
+      <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+      <strong>Free for Employers</strong> — Zero fees. Now expanding across Gulf, Asia, Europe & beyond.
+    </p>
+    <a href="/contact.html">Get Started →</a>
+  </div>
+ 
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">N</div>
+        <div class="logo-text">
+          <div class="logo-name">North Asia <span>Consultants</span></div>
+          <div class="logo-tagline">Global Recruitment Experts</div>
+        </div>
+      </a>
+      <div class="nav-search">
+        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search jobs, roles, countries...">
+      </div>
+      <div class="nav-links">
+        <a href="/index.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>
+          Home
+        </a>
+        <a href="/jobs.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+          Jobs
+        </a>
+        <a href="/industries.html" class="active">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15zM9 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9zm-.75 3.75A.75.75 0 019 9h1.5a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM9 12a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9zm3.75-5.25A.75.75 0 0113.5 6H15a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zM13.5 9a.75.75 0 000 1.5H15A.75.75 0 0015 9h-1.5zm-.75 3.75a.75.75 0 01.75-.75H15a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75zM9 19.5v-2.25a.75.75 0 01.75-.75h4.5a.75.75 0 01.75.75v2.25a.75.75 0 01-.75.75h-4.5A.75.75 0 019 19.5z" clip-rule="evenodd"/></svg>
+          Industries
+        </a>
+        <a href="/about.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+          About
+        </a>
+      </div>
+      <div class="nav-cta">
+        <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
+        <a href="/employers.html" class="btn-solid-nav">Hire Talent</a>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu">
+      <a href="/index.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/></svg>Home</a>
+      <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd"/></svg>Browse Jobs</a>
+      <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
+      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About Us</a>
+      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <div class="mob-cta-row">
+        <a href="/candidates.html" class="mc-outline">Find Jobs</a>
+        <a href="/employers.html" class="mc-solid">Hire Talent</a>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-dots"></div>
+    <div class="ph-glow"></div>
+    <div class="ph-glow2"></div>
+    <div class="ph-inner">
+      <div class="ph-breadcrumb">
+        <a href="/index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span>Industries</span>
+      </div>
+      <div class="ph-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15zM9 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9z" clip-rule="evenodd"/></svg>
+        8 Industries · Global Reach
+      </div>
+      <h1 class="ph-h1">Industries We <em>Specialize</em> In</h1>
+      <p class="ph-sub">Deep domain expertise across the Gulf's most active hiring sectors — and expanding globally. We source, screen and deliver top talent across every vertical.</p>
+      <div class="ph-stats">
+        <div class="ph-stat"><div class="num">8+</div><div class="lbl">Industries</div></div>
+        <div class="ph-stat"><div class="num">6</div><div class="lbl">GCC Countries</div></div>
+        <div class="ph-stat"><div class="num">₹0</div><div class="lbl">Employer Fees</div></div>
+        <div class="ph-stat"><div class="num">48h</div><div class="lbl">Avg Response</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- MAIN CONTENT -->
+  <div class="page-wrap">
+    <div class="two-col">
+ 
+      <!-- LEFT / MAIN -->
+      <div>
+ 
+        <!-- FILTER BAR -->
+        <div class="filter-bar reveal">
+          <span class="filter-label">Filter:</span>
+          <div class="filter-chips">
+            <span class="fchip active" onclick="filterIndustry('all',this)">All Industries</span>
+            <span class="fchip" onclick="filterIndustry('energy',this)">Energy</span>
+            <span class="fchip" onclick="filterIndustry('engineering',this)">Engineering</span>
+            <span class="fchip" onclick="filterIndustry('tech',this)">Technology</span>
+            <span class="fchip" onclick="filterIndustry('services',this)">Services</span>
+          </div>
+          <span class="filter-count" id="filterCount">8 industries</span>
+        </div>
+ 
+        <!-- INDUSTRIES GRID -->
+        <div class="industries-grid" id="industriesGrid">
+ 
+          <!-- OIL & GAS -->
+          <div class="ind-card reveal rd1" data-category="energy" style="--ind-color:#f97316;" id="oilgas">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#fff3e8;">
+                <svg viewBox="0 0 24 24" fill="#f97316"><path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-1.5 0v4.93l-2.006.53A.75.75 0 002.984 9.5l.753-2.753A.75.75 0 004.5 7.5h15a.75.75 0 00.506-1.295z"/><path fill-rule="evenodd" d="M3 11.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 11.25zm0 4.5a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 15.75zm.75 4.5a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" clip-rule="evenodd"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#fff3e8;color:#f97316;">High Demand</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Oil & Gas</div>
+              <div class="ic-desc">Sourcing upstream, midstream and downstream professionals across refineries, offshore platforms and energy infrastructure throughout the GCC and globally.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Process & Chemical Engineers</div>
+                <div class="ic-role">Drilling & Reservoir Engineers</div>
+                <div class="ic-role">HSE / Safety Officers</div>
+                <div class="ic-role">Plant Operations Technicians</div>
+                <div class="ic-role">Project Managers (Oil & Gas)</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">Saudi Arabia</span><span class="ic-tag">Qatar</span><span class="ic-tag">Kuwait</span><span class="ic-tag">Oman</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>GCC + Global</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- CONSTRUCTION -->
+          <div class="ind-card reveal rd2" data-category="engineering" style="--ind-color:#8b5cf6;" id="construction">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#f3f0ff;">
+                <svg viewBox="0 0 24 24" fill="#8b5cf6"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#f3f0ff;color:#8b5cf6;">Growing Fast</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Construction & Engineering</div>
+              <div class="ic-desc">Building the Gulf's mega-projects with skilled civil, structural and mechanical engineers, site managers and construction professionals across large-scale developments.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Civil & Structural Engineers</div>
+                <div class="ic-role">Site / Project Managers</div>
+                <div class="ic-role">MEP Engineers</div>
+                <div class="ic-role">QA / QC Inspectors</div>
+                <div class="ic-role">Quantity Surveyors</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">Saudi Arabia</span><span class="ic-tag">Qatar</span><span class="ic-tag">Bahrain</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>GCC Focused</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- IT & TECH -->
+          <div class="ind-card reveal rd3" data-category="tech" style="--ind-color:#0a66c2;" id="it">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#e8f0fa;">
+                <svg viewBox="0 0 24 24" fill="#0a66c2"><path fill-rule="evenodd" d="M2.25 5.25a3 3 0 013-3h13.5a3 3 0 013 3V15a3 3 0 01-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 01-.53 1.28h-9a.75.75 0 01-.53-1.28l.621-.622a2.25 2.25 0 00.659-1.59V18h-3a3 3 0 01-3-3V5.25zm1.5 0v9.5c0 .414.336.75.75.75h16.5a.75.75 0 00.75-.75V5.25a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5z" clip-rule="evenodd"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#e8f0fa;color:#0a66c2;">Top Demand</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Information Technology</div>
+              <div class="ic-desc">Placing top-tier software engineers, cloud architects and digital transformation specialists with tech companies, startups and enterprise organisations worldwide.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Full Stack / Backend Developers</div>
+                <div class="ic-role">Cloud & DevOps Engineers</div>
+                <div class="ic-role">Cybersecurity Analysts</div>
+                <div class="ic-role">Data Scientists & AI Engineers</div>
+                <div class="ic-role">Product & UX Designers</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">KSA</span><span class="ic-tag">Asia</span><span class="ic-tag">Europe</span><span class="ic-tag">Remote</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/></svg>Global</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- HOSPITALITY -->
+          <div class="ind-card reveal rd4" data-category="services" style="--ind-color:#ec4899;" id="hospitality">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#fdf2f8;">
+                <svg viewBox="0 0 24 24" fill="#ec4899"><path d="M11.25 3v4.046a3 3 0 00-4.277 4.204H1.5v-6A2.25 2.25 0 013.75 3h7.5zM12.75 3v4.011a3 3 0 014.239 4.239H22.5v-6A2.25 2.25 0 0020.25 3h-7.5zM22.5 12.75h-8.983a4.125 4.125 0 004.108 3.75.75.75 0 010 1.5 5.623 5.623 0 01-4.875-2.817V21h7.5a2.25 2.25 0 002.25-2.25v-6zM15.75 21v-5.817a5.623 5.623 0 01-4.875 2.817.75.75 0 010-1.5 4.126 4.126 0 004.108-3.75H1.5v6A2.25 2.25 0 003.75 21h12z"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#fdf2f8;color:#ec4899;">Active Hiring</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Hospitality & Tourism</div>
+              <div class="ic-desc">Staffing world-class hotels, resorts and hospitality groups across the GCC with experienced front-of-house, F&B and management professionals.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Hotel General Managers</div>
+                <div class="ic-role">F&B Managers & Chefs</div>
+                <div class="ic-role">Front Office & Guest Relations</div>
+                <div class="ic-role">Revenue & Reservations Managers</div>
+                <div class="ic-role">Event & Banquet Coordinators</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">Qatar</span><span class="ic-tag">Bahrain</span><span class="ic-tag">Oman</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>GCC Focused</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- HEALTHCARE -->
+          <div class="ind-card reveal rd5" data-category="services" style="--ind-color:#ef4444;" id="healthcare">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#fef2f2;">
+                <svg viewBox="0 0 24 24" fill="#ef4444"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#fef2f2;color:#ef4444;">Urgent Need</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Healthcare & Life Sciences</div>
+              <div class="ic-desc">Placing qualified medical professionals, nurses, allied health and pharma specialists into leading hospitals, clinics and healthcare systems across the Gulf and Asia.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Registered Nurses (ICU, OT, ER)</div>
+                <div class="ic-role">Medical Officers & Specialists</div>
+                <div class="ic-role">Radiologists & Lab Technicians</div>
+                <div class="ic-role">Physiotherapists & Allied Health</div>
+                <div class="ic-role">Healthcare Administrators</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">Saudi Arabia</span><span class="ic-tag">UAE</span><span class="ic-tag">Qatar</span><span class="ic-tag">Kuwait</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>GCC + Asia</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- FINANCE & BANKING -->
+          <div class="ind-card reveal rd6" data-category="services" style="--ind-color:#10b981;" id="finance">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#ecfdf5;">
+                <svg viewBox="0 0 24 24" fill="#10b981"><path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z"/><path fill-rule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 010 1.5H3a.75.75 0 010-1.5h.75v-9.918a.75.75 0 01.634-.74A49.109 49.109 0 0112 9c2.59 0 5.134.202 7.616.592a.75.75 0 01.634.74zm-7.5 2.418a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75zm3-.75a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0v-6.75a.75.75 0 01.75-.75zM9 12.75a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75z" clip-rule="evenodd"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#ecfdf5;color:#10b981;">Expanding</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Finance & Banking</div>
+              <div class="ic-desc">Connecting financial institutions with highly skilled professionals in investment banking, treasury, risk, compliance and fintech across Gulf and Asian markets.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Investment & Corporate Bankers</div>
+                <div class="ic-role">Risk & Compliance Officers</div>
+                <div class="ic-role">Treasury & Finance Analysts</div>
+                <div class="ic-role">Fintech & Digital Banking Experts</div>
+                <div class="ic-role">Audit & Tax Professionals</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">Saudi Arabia</span><span class="ic-tag">Bahrain</span><span class="ic-tag">Asia</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003z"/></svg>GCC + Asia</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- RETAIL -->
+          <div class="ind-card reveal rd1" data-category="services" style="--ind-color:#f59e0b;" id="retail">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#fffbeb;">
+                <svg viewBox="0 0 24 24" fill="#f59e0b"><path fill-rule="evenodd" d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 007.5 9.75c.627.005 1.247-.178 1.75-.547.502.369 1.122.552 1.75.547a3.75 3.75 0 003.75-3.75 3.75 3.75 0 003.75 3.75c.628.005 1.247-.178 1.75-.547.502.369 1.122.552 1.75.547a3.75 3.75 0 004.902-3.652l-1.3-1.299a1.875 1.875 0 00-1.325-.549H5.223z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 009.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 002.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3z" clip-rule="evenodd"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#fffbeb;color:#f59e0b;">Steady Growth</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Retail & Consumer Goods</div>
+              <div class="ic-desc">Sourcing retail operations, brand management and e-commerce professionals for leading consumer brands and mall operators expanding across Gulf and Asia Pacific.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Retail Operations Managers</div>
+                <div class="ic-role">Brand & Category Managers</div>
+                <div class="ic-role">Visual Merchandisers</div>
+                <div class="ic-role">E-Commerce & Digital Marketers</div>
+                <div class="ic-role">Supply Chain & Procurement</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">KSA</span><span class="ic-tag">Asia Pacific</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752z"/></svg>GCC + Asia</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+          <!-- LOGISTICS -->
+          <div class="ind-card reveal rd2" data-category="engineering" style="--ind-color:#06b6d4;" id="logistics">
+            <div class="ic-header">
+              <div class="ic-icon" style="background:#ecfeff;">
+                <svg viewBox="0 0 24 24" fill="#06b6d4"><path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/><path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/><path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/></svg>
+              </div>
+              <span class="ic-badge" style="background:#ecfeff;color:#06b6d4;">High Volume</span>
+            </div>
+            <div class="ic-body">
+              <div class="ic-title">Logistics & Supply Chain</div>
+              <div class="ic-desc">Supporting the backbone of Gulf and global trade with warehouse managers, fleet operators, freight forwarders and procurement specialists at every level.</div>
+              <div class="ic-roles">
+                <div class="ic-role">Warehouse & Distribution Managers</div>
+                <div class="ic-role">Freight & Customs Specialists</div>
+                <div class="ic-role">Procurement & Sourcing Officers</div>
+                <div class="ic-role">Fleet & Transport Coordinators</div>
+                <div class="ic-role">Supply Chain Analysts</div>
+              </div>
+              <div class="ic-tags">
+                <span class="ic-tag">UAE</span><span class="ic-tag">Saudi Arabia</span><span class="ic-tag">Oman</span><span class="ic-tag">Asia</span>
+              </div>
+              <div class="ic-footer">
+                <div class="ic-stat"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752z"/></svg>GCC + Global</div>
+                <a href="/contact.html" class="ic-link">Hire Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+              </div>
+            </div>
+          </div>
+ 
+        </div><!-- /industries-grid -->
+ 
+        <!-- POPULAR ROLES SPOTLIGHT -->
+        <div class="spotlight reveal">
+          <div class="spotlight-head">
+            <div class="spotlight-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              Popular Roles Right Now
+            </div>
+            <span class="spotlight-sub">Roles most in demand across our network</span>
+          </div>
+          <div class="roles-grid">
+            <div class="role-item"><div class="ri-label" style="color:#f97316;">Oil & Gas</div><div class="ri-title">Process Engineer</div><div class="ri-loc">🇦🇪 Abu Dhabi, UAE</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#0a66c2;">IT & Tech</div><div class="ri-title">Full Stack Developer</div><div class="ri-loc">🇸🇦 Riyadh, KSA</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#ef4444;">Healthcare</div><div class="ri-title">ICU Registered Nurse</div><div class="ri-loc">🇸🇦 Jeddah, KSA</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#8b5cf6;">Construction</div><div class="ri-title">Civil Project Manager</div><div class="ri-loc">🇦🇪 Dubai, UAE</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#ec4899;">Hospitality</div><div class="ri-title">F&B Manager</div><div class="ri-loc">🇶🇦 Doha, Qatar</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#10b981;">Finance</div><div class="ri-title">Compliance Officer</div><div class="ri-loc">🇧🇭 Manama, Bahrain</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#06b6d4;">Logistics</div><div class="ri-title">Warehouse Manager</div><div class="ri-loc">🇦🇪 Sharjah, UAE</div></div>
+            <div class="role-item"><div class="ri-label" style="color:#f59e0b;">Retail</div><div class="ri-title">Brand Manager</div><div class="ri-loc">🇦🇪 Dubai, UAE</div></div>
+          </div>
+        </div>
+ 
+        <!-- HOW WE HELP STRIP -->
+        <div class="help-strip reveal">
+          <div class="hs-inner">
+            <div class="hs-text">
+              <h3>Ready to hire in any of these industries?</h3>
+              <p>Submit your job brief and receive a shortlist of pre-vetted candidates within 48 hours — at absolutely zero cost to your organisation. Our team handles sourcing, screening, interviews and reference checks.</p>
+            </div>
+            <div class="hs-actions">
+              <a href="/employers.html" class="hs-btn-white">Post a Job — Free</a>
+              <a href="/contact.html" class="hs-btn-ghost">Talk to Us</a>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- PROCESS SECTION -->
+        <div class="process-card reveal">
+          <div class="pc-title">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+            Our Industry-Specific Recruitment Process
+          </div>
+          <div class="process-steps">
+            <div class="ps-line"></div>
+            <div class="ps">
+              <div class="ps-num done"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/></svg></div>
+              <div class="ps-t">Understand Brief</div>
+              <div class="ps-d">We map your exact role requirements, culture, and must-have skills</div>
+            </div>
+            <div class="ps">
+              <div class="ps-num done"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/></svg></div>
+              <div class="ps-t">Domain Search</div>
+              <div class="ps-d">Industry-specific sourcing across our verified candidate database</div>
+            </div>
+            <div class="ps">
+              <div class="ps-num">3</div>
+              <div class="ps-t">Vet & Screen</div>
+              <div class="ps-d">Video interviews, technical assessments and reference checks</div>
+            </div>
+            <div class="ps">
+              <div class="ps-num">4</div>
+              <div class="ps-t">Deliver Shortlist</div>
+              <div class="ps-d">Pre-vetted profiles in your inbox within 48 hours</div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TESTIMONIALS -->
+        <div class="testi-row reveal">
+          <div class="tc">
+            <div class="tc-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="tc-text">"North Asia understood our urgent need for specialist engineers in UAE. Pre-vetted candidates were delivered within days — we met our project deadlines thanks to their domain expertise."</div>
+            <div class="tc-author">
+              <div class="tc-av" style="background:#f97316;">HR</div>
+              <div>
+                <div class="tc-name">HR Manager</div>
+                <div class="tc-role">Engineering Firm, Abu Dhabi</div>
+                <div class="tc-ind" style="background:#fff3e8;color:#f97316;">🛢 Oil & Gas</div>
+              </div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="tc-text">"Our ICU ward was short-staffed for months. North Asia placed three qualified nurses within two weeks — all with the right credentials, culturally aligned, ready from day one."</div>
+            <div class="tc-author">
+              <div class="tc-av" style="background:#ef4444;">DM</div>
+              <div>
+                <div class="tc-name">Director of Medical Services</div>
+                <div class="tc-role">Private Hospital, Riyadh</div>
+                <div class="tc-ind" style="background:#fef2f2;color:#ef4444;">🏥 Healthcare</div>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /main col -->
+ 
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+ 
+        <!-- Hire CTA -->
+        <div class="hire-cta reveal">
+          <h3>Hiring in Any of These Industries?</h3>
+          <p>Tell us your requirements. We'll send you pre-vetted candidates within 48 hours — completely free.</p>
+          <a href="/employers.html">Post a Job — Free →</a>
+        </div>
+ 
+        <!-- Industry Quick Nav -->
+        <div class="sidebar-card reveal rd1">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
+              Jump to Industry
+            </div>
+            <a href="#oilgas"       class="ind-nav-item"><span class="ind-nav-dot" style="background:#f97316;"></span>Oil & Gas<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#construction" class="ind-nav-item"><span class="ind-nav-dot" style="background:#8b5cf6;"></span>Construction<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#it"           class="ind-nav-item"><span class="ind-nav-dot" style="background:#0a66c2;"></span>IT & Tech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#hospitality"  class="ind-nav-item"><span class="ind-nav-dot" style="background:#ec4899;"></span>Hospitality<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#healthcare"   class="ind-nav-item"><span class="ind-nav-dot" style="background:#ef4444;"></span>Healthcare<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#finance"      class="ind-nav-item"><span class="ind-nav-dot" style="background:#10b981;"></span>Finance<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#retail"       class="ind-nav-item"><span class="ind-nav-dot" style="background:#f59e0b;"></span>Retail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+            <a href="#logistics"    class="ind-nav-item"><span class="ind-nav-dot" style="background:#06b6d4;"></span>Logistics<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+ 
+        <!-- Contact card -->
+        <div class="sidebar-card reveal rd2">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+              Contact Us
+            </div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg><a href="tel:+919326051900">+91 93260 51900</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605z"/></svg><a href="https://www.northasiaconsultants.com" target="_blank">northasiaconsultants.com</a></div>
+            <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+ 
+        <!-- Why Us mini -->
+        <div class="sidebar-card reveal rd3">
+          <div class="sc-pad">
+            <div class="sc-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              Why Choose Us
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;">
+                <span style="color:#0a66c2;font-weight:700;flex-shrink:0;">✓</span>
+                <span><strong>Zero cost</strong> to employers — always</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;">
+                <span style="color:#0a66c2;font-weight:700;flex-shrink:0;">✓</span>
+                <span>Industry-specialist recruiters per sector</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;">
+                <span style="color:#0a66c2;font-weight:700;flex-shrink:0;">✓</span>
+                <span>Shortlist delivered in <strong>48 hours</strong></span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;">
+                <span style="color:#0a66c2;font-weight:700;flex-shrink:0;">✓</span>
+                <span>Gulf expertise + global expansion</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#333;">
+                <span style="color:#0a66c2;font-weight:700;flex-shrink:0;">✓</span>
+                <span>Multi-stage vetting process</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /sidebar -->
+    </div><!-- /two-col -->
+  </div><!-- /page-wrap -->
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/index.html" class="logo">
+            <div class="logo-icon">N</div>
+            <div class="logo-text" style="margin-left:10px;">
+              <div class="logo-name">North Asia <span>Consultants</span></div>
+              <div class="logo-tagline">Global Recruitment Experts</div>
+            </div>
+          </a>
+          <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers.</p>
+          <div class="footer-social">
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+            <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg></a>
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+          </div>
+        </div>
+        <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/services.html">Our Services</a></li><li><a href="/industries.html">Industries</a></li><li><a href="/contact.html">Contact Us</a></li></ul></div>
+        <div class="fc"><h4>For Employers</h4><ul><li><a href="/employers.html">Post a Job</a></li><li><a href="/employers.html">Our Process</a></li><li><a href="/employers.html">Why Choose Us</a></li></ul></div>
+        <div class="fc"><h4>For Candidates</h4><ul><li><a href="/candidates.html">Browse Jobs</a></li><li><a href="/candidates.html">Submit Resume</a></li><li><a href="/candidates.html">Career Advice</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 North Asia Consultants. All rights reserved.</p>
+        <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="/sitemap.html">Sitemap</a></div>
+      </div>
+    </div>
+  </footer>
+ 
+  <script>
+    /* Mobile menu */
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+ 
+    /* Scroll progress */
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('progress').style.width = (s / h * 100) + '%';
+    }, { passive: true });
+ 
+    /* Scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+ 
+    /* Industry card stagger on load */
+    document.querySelectorAll('.ind-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity .5s ease, transform .5s ease, box-shadow .3s, border-color .3s, transform .3s';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100 + i * 80);
+    });
+ 
+    /* Filter functionality */
+    const categoryMap = {
+      energy:      ['oilgas'],
+      engineering: ['construction','logistics'],
+      tech:        ['it'],
+      services:    ['hospitality','healthcare','finance','retail']
+    };
+ 
+    function filterIndustry(cat, el) {
+      document.querySelectorAll('.fchip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+ 
+      const cards = document.querySelectorAll('.ind-card');
+      let visible = 0;
+ 
+      cards.forEach(card => {
+        const show = cat === 'all' || (categoryMap[cat] && categoryMap[cat].includes(card.id));
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+ 
+      document.getElementById('filterCount').textContent = visible + (visible === 1 ? ' industry' : ' industries');
+    }
+ 
+    /* Roles-grid hover polish */
+    document.querySelectorAll('.role-item').forEach(item => {
+      item.addEventListener('mouseenter', () => item.style.background = '#f0f7ff');
+      item.addEventListener('mouseleave', () => item.style.background = '');
+    });
+  </script>
 </body>
-</html>
+                                                                                                                                   </html>
