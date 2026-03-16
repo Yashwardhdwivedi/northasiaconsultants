@@ -1,333 +1,1047 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hire Talent | North Asia Consultants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    :root {
+      --blue: #0a66c2; --blue-dark: #004182; --blue-light: #e8f0fa;
+      --green: #057642; --white: #fff; --bg: #f3f2ef;
+      --border: #e0e0e0; --text: #191919; --muted: #666; --radius: 10px;
+    }
 
-<title>Employers | North Asia Consultants</title>
+    /* ── PROGRESS ── */
+    #progress { position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),#38bdf8);width:0%;z-index:9999; }
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes pulse   { 0%,100%{transform:scale(1)}50%{transform:scale(1.05)} }
+    @keyframes float   { 0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)} }
+    @keyframes slideIn { from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)} }
 
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    .reveal   { opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+    .reveal-l { opacity:0;transform:translateX(-24px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal-l.visible { opacity:1;transform:translateX(0); }
+    .reveal-r { opacity:0;transform:translateX(24px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal-r.visible { opacity:1;transform:translateX(0); }
+    .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+    .d4{transition-delay:.32s} .d5{transition-delay:.40s} .d6{transition-delay:.48s}
 
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    /* ── TOPBAR ── */
+    .topbar { background:var(--blue);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center; }
+    .topbar p { font-size:13px;color:rgba(255,255,255,.92);line-height:1.4; }
+    .topbar strong { color:#fff;font-weight:600; }
+    .topbar a { color:#fff;font-weight:600;font-size:13px;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.35);transition:background .2s;white-space:nowrap; }
+    .topbar a:hover { background:rgba(255,255,255,.3); }
 
-<style>
-body{
-font-family:'Inter',sans-serif;
-}
-</style>
+    /* ── NAVBAR ── */
+    nav { background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,.06); }
+    .nav-inner { max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px; }
+    .logo { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+    .logo-icon { width:36px;height:36px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0; }
+    .logo-text { line-height:1.2; }
+    .logo-name { font-size:15px;font-weight:700;color:var(--text);white-space:nowrap; }
+    .logo-name span { color:var(--blue); }
+    .logo-tagline { font-size:10px;color:var(--muted); }
+    .nav-search { flex:1;max-width:380px;position:relative; }
+    .nav-search input { width:100%;height:38px;border:1.5px solid #d0d0d0;border-radius:20px;padding:0 16px 0 38px;font-size:13px;font-family:inherit;outline:none;background:#f8f9fa;color:var(--text);transition:border-color .2s,box-shadow .2s; }
+    .nav-search input:focus { border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(10,102,194,.1); }
+    .nav-search .s-icon { position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#888; }
+    .nav-links { display:flex;align-items:center; }
+    .nav-links a { display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px;height:64px;color:var(--muted);font-size:11px;font-weight:500;gap:3px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap; }
+    .nav-links a svg { width:20px;height:20px; }
+    .nav-links a:hover, .nav-links a.active { color:var(--text);border-bottom-color:var(--text);font-weight:600; }
+    .nav-cta { display:flex;gap:8px;align-items:center;flex-shrink:0; }
+    .btn-outline-nav { padding:7px 16px;border:1.5px solid var(--blue);border-radius:20px;color:var(--blue);font-size:13px;font-weight:600;transition:all .2s; }
+    .btn-outline-nav:hover { background:var(--blue-light); }
+    .btn-solid-nav { padding:7px 16px;background:var(--blue);border-radius:20px;color:#fff;font-size:13px;font-weight:600;transition:all .2s; }
+    .btn-solid-nav:hover { background:var(--blue-dark);transform:translateY(-1px); }
+    .hamburger { display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text); }
+    #mobileMenu { display:none;background:#fff;border-top:1px solid var(--border);padding:12px 20px 20px; }
+    #mobileMenu.open { display:block;animation:fadeUp .25s ease; }
+    #mobileMenu a { display:flex;align-items:center;gap:12px;padding:12px 0;font-size:15px;color:#333;border-bottom:1px solid #f5f5f5;font-weight:500; }
+    #mobileMenu a:last-child { border:none; }
+    #mobileMenu a svg { width:18px;height:18px;color:var(--blue); }
+    .mob-cta-row { display:flex;gap:10px;margin-top:14px; }
+    .mob-cta-row a { flex:1;text-align:center;padding:10px;border-radius:20px;font-size:14px;font-weight:600; }
+    .mob-cta-row .mc-outline { border:1.5px solid var(--blue);color:var(--blue); }
+    .mob-cta-row .mc-solid  { background:var(--blue);color:#fff; }
 
+    /* ── HERO ── */
+    .hero { background:linear-gradient(135deg,#0d47a1 0%,#0a66c2 55%,#1565c0 100%);padding:56px 20px 60px;position:relative;overflow:hidden; }
+    .hero-dots  { position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none; }
+    .hero-glow  { position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
+    .hero-glow2 { position:absolute;bottom:-60px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none; }
+    .hero-inner { max-width:1200px;margin:0 auto;position:relative;z-index:2; }
+    .hero-grid  { display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:48px;align-items:start; }
+
+    /* Hero left */
+    .hero-left { padding-top:8px;animation:fadeUp .65s ease both; }
+    .hero-breadcrumb { display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:18px;flex-wrap:wrap; }
+    .hero-breadcrumb a { color:rgba(255,255,255,.65);transition:color .2s; }
+    .hero-breadcrumb a:hover { color:#fff; }
+    .hero-breadcrumb svg { width:14px;height:14px;flex-shrink:0; }
+    .hero-badge { display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:16px; }
+    .badge-dot { width:7px;height:7px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0; }
+    .hero-h1 { font-size:clamp(26px,4vw,50px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:14px; }
+    .hero-h1 em { color:#93c5fd;font-style:normal; }
+    .hero-sub { font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.82);line-height:1.7;max-width:520px;margin-bottom:28px; }
+    .hero-actions { display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px; }
+    .btn-hero-white { background:#fff;color:var(--blue);padding:13px 28px;border-radius:8px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.2); }
+    .btn-hero-white:hover { background:#e8f0fa;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25); }
+    .btn-hero-white svg { width:16px;height:16px; }
+    .btn-hero-ghost { border:1.5px solid rgba(255,255,255,.4);color:#fff;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .2s; }
+    .btn-hero-ghost:hover { background:rgba(255,255,255,.1); }
+    .btn-hero-ghost svg { width:16px;height:16px; }
+    .hero-trust { display:flex;flex-wrap:wrap;gap:16px; }
+    .trust-item { display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);font-size:13px;font-weight:500; }
+    .trust-item svg { width:16px;height:16px;color:#4ade80;flex-shrink:0; }
+
+    /* Hero right — job brief card */
+    .hero-card { background:#fff;border-radius:14px;padding:28px 24px;box-shadow:0 8px 40px rgba(0,0,0,.22);animation:fadeUp .65s .15s ease both;width:100%;box-sizing:border-box; }
+    .hc-head { display:flex;align-items:center;gap:8px;margin-bottom:6px; }
+    .hc-head svg { width:18px;height:18px;color:var(--blue); }
+    .hc-title { font-size:16px;font-weight:700;color:var(--text); }
+    .hc-sub   { font-size:12px;color:var(--muted);margin-bottom:20px; }
+    .hc-form  { display:flex;flex-direction:column;gap:10px; }
+    .hc-label { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:4px; }
+    .hc-input, .hc-select, .hc-textarea {
+      width:100%;border:1.5px solid #d0d0d0;border-radius:8px;
+      padding:10px 14px;font-size:13px;font-family:inherit;
+      outline:none;color:var(--text);transition:border-color .2s,box-shadow .2s;
+      box-sizing:border-box;
+    }
+    .hc-input:focus, .hc-select:focus, .hc-textarea:focus { border-color:var(--blue);box-shadow:0 0 0 3px rgba(10,102,194,.1); }
+    .hc-input::placeholder, .hc-textarea::placeholder { color:#bbb; }
+    .hc-select { background:#fff;cursor:pointer;height:42px; }
+    .hc-textarea { min-height:88px;resize:vertical; }
+    .hc-row2 { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+    .hc-btn { width:100%;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px; }
+    .hc-btn:hover { background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(10,102,194,.35); }
+    .hc-btn svg { width:16px;height:16px; }
+    .hc-note { font-size:11px;color:#aaa;text-align:center;margin-top:6px; }
+    .hc-divider { display:flex;align-items:center;gap:10px;margin:14px 0; }
+    .hc-divider::before,.hc-divider::after { content:'';flex:1;height:1px;background:#e8e8e8; }
+    .hc-divider span { font-size:11px;color:#bbb;font-weight:500; }
+
+    /* ── LAYOUT ── */
+    .page-wrap { max-width:1200px;margin:0 auto;padding:28px 20px; }
+    .two-col   { display:grid;grid-template-columns:1fr 290px;gap:20px;align-items:start; }
+
+    /* ── CARD BASE ── */
+    .card { background:#fff;border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:16px; }
+    .cp   { padding:22px 24px; }
+
+    /* ── SECTION HEADS ── */
+    .sec-eyebrow { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:8px;display:flex;align-items:center;gap:8px; }
+    .sec-eyebrow::before { content:'';width:24px;height:2px;background:var(--blue);flex-shrink:0; }
+    .sec-h2 { font-size:clamp(18px,2.5vw,26px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:10px; }
+    .sec-h2 em { color:var(--blue);font-style:normal; }
+    .sec-p  { font-size:14px;color:var(--muted);line-height:1.75; }
+
+    /* ── FREE MODEL HIGHLIGHT ── */
+    .free-banner { background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:28px 32px;margin-bottom:16px;position:relative;overflow:hidden; }
+    .free-banner::before { content:'';position:absolute;right:-50px;top:-50px;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%; }
+    .free-banner::after  { content:'';position:absolute;left:30px;bottom:-60px;width:160px;height:160px;background:rgba(255,255,255,.04);border-radius:50%; }
+    .fb-inner { position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center; }
+    .fb-badge { display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:4px 12px;border-radius:100px;margin-bottom:10px; }
+    .fb-badge svg { width:12px;height:12px; }
+    .fb-h { font-size:20px;font-weight:700;color:#fff;margin-bottom:6px; }
+    .fb-p { font-size:13px;color:rgba(255,255,255,.8);line-height:1.65;max-width:480px; }
+    .fb-num { text-align:center;flex-shrink:0; }
+    .fb-num .big { font-size:56px;font-weight:700;color:#fff;line-height:1; }
+    .fb-num .lbl { font-size:13px;color:rgba(255,255,255,.7);font-weight:500;margin-top:4px; }
+
+    /* ── STATS STRIP ── */
+    .stats-strip { background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0;margin-bottom:16px;overflow:hidden; }
+    .stats-row   { display:grid;grid-template-columns:repeat(4,1fr); }
+    .stat-cell   { padding:22px 20px;text-align:center;border-right:1px solid #f0f0f0; }
+    .stat-cell:last-child { border-right:none; }
+    .stat-num    { font-size:28px;font-weight:700;color:var(--blue);line-height:1;display:block; }
+    .stat-lbl    { font-size:11px;color:var(--muted);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;display:block; }
+
+    /* ── BENEFIT CARDS ── */
+    .benefit-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+    .benefit-card { background:#f8f9fa;border-radius:12px;padding:22px 18px;border:1px solid #eee;transition:all .25s;position:relative;overflow:hidden; }
+    .benefit-card::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,102,194,.04),transparent);opacity:0;transition:opacity .25s; }
+    .benefit-card:hover { border-color:rgba(10,102,194,.2);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.09); }
+    .benefit-card:hover::before { opacity:1; }
+    .bc-icon { width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px; }
+    .bc-icon svg { width:22px;height:22px; }
+    .bc-h { font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px; }
+    .bc-p { font-size:12px;color:var(--muted);line-height:1.65; }
+
+    /* ── HOW IT WORKS ── */
+    .steps-wrap { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative; }
+    .steps-line { position:absolute;top:22px;left:calc(12.5% + 16px);right:calc(12.5% + 16px);height:2px;background:linear-gradient(90deg,var(--blue),#93c5fd);z-index:0; }
+    .step { text-align:center;padding:0 6px;position:relative;z-index:1; }
+    .step-num { width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:15px;font-weight:700;background:#fff;border:2px solid var(--blue);color:var(--blue);transition:all .3s; }
+    .step-num.done { background:var(--blue);color:#fff; }
+    .step-num svg { width:18px;height:18px; }
+    .step-t { font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px; }
+    .step-d { font-size:11px;color:var(--muted);line-height:1.55; }
+
+    /* ── SERVICES ── */
+    .services-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px; }
+    .svc-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px 20px;transition:all .25s;position:relative;overflow:hidden; }
+    .svc-card::after { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--svc-color,var(--blue));transform:scaleX(0);transition:transform .3s;transform-origin:left; }
+    .svc-card:hover { transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.09);border-color:rgba(10,102,194,.2); }
+    .svc-card:hover::after { transform:scaleX(1); }
+    .svc-icon { width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:14px; }
+    .svc-icon svg { width:22px;height:22px; }
+    .svc-num  { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px; }
+    .svc-h    { font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px; }
+    .svc-p    { font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px; }
+    .svc-list { list-style:none;display:flex;flex-direction:column;gap:6px; }
+    .svc-list li { font-size:12px;color:#444;display:flex;align-items:flex-start;gap:6px; }
+    .svc-list li::before { content:'—';color:var(--svc-color,var(--blue));flex-shrink:0;font-weight:700; }
+
+    /* ── INDUSTRIES ── */
+    .ind-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:10px; }
+    .ind-item { background:#f8f9fa;border:1px solid #eee;border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s;display:block;position:relative;overflow:hidden; }
+    .ind-item::after { content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transition:transform .25s; }
+    .ind-item:hover { background:var(--blue-light);border-color:rgba(10,102,194,.2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(10,102,194,.12); }
+    .ind-item:hover::after { transform:scaleX(1); }
+    .ind-item:hover .ii-icon { background:var(--blue);color:#fff; }
+    .ii-icon { width:40px;height:40px;background:#fff;border:1px solid #e0e0e0;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;transition:all .25s; }
+    .ii-icon svg { width:18px;height:18px;color:var(--blue); }
+    .ii-label { font-size:11px;font-weight:600;color:#333;line-height:1.3; }
+
+    /* ── COMPARISON TABLE ── */
+    .compare-wrap { overflow-x:auto; }
+    .compare-table { width:100%;border-collapse:collapse;min-width:500px; }
+    .compare-table th { padding:12px 16px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:left;border-bottom:2px solid var(--border); }
+    .compare-table th:nth-child(2) { color:var(--blue);background:var(--blue-light);border-radius:8px 8px 0 0; }
+    .compare-table th:nth-child(3) { color:var(--muted); }
+    .compare-table td { padding:13px 16px;font-size:13px;border-bottom:1px solid #f5f5f5;vertical-align:middle; }
+    .compare-table tr:last-child td { border-bottom:none; }
+    .compare-table td:nth-child(2) { background:rgba(10,102,194,.03);font-weight:600; }
+    .ct-feature { font-weight:600;color:var(--text); }
+    .ct-yes  { color:var(--green);display:flex;align-items:center;gap:5px;font-weight:600; }
+    .ct-yes svg  { width:15px;height:15px; }
+    .ct-no   { color:#ccc;display:flex;align-items:center;gap:5px; }
+    .ct-no svg   { width:15px;height:15px; }
+    .ct-val  { font-weight:600; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:14px; }
+    .tc { background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:box-shadow .2s; }
+    .tc:hover { box-shadow:0 4px 20px rgba(0,0,0,.08); }
+    .tc-stars { display:flex;gap:2px;margin-bottom:10px; }
+    .tc-stars svg { width:13px;height:13px;color:#f59e0b; }
+    .tc-text  { font-size:13px;color:#333;line-height:1.7;font-style:italic;margin-bottom:14px; }
+    .tc-author { display:flex;align-items:center;gap:10px; }
+    .tc-av    { width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0; }
+    .tc-name  { font-size:13px;font-weight:700;color:var(--text); }
+    .tc-role  { font-size:11px;color:var(--muted); }
+    .tc-ind   { font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;margin-top:3px;display:inline-block; }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom:1px solid #f0f0f0; }
+    .faq-item:last-child { border:none; }
+    .faq-q { padding:16px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);transition:color .2s;user-select:none; }
+    .faq-q:hover { color:var(--blue); }
+    .faq-icon { width:24px;height:24px;border:1.5px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s; }
+    .faq-icon svg { width:12px;height:12px;color:var(--muted);transition:transform .3s; }
+    .faq-item.open .faq-icon { background:var(--blue);border-color:var(--blue); }
+    .faq-item.open .faq-icon svg { color:#fff;transform:rotate(45deg); }
+    .faq-a { font-size:13px;color:var(--muted);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s; }
+    .faq-item.open .faq-a { max-height:300px;padding-bottom:16px; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:32px 28px;margin-bottom:16px;position:relative;overflow:hidden; }
+    .cta-banner::before { content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:50%; }
+    .cta-banner::after  { content:'';position:absolute;right:60px;bottom:-50px;width:120px;height:120px;background:rgba(255,255,255,.04);border-radius:50%; }
+    .cb-inner { position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center; }
+    .cb-text h3 { font-size:18px;font-weight:700;color:#fff;margin-bottom:8px; }
+    .cb-text p  { font-size:13px;color:rgba(255,255,255,.8);line-height:1.65;max-width:480px; }
+    .cb-btns    { display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0; }
+    .btn-white  { padding:11px 22px;background:#fff;color:var(--blue);border-radius:20px;font-size:13px;font-weight:700;transition:all .2s;white-space:nowrap; }
+    .btn-white:hover  { background:#e8f0fa;transform:translateY(-1px); }
+    .btn-ghost  { padding:11px 22px;border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:20px;font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap; }
+    .btn-ghost:hover  { background:rgba(255,255,255,.1); }
+
+    /* ── SIDEBAR ── */
+    .sidebar-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px; }
+    .sp   { padding:18px 20px; }
+    .sp-title { font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px; }
+    .sp-title svg { width:16px;height:16px;color:var(--blue); }
+    .pb { display:block;width:100%;background:var(--blue);color:#fff;text-align:center;padding:11px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px;transition:all .2s; }
+    .pb:hover { background:var(--blue-dark); }
+    .ql-item { display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f8f8f8;color:#333;font-size:13px;font-weight:500;transition:color .15s; }
+    .ql-item:last-child { border:none; }
+    .ql-item:hover { color:var(--blue); }
+    .ql-item svg { width:15px;height:15px;color:var(--blue);flex-shrink:0; }
+    .ql-badge { margin-left:auto;background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px; }
+    .ci  { display:flex;align-items:center;gap:10px;font-size:13px;color:#333;margin-bottom:10px; }
+    .ci svg { width:16px;height:16px;color:var(--blue);flex-shrink:0; }
+    .ci a { color:var(--blue); }
+    .ci a:hover { text-decoration:underline; }
+    .wa-btn { display:flex;align-items:center;justify-content:center;gap:7px;background:#25d366;color:#fff;padding:10px;border-radius:20px;font-size:13px;font-weight:600;margin-top:14px;transition:background .2s; }
+    .wa-btn:hover { background:#1db954; }
+    .wa-btn svg { width:16px;height:16px; }
+    .check-list { display:flex;flex-direction:column;gap:8px; }
+    .check-row  { display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#333; }
+    .check-row svg { width:15px;height:15px;color:var(--blue);flex-shrink:0;margin-top:1px; }
+
+    /* Hire CTA sidebar */
+    .hire-cta-card { background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:22px 20px;margin-bottom:16px;text-align:center; }
+    .hire-cta-card h3 { font-size:16px;font-weight:700;color:#fff;margin-bottom:8px; }
+    .hire-cta-card p  { font-size:12px;color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:16px; }
+    .hire-cta-card a  { display:block;background:#fff;color:var(--blue);padding:10px;border-radius:20px;font-size:13px;font-weight:700;transition:all .2s; }
+    .hire-cta-card a:hover { background:#e8f0fa; }
+
+    /* ── FOOTER ── */
+    footer { background:#fff;border-top:1px solid var(--border);margin-top:20px;padding:40px 20px 24px; }
+    .footer-inner { max-width:1200px;margin:0 auto; }
+    .footer-grid { display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:28px;border-bottom:1px solid #eee; }
+    .footer-brand p { font-size:13px;color:var(--muted);line-height:1.75;margin:12px 0 16px; }
+    .footer-social { display:flex;gap:8px; }
+    .fs-btn { width:32px;height:32px;border-radius:6px;background:#f5f5f5;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#555;transition:all .2s; }
+    .fs-btn:hover { background:var(--blue);border-color:var(--blue);color:#fff; }
+    .fs-btn svg { width:14px;height:14px; }
+    .fc h4 { font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px; }
+    .fc ul { list-style:none;display:flex;flex-direction:column;gap:8px; }
+    .fc ul li a { font-size:13px;color:var(--muted);transition:color .2s; }
+    .fc ul li a:hover { color:var(--blue); }
+    .footer-bottom { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px; }
+    .footer-bottom p { font-size:12px;color:#aaa; }
+    .footer-links { display:flex;gap:16px; }
+    .footer-links a { font-size:12px;color:#888;transition:color .2s; }
+    .footer-links a:hover { color:var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px) {
+      .two-col { grid-template-columns:1fr 270px; }
+      .services-grid { grid-template-columns:1fr 1fr; }
+      .benefit-grid  { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:960px) {
+      .two-col { grid-template-columns:1fr; }
+      .sidebar { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+      .sidebar-card, .hire-cta-card { margin-bottom:0; }
+      .hero-grid { grid-template-columns:1fr;gap:32px; }
+      .hero-card { max-width:560px;margin:0 auto;width:100%; }
+      .steps-wrap { grid-template-columns:1fr 1fr;gap:16px; }
+      .steps-line { display:none; }
+      .testi-grid { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr 1fr;gap:28px; }
+      .cb-inner { grid-template-columns:1fr; }
+      .cb-btns  { justify-content:flex-start; }
+      .fb-inner { grid-template-columns:1fr; }
+      .fb-num   { text-align:left; }
+      .ind-grid { grid-template-columns:repeat(3,1fr); }
+      .stats-row { grid-template-columns:repeat(2,1fr); }
+      .stat-cell:nth-child(2) { border-right:none; }
+    }
+    @media(max-width:680px) {
+      .nav-search,.nav-links,.nav-cta { display:none; }
+      .hamburger { display:block; }
+      .nav-inner { height:56px; }
+      .benefit-grid  { grid-template-columns:1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .ind-grid { grid-template-columns:repeat(2,1fr); }
+      .sidebar { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr;gap:24px; }
+      .footer-bottom { flex-direction:column;align-items:flex-start; }
+      .page-wrap { padding:16px 14px; }
+      .hero-actions { flex-direction:column; }
+      .hc-row2 { grid-template-columns:1fr; }
+      .hero-card { padding:22px 18px; }
+    }
+    @media(max-width:420px) {
+      .ind-grid { grid-template-columns:1fr 1fr; }
+      .steps-wrap { grid-template-columns:1fr 1fr; }
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50 text-gray-800">
-
-<!-- NAVBAR -->
-
-<nav class="bg-white shadow-md fixed w-full z-50">
-
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-<h1 class="text-2xl font-bold text-blue-600">North Asia</h1>
-
-<div class="hidden md:flex space-x-8 font-medium">
-
-<a href="index.html" class="hover:text-blue-600">Home</a>
-<a href="about.html" class="hover:text-blue-600">About</a>
-<a href="services.html" class="hover:text-blue-600">Services</a>
-<a href="industries.html" class="hover:text-blue-600">Industries</a>
-<a href="candidates.html" class="hover:text-blue-600">Candidates</a>
-<a href="employers.html" class="text-blue-600 font-semibold">Employers</a>
-<a href="contact.html" class="hover:text-blue-600">Contact</a>
-
-</div>
-
-<button class="md:hidden" onclick="toggleMenu()">☰</button>
-
-</div>
-
-<div id="mobileMenu" class="hidden md:hidden bg-white px-6 pb-4">
-
-<a class="block py-2" href="index.html">Home</a>
-<a class="block py-2" href="about.html">About</a>
-<a class="block py-2" href="services.html">Services</a>
-<a class="block py-2" href="industries.html">Industries</a>
-<a class="block py-2" href="candidates.html">Candidates</a>
-<a class="block py-2" href="employers.html">Employers</a>
-<a class="block py-2" href="contact.html">Contact</a>
-
-</div>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="pt-32 pb-20 bg-blue-600 text-white text-center">
-
-<div class="max-w-4xl mx-auto px-6">
-
-<h1 class="text-4xl md:text-5xl font-bold mb-6">
-Hire Skilled Professionals
-</h1>
-
-<p class="text-lg">
-Submit your hiring requirements and our recruitment team will connect you with the best candidates.
-</p>
-
-</div>
-
-</section>
-
-<!-- FORM -->
-
-<section class="py-20">
-
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold text-center mb-10">
-Submit Hiring Requirement
-</h2>
-
-<form class="bg-white p-10 rounded-xl shadow-lg space-y-6" data-aos="fade-up">
-
-<div>
-
-<label class="block font-medium mb-2">Company Name</label>
-
-<input type="text"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Contact Person</label>
-
-<input type="text"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Email Address</label>
-
-<input type="email"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Phone Number</label>
-
-<input type="tel"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Industry</label>
-
-<select class="w-full border rounded-lg px-4 py-3">
-
-<option>Oil & Gas</option>
-<option>Construction</option>
-<option>Hospitality</option>
-<option>IT</option>
-<option>Healthcare</option>
-<option>Finance</option>
-<option>Retail</option>
-<option>Logistics</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Position / Job Title</label>
-
-<input type="text"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Number of Positions</label>
-
-<input type="number"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Job Location</label>
-
-<input type="text"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500">
-
-</div>
-
-<div>
-
-<label class="block font-medium mb-2">Job Description</label>
-
-<textarea rows="5"
-class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500"></textarea>
-
-</div>
-
-<div class="text-center">
-
-<button
-class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-
-Submit Requirement
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="py-20 bg-gray-100 text-center">
-
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold mb-6">
-Partner With Our Recruitment Experts
-</h2>
-
-<p class="mb-8">
-We help organizations hire skilled professionals quickly and efficiently.
-</p>
-
-<a href="contact.html"
-class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold">
-
-Contact Our Team
-
-</a>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="bg-gray-900 text-gray-300 py-12">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
-
-<div>
-
-<h3 class="text-xl font-bold text-white mb-4">
-North Asia Consultants
-</h3>
-
-<p>
-Connecting companies with skilled professionals
-across global industries.
-</p>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Quick Links
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-For Candidates
-</h4>
-
-<ul class="space-y-2">
-
-<li><a href="candidates.html">Submit Resume</a></li>
-
-</ul>
-
-</div>
-
-<div>
-
-<h4 class="font-semibold mb-4 text-white">
-Contact
-</h4>
-
-<p>Email: info@northasiaconsultants.com</p>
-<p>Phone: +91 98765 43210</p>
-
-</div>
-
-</div>
-
-</footer>
-
-<!-- SCRIPTS -->
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<script>
-
-AOS.init({
-duration:1000,
-once:true
-})
-
-function toggleMenu(){
-document.getElementById("mobileMenu").classList.toggle("hidden")
-}
-
-</script>
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
-  authDomain: "northasiawebsite.firebaseapp.com",
-  projectId: "northasiawebsite",
-  storageBucket: "northasiawebsite.firebasestorage.app",
-  messagingSenderId: "643873729069",
-  appId: "1:643873729069:web:01e9a5f35a0f4815ece6a4",
-  measurementId: "G-SCECS03GC3"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
-
-</script>
+<body>
+  <div id="progress"></div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <p>
+      <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+      <strong>Free for Employers</strong> — Zero recruitment fees. Pre-vetted candidates in 48 hours.
+    </p>
+    <a href="#brief-form">Post a Job →</a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/index.html" class="logo">
+        <div class="logo-icon">N</div>
+        <div class="logo-text">
+          <div class="logo-name">North Asia <span>Consultants</span></div>
+          <div class="logo-tagline">Global Recruitment Experts</div>
+        </div>
+      </a>
+      <div class="nav-search">
+        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search roles, industries, locations...">
+      </div>
+      <div class="nav-links">
+        <a href="/index.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>
+          Home
+        </a>
+        <a href="/industries.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
+          Industries
+        </a>
+        <a href="/about.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+          About
+        </a>
+        <a href="/employers.html" class="active">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15zM9 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9zm-.75 3.75A.75.75 0 019 9h1.5a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM9 12a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H9zm3.75-5.25A.75.75 0 0113.5 6H15a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>
+          Hire Talent
+        </a>
+      </div>
+      <div class="nav-cta">
+        <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
+        <a href="#brief-form" class="btn-solid-nav">Post a Job Free</a>
+      </div>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="mobileMenu">
+      <a href="/index.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69z"/></svg>Home</a>
+      <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
+      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About Us</a>
+      <a href="/candidates.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" clip-rule="evenodd"/></svg>For Candidates</a>
+      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <div class="mob-cta-row">
+        <a href="/candidates.html" class="mc-outline">Find Jobs</a>
+        <a href="#brief-form" class="mc-solid">Post a Job</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-dots"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-inner">
+      <div class="hero-grid">
+
+        <!-- Left -->
+        <div class="hero-left">
+          <div class="hero-breadcrumb">
+            <a href="/index.html">Home</a>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <span>For Employers</span>
+          </div>
+          <div class="hero-badge"><div class="badge-dot"></div>100% Free for Employers</div>
+          <h1 class="hero-h1">Hire Top <em>Gulf & Global</em><br>Talent — For Free</h1>
+          <p class="hero-sub">North Asia Consultants delivers pre-screened, interview-ready candidates across 8 industries and 6 GCC nations — with zero recruitment fees charged to your organisation, ever.</p>
+          <div class="hero-actions">
+            <a href="#brief-form" class="btn-hero-white">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15z" clip-rule="evenodd"/></svg>
+              Post a Job Brief
+            </a>
+            <a href="#how-it-works" class="btn-hero-ghost">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>
+              How It Works
+            </a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              Zero employer fees
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              Shortlist in 48 hours
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              GCC + Global coverage
+            </div>
+          </div>
+        </div>
+
+        <!-- Right — Job Brief Form -->
+        <div id="brief-form">
+          <div class="hero-card">
+            <div class="hc-head">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15z" clip-rule="evenodd"/></svg>
+              <div class="hc-title">Post a Job Brief — It's Free</div>
+            </div>
+            <div class="hc-sub">Tell us what you need. We'll deliver pre-vetted candidates within 48 hours.</div>
+            <div class="hc-form">
+              <div>
+                <div class="hc-label">Company Name</div>
+                <input class="hc-input" type="text" placeholder="Your company name">
+              </div>
+              <div class="hc-row2">
+                <div>
+                  <div class="hc-label">Your Name</div>
+                  <input class="hc-input" type="text" placeholder="Full name">
+                </div>
+                <div>
+                  <div class="hc-label">Designation</div>
+                  <input class="hc-input" type="text" placeholder="HR Manager">
+                </div>
+              </div>
+              <div>
+                <div class="hc-label">Work Email</div>
+                <input class="hc-input" type="email" placeholder="hr@yourcompany.com">
+              </div>
+              <div>
+                <div class="hc-label">Phone / WhatsApp</div>
+                <input class="hc-input" type="tel" placeholder="+971 / +91...">
+              </div>
+              <div class="hc-row2">
+                <div>
+                  <div class="hc-label">Industry</div>
+                  <select class="hc-select">
+                    <option value="">Select industry</option>
+                    <option>Oil & Gas</option>
+                    <option>Construction & Engineering</option>
+                    <option>Information Technology</option>
+                    <option>Hospitality & Tourism</option>
+                    <option>Healthcare & Life Sciences</option>
+                    <option>Finance & Banking</option>
+                    <option>Retail & Consumer Goods</option>
+                    <option>Logistics & Supply Chain</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <div class="hc-label">Country</div>
+                  <select class="hc-select">
+                    <option value="">Select country</option>
+                    <option>UAE</option>
+                    <option>Saudi Arabia</option>
+                    <option>Qatar</option>
+                    <option>Kuwait</option>
+                    <option>Bahrain</option>
+                    <option>Oman</option>
+                    <option>Asia Pacific</option>
+                    <option>Europe</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="hc-label">Job Title / Role Needed</div>
+                <input class="hc-input" type="text" placeholder="e.g. Process Engineer, ICU Nurse">
+              </div>
+              <div>
+                <div class="hc-label">Brief Details (optional)</div>
+                <textarea class="hc-textarea" placeholder="Experience required, number of positions, salary range, timeline..."></textarea>
+              </div>
+              <button class="hc-btn" onclick="handleBriefSubmit()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+                Submit Job Brief — Free
+              </button>
+              <div class="hc-note" id="briefNote">We'll respond within 24–48 hours. Zero fees, zero spam.</div>
+              <div class="hc-divider"><span>or contact us directly</span></div>
+              <div style="display:flex;gap:8px;">
+                <a href="tel:+919326051900" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#f3f2ef;border:1px solid #e0e0e0;border-radius:8px;padding:10px;font-size:13px;font-weight:600;color:#333;transition:all .2s;" onmouseover="this.style.borderColor='#0a66c2';this.style.color='#0a66c2'" onmouseout="this.style.borderColor='#e0e0e0';this.style.color='#333'">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px;"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+                  Call Us
+                </a>
+                <a href="https://wa.me/918988590035" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#f0fdf4;border:1px solid #d1fae5;border-radius:8px;padding:10px;font-size:13px;font-weight:600;color:#057642;transition:all .2s;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fdf4'">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN BODY -->
+  <div class="page-wrap">
+    <div class="two-col">
+      <div>
+
+        <!-- FREE MODEL BANNER -->
+        <div class="free-banner reveal">
+          <div class="fb-inner">
+            <div>
+              <div class="fb-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+                Our Unique Model
+              </div>
+              <div class="fb-h">Completely Free for Hiring Companies — Always</div>
+              <div class="fb-p">We charge employers absolutely nothing. No registration fees, no shortlisting fees, no placement fees. Our revenue comes solely from candidates upon successful placement — meaning our interests are fully aligned with yours: getting you the right hire, fast.</div>
+            </div>
+            <div class="fb-num">
+              <div class="big">₹0</div>
+              <div class="lbl">Cost to you</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-strip reveal">
+          <div class="stats-row">
+            <div class="stat-cell"><span class="stat-num" data-target="6">0</span><span class="stat-lbl">GCC Countries</span></div>
+            <div class="stat-cell"><span class="stat-num" data-target="8">0</span><span class="stat-lbl">Industries</span></div>
+            <div class="stat-cell"><span class="stat-num">48h</span><span class="stat-lbl">Shortlist Time</span></div>
+            <div class="stat-cell"><span class="stat-num">₹0</span><span class="stat-lbl">Employer Fees</span></div>
+          </div>
+        </div>
+
+        <!-- WHY CHOOSE US -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Why Partner With Us</div>
+            <div class="sec-h2">What Makes Us <em>Different</em></div>
+            <p class="sec-p" style="margin-bottom:20px;">Six reasons over 100 hiring companies across the Gulf trust North Asia Consultants as their recruitment partner.</p>
+            <div class="benefit-grid">
+              <div class="benefit-card d1 reveal">
+                <div class="bc-icon" style="background:#e8f0fa;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#0a66c2"><path d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/><path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 14.625v-9.75z" clip-rule="evenodd"/><path d="M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z"/></svg></div>
+                <div class="bc-h">Zero Cost Model</div>
+                <div class="bc-p">You pay nothing. No hidden charges, no placement fees. Our zero-cost model means you can hire quality talent without any budget impact.</div>
+              </div>
+              <div class="benefit-card d2 reveal">
+                <div class="bc-icon" style="background:#fff3e8;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#f97316"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg></div>
+                <div class="bc-h">48-Hour Shortlists</div>
+                <div class="bc-p">Submit your brief today — receive a curated shortlist of pre-vetted, interview-ready candidates within 48 business hours.</div>
+              </div>
+              <div class="benefit-card d3 reveal">
+                <div class="bc-icon" style="background:#f0fdf4;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#057642"><path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></div>
+                <div class="bc-h">Multi-Stage Vetting</div>
+                <div class="bc-p">Every candidate passes phone screens, video interviews, skills assessments, and reference checks before reaching your desk.</div>
+              </div>
+              <div class="benefit-card d4 reveal">
+                <div class="bc-icon" style="background:#fdf2f8;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#ec4899"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0z"/></svg></div>
+                <div class="bc-h">Gulf Region Expertise</div>
+                <div class="bc-p">Deep knowledge of GCC labor laws, visa processes, cultural fit, and salary benchmarks across all six Gulf nations.</div>
+              </div>
+              <div class="benefit-card d5 reveal">
+                <div class="bc-icon" style="background:#f3f0ff;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#8b5cf6"><path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122z"/></svg></div>
+                <div class="bc-h">Dedicated Account Manager</div>
+                <div class="bc-p">One point of contact who knows your company, understands your culture, and manages every recruitment seamlessly end-to-end.</div>
+              </div>
+              <div class="benefit-card d6 reveal">
+                <div class="bc-icon" style="background:#ecfeff;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#06b6d4"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0z"/></svg></div>
+                <div class="bc-h">Global Expansion</div>
+                <div class="bc-p">Beyond the Gulf — we're actively expanding to Asia Pacific, Europe and beyond, bringing the same zero-cost model worldwide.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="card reveal" id="how-it-works">
+          <div class="cp">
+            <div class="sec-eyebrow">The Process</div>
+            <div class="sec-h2" style="margin-bottom:24px;">How We <em>Hire For You</em></div>
+            <div class="steps-wrap">
+              <div class="steps-line"></div>
+              <div class="step">
+                <div class="step-num done"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" clip-rule="evenodd"/></svg></div>
+                <div class="step-t">Submit Brief</div>
+                <div class="step-d">Share your job requirements, timeline, and team culture</div>
+              </div>
+              <div class="step">
+                <div class="step-num done"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/></svg></div>
+                <div class="step-t">We Source & Screen</div>
+                <div class="step-d">Targeted search, multi-stage vetting, reference checks</div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-t">Receive Shortlist</div>
+                <div class="step-d">Formatted profiles delivered in 48 hours with full insights</div>
+              </div>
+              <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-t">Interview & Hire</div>
+                <div class="step-d">We arrange interviews, support negotiation, and onboarding</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUR SERVICES -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">What We Deliver</div>
+            <div class="sec-h2" style="margin-bottom:20px;">Our <em>Recruitment Services</em></div>
+            <div class="services-grid">
+              <div class="svc-card" style="--svc-color:#0a66c2;">
+                <div class="svc-icon" style="background:#e8f0fa;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#0a66c2"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/></svg></div>
+                <div class="svc-num">Service 01</div>
+                <div class="svc-h">Candidate Sourcing</div>
+                <div class="svc-p">Targeted search across our verified Gulf and global candidate database for your exact requirements.</div>
+                <ul class="svc-list">
+                  <li>Industry-specific database search</li>
+                  <li>Active & passive candidate outreach</li>
+                  <li>Role-fit pre-screening calls</li>
+                </ul>
+              </div>
+              <div class="svc-card" style="--svc-color:#057642;">
+                <div class="svc-icon" style="background:#f0fdf4;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#057642"><path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0z"/><path fill-rule="evenodd" d="M1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" clip-rule="evenodd"/></svg></div>
+                <div class="svc-num">Service 02</div>
+                <div class="svc-h">Interviews & Assessment</div>
+                <div class="svc-p">Structured competency-based screening tailored to your specific role requirements and culture.</div>
+                <ul class="svc-list">
+                  <li>Video interview screening</li>
+                  <li>Technical skills validation</li>
+                  <li>Behavioral & cultural fit assessment</li>
+                </ul>
+              </div>
+              <div class="svc-card" style="--svc-color:#f97316;">
+                <div class="svc-icon" style="background:#fff3e8;"><svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;color:#f97316"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75-6.75a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/></svg></div>
+                <div class="svc-num">Service 03</div>
+                <div class="svc-h">Candidate Profiles</div>
+                <div class="svc-p">Professionally formatted dossiers with full insights — so your team can make fast, informed decisions.</div>
+                <ul class="svc-list">
+                  <li>Formatted CV with photo</li>
+                  <li>Interview summary & strengths</li>
+                  <li>Reference check results</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INDUSTRIES WE SERVE -->
+        <div class="card reveal">
+          <div class="cp">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+              <div>
+                <div class="sec-eyebrow" style="margin-bottom:4px;">Sectors</div>
+                <div class="sec-h2">Industries We <em>Actively Place In</em></div>
+              </div>
+              <a href="/industries.html" style="font-size:13px;color:var(--blue);font-weight:600;">Explore all →</a>
+            </div>
+            <div class="ind-grid">
+              <a href="/industries.html#oilgas" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-1.5 0v4.93l-2.006.53A.75.75 0 002.984 9.5l.753-2.753A.75.75 0 004.5 7.5h15z"/><path fill-rule="evenodd" d="M3 11.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 11.25z" clip-rule="evenodd"/></svg></div><div class="ii-label">Oil & Gas</div></a>
+              <a href="/industries.html#construction" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9z" clip-rule="evenodd"/></svg></div><div class="ii-label">Construction</div></a>
+              <a href="/industries.html#it" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 5.25a3 3 0 013-3h13.5a3 3 0 013 3V15a3 3 0 01-3 3h-3v.257c0 .597.237 1.17.659 1.591l.621.622a.75.75 0 01-.53 1.28h-9a.75.75 0 01-.53-1.28l.621-.622a2.25 2.25 0 00.659-1.59V18h-3a3 3 0 01-3-3V5.25z" clip-rule="evenodd"/></svg></div><div class="ii-label">IT & Tech</div></a>
+              <a href="/industries.html#hospitality" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 3v4.046a3 3 0 00-4.277 4.204H1.5v-6A2.25 2.25 0 013.75 3h7.5z"/></svg></div><div class="ii-label">Hospitality</div></a>
+              <a href="/industries.html#healthcare" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256z"/></svg></div><div class="ii-label">Healthcare</div></a>
+              <a href="/industries.html#finance" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z"/><path fill-rule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 010 1.5H3a.75.75 0 010-1.5h.75v-9.918a.75.75 0 01.634-.74A49.109 49.109 0 0112 9z" clip-rule="evenodd"/></svg></div><div class="ii-label">Finance</div></a>
+              <a href="/industries.html#retail" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 007.5 9.75c.627.005 1.247-.178 1.75-.547.502.369 1.122.552 1.75.547a3.75 3.75 0 003.75-3.75 3.75 3.75 0 003.75 3.75z" clip-rule="evenodd"/></svg></div><div class="ii-label">Retail</div></a>
+              <a href="/industries.html#logistics" class="ind-item"><div class="ii-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25z"/></svg></div><div class="ii-label">Logistics</div></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Why Us vs Others</div>
+            <div class="sec-h2" style="margin-bottom:4px;">North Asia vs <em>Traditional Agencies</em></div>
+            <p class="sec-p" style="margin-bottom:20px;">See how our model compares to traditional recruitment agencies in the Gulf.</p>
+            <div class="compare-wrap">
+              <table class="compare-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>✦ North Asia Consultants</th>
+                    <th>Traditional Agency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td class="ct-feature">Employer Fees</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>₹0 — Free Always</span></td><td><span class="ct-val" style="color:#ef4444;">15–25% of salary</span></td></tr>
+                  <tr><td class="ct-feature">Shortlist Timeline</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Within 48 hours</span></td><td><span class="ct-val" style="color:#888;">1–3 weeks</span></td></tr>
+                  <tr><td class="ct-feature">Candidate Vetting</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Multi-stage vetting</span></td><td><span class="ct-val" style="color:#888;">CV review only</span></td></tr>
+                  <tr><td class="ct-feature">Dedicated Manager</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Yes — single contact</span></td><td><span class="ct-no"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd"/></svg>Multiple contacts</span></td></tr>
+                  <tr><td class="ct-feature">GCC Expertise</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Deep GCC focus</span></td><td><span class="ct-val" style="color:#888;">Varies</span></td></tr>
+                  <tr><td class="ct-feature">Reference Checks</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Included, always</span></td><td><span class="ct-no"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd"/></svg>Extra charge</span></td></tr>
+                  <tr><td class="ct-feature">Global Expansion</td><td><span class="ct-yes"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Asia, Europe & beyond</span></td><td><span class="ct-no"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd"/></svg>Gulf only</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">Client Stories</div>
+            <div class="sec-h2" style="margin-bottom:18px;">What <em>Employers</em> Say</div>
+            <div class="testi-grid">
+              <div class="tc">
+                <div class="tc-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg></div>
+                <div class="tc-text">"North Asia Consultants understood our urgent staffing needs and delivered pre-vetted engineers within days. The zero-cost model was a genuine surprise — and the quality was exceptional."</div>
+                <div class="tc-author">
+                  <div class="tc-av" style="background:#f97316;">HR</div>
+                  <div>
+                    <div class="tc-name">HR Director</div>
+                    <div class="tc-role">Energy Company, Abu Dhabi</div>
+                    <div class="tc-ind" style="background:#fff3e8;color:#f97316;">Oil & Gas</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tc">
+                <div class="tc-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg></div>
+                <div class="tc-text">"We needed a full finance team in Riyadh within two weeks — North Asia delivered every single position on time, on spec, with zero recruitment costs. Incredible service."</div>
+                <div class="tc-author">
+                  <div class="tc-av" style="background:#10b981;">CF</div>
+                  <div>
+                    <div class="tc-name">Chief Financial Officer</div>
+                    <div class="tc-role">Financial Group, Riyadh</div>
+                    <div class="tc-ind" style="background:#ecfdf5;color:#10b981;">Finance</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card reveal">
+          <div class="cp">
+            <div class="sec-eyebrow">FAQs</div>
+            <div class="sec-h2" style="margin-bottom:20px;">Employer <em>FAQs</em></div>
+            <div id="faqList">
+              <div class="faq-item open">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  Is it truly free? What's the catch?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">There is no catch. We charge employers absolutely zero — no registration fees, no shortlisting fees, no placement fees. Our business model earns revenue from candidates upon successful placement. This fully aligns our incentives with yours: we only succeed when you make a great hire.</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  How quickly will I receive a shortlist?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">For most roles, you'll receive a shortlist of pre-vetted, interview-ready candidates within 48 business hours of submitting your job brief. For highly specialized or niche roles, it may take slightly longer to ensure quality — we'll always communicate expected timelines upfront.</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  What does "pre-vetted" actually mean?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">Every candidate on your shortlist has completed: an initial CV review, a phone or video screening call, a technical or skills assessment relevant to the role, and a reference check. We also verify qualifications and certifications. Only candidates who pass all stages are presented to you.</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  Do you handle visa and relocation for international candidates?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">We provide comprehensive guidance on GCC employment visa requirements, documentation checklists, and typical relocation packages. While the formal visa application is the employer's responsibility, we advise throughout the process and ensure candidates are prepared with all required documents.</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  What if a placed candidate doesn't work out?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">We maintain regular contact post-placement to ensure both employer and candidate satisfaction. If a candidate placed by us doesn't work out within the agreed probationary period, we will re-engage our search and provide replacement candidates at no additional charge.</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  Can you help with bulk or multiple hires?
+                  <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                </div>
+                <div class="faq-a">Absolutely. We regularly handle multi-position briefs — whether it's staffing an entire department, a project team, or ongoing rolling hires. Please mention your volume requirement in the job brief and your dedicated account manager will tailor a plan accordingly.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA BANNER -->
+        <div class="cta-banner reveal">
+          <div class="cb-inner">
+            <div class="cb-text">
+              <h3>Ready to Hire? Post Your Job Brief Today</h3>
+              <p>It takes under 2 minutes to submit a brief. We'll handle everything from sourcing to shortlist — completely free.</p>
+            </div>
+            <div class="cb-btns">
+              <a href="#brief-form" class="btn-white">Post a Job — Free</a>
+              <a href="/contact.html" class="btn-ghost">Talk to Us</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /main -->
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+
+        <!-- CTA -->
+        <div class="hire-cta-card reveal">
+          <h3>Post a Job Brief</h3>
+          <p>Fill in your requirements above and receive a pre-vetted shortlist within 48 hours — completely free.</p>
+          <a href="#brief-form">Submit Job Brief →</a>
+        </div>
+
+        <!-- Why Free -->
+        <div class="sidebar-card reveal d1">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>
+              What Employers Get
+            </div>
+            <div class="check-list">
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Zero cost — ever</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Shortlist in 48 hours</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Multi-stage vetted candidates</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Reference checks included</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Dedicated account manager</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Visa & relocation guidance</div>
+              <div class="check-row"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>Replacement guarantee</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="sidebar-card reveal d2">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+              Speak to Us
+            </div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg><a href="tel:+919326051900">+91 93260 51900</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/></svg><a href="https://www.northasiaconsultants.com" target="_blank">northasiaconsultants.com</a></div>
+            <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="sidebar-card reveal d3">
+          <div class="sp">
+            <div class="sp-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" clip-rule="evenodd"/></svg>
+              Quick Links
+            </div>
+            <a href="/index.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69z"/></svg>Homepage</a>
+            <a href="/industries.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries We Serve</a>
+            <a href="/about.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About Us</a>
+            <a href="/candidates.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" clip-rule="evenodd"/></svg>For Job Seekers</a>
+            <a href="/contact.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact Us</a>
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/index.html" class="logo">
+            <div class="logo-icon">N</div>
+            <div class="logo-text" style="margin-left:10px;">
+              <div class="logo-name">North Asia <span>Consultants</span></div>
+              <div class="logo-tagline">Global Recruitment Experts</div>
+            </div>
+          </a>
+          <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers. Delivering excellence in global recruitment.</p>
+          <div class="footer-social">
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+            <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487z"/></svg></a>
+            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24z"/></svg></a>
+            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+          </div>
+        </div>
+        <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/industries.html">Industries</a></li><li><a href="/contact.html">Contact Us</a></li></ul></div>
+        <div class="fc"><h4>For Employers</h4><ul><li><a href="#brief-form">Post a Job</a></li><li><a href="#how-it-works">Our Process</a></li><li><a href="/industries.html">Industries</a></li></ul></div>
+        <div class="fc"><h4>For Candidates</h4><ul><li><a href="/candidates.html">Submit Resume</a></li><li><a href="/jobs.html">Browse Jobs</a></li><li><a href="/about.html">About Us</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 North Asia Consultants. All rights reserved.</p>
+        <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+    window.addEventListener('scroll', () => {
+      const s = document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('progress').style.width = (s / h * 100) + '%';
+    }, { passive: true });
+
+    /* Scroll reveal */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => obs.observe(el));
+
+    /* Counter animation */
+    const cobs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          const t = parseInt(el.dataset.target);
+          let c = 0;
+          const tick = setInterval(() => {
+            c = Math.min(c + 1, t);
+            el.textContent = c + '+';
+            if (c >= t) clearInterval(tick);
+          }, 80);
+        });
+        cobs.unobserve(e.target);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stats-strip').forEach(el => cobs.observe(el));
+
+    /* Stagger benefit cards */
+    const bcObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.benefit-card').forEach((c, i) => {
+          c.style.opacity = '0'; c.style.transform = 'translateY(16px)';
+          c.style.transition = 'opacity .5s ease, transform .5s ease, border-color .25s, box-shadow .25s';
+          setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }, i * 80);
+        });
+        bcObs.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.benefit-grid').forEach(g => bcObs.observe(g));
+
+    /* Stagger ind items */
+    const indObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.ind-item').forEach((p, i) => {
+          p.style.opacity = '0'; p.style.transform = 'translateY(12px)';
+          p.style.transition = 'opacity .4s ease, transform .4s ease, background .25s, border-color .25s';
+          setTimeout(() => { p.style.opacity = '1'; p.style.transform = 'translateY(0)'; }, i * 50);
+        });
+        indObs.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.ind-grid').forEach(g => indObs.observe(g));
+
+    /* FAQ toggle */
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* Form submit */
+    function handleBriefSubmit() {
+      const btn = document.querySelector('.hc-btn');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg> Brief Submitted!';
+      btn.style.background = '#057642';
+      document.getElementById('briefNote').textContent = "Thank you! We'll reach out within 24–48 hours with your shortlist.";
+    }
+  </script>
 </body>
 </html>
