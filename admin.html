@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | North Asia Consultants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ═══════════════════════════════════════════════════════
+       FIREBASE CONFIG — LIVE & CONFIGURED ✅
+  ═══════════════════════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc, serverTimestamp, query, orderBy }
+      from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    // ✅ YOUR LIVE FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
+      authDomain:        "northasiawebsite.firebaseapp.com",
+      projectId:         "northasiawebsite",
+      storageBucket:     "northasiawebsite.firebasestorage.app",
+      messagingSenderId: "643873729069",
+      appId:             "1:643873729069:web:01e9a5f35a0f4815ece6a4",
+      measurementId:     "G-SCECS03GC3"
+    };
+
+    // ── AUTHORIZED ADMIN EMAILS ──────────────────────────────
+    // Add the Gmail addresses you use to sign in with Google
+    const ADMIN_EMAILS = [
+      "tanujdhiman2003@gmail.com",   // ← replace with Tanuj's actual Gmail
+      "yashwardhandwivedi@gmail.com", // ← replace with Yash's actual Gmail
+    ];
+    // ────────────────────────────────────────────────────────
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    let editingJobId = null;
+
+    // ── AUTH STATE ───────────────────────────────────────────
+    onAuthStateChanged(auth, user => {
+      if (user && ADMIN_EMAILS.includes(user.email)) {
+        showDashboard(user);
+        loadJobs();
+      } else if (user) {
+        // Signed in but not an admin
+        signOut(auth);
+        showError("Access denied. Your Google account (" + user.email + ") is not an authorised admin.");
+      } else {
+        showLogin();
+      }
+    });
+
+    // ── SIGN IN ──────────────────────────────────────────────
+    window.handleGoogleSignIn = async () => {
+      const btn = document.getElementById('signInBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Signing in...';
+      try {
+        await signInWithPopup(auth, provider);
+      } catch(e) {
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Sign in with Google';
+        showError('Sign-in failed: ' + e.message);
+      }
+    };
+
+    // ── SIGN OUT ─────────────────────────────────────────────
+    window.handleSignOut = () => signOut(auth);
+
+    // ── SAVE JOB ─────────────────────────────────────────────
+    window.saveJob = async () => {
+      const btn = document.getElementById('saveJobBtn');
+      const fields = ['jobTitle','jobCompany','jobLocation','jobCountry','jobIndustry',
+                      'jobType','jobSalaryMin','jobSalaryMax','jobCurrency','jobExperience',
+                      'jobDeadline','jobDescription','jobRequirements','jobBenefits',
+                      'jobVisa','jobStatus','jobSkills'];
+
+      const data = {};
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id.replace('job','')] = el.value.trim();
+      });
+
+      // Validate required
+      const required = ['jobTitle','jobLocation','jobCountry','jobIndustry','jobType','jobDescription'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          el.classList.add('input-error');
+          valid = false;
+          setTimeout(() => el.classList.remove('input-error'), 2500);
+        }
+      });
+      if (!valid) { showToast('Please fill all required fields', 'error'); return; }
+
+      // Skills as array
+      data.skillsArray = data.Skills ? data.Skills.split(',').map(s => s.trim()).filter(Boolean) : [];
+      data.postedBy    = auth.currentUser.email;
+      data.postedAt    = serverTimestamp();
+      data.updatedAt   = serverTimestamp();
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Saving...';
+
+      try {
+        if (editingJobId) {
+          await updateDoc(doc(db, 'jobs', editingJobId), data);
+          showToast('✅ Job updated successfully!', 'success');
+          editingJobId = null;
+        } else {
+          await addDoc(collection(db, 'jobs'), data);
+          showToast('✅ Job posted successfully!', 'success');
+        }
+        resetForm();
+        loadJobs();
+        switchTab('tab-list');
+      } catch(e) {
+        showToast('Error: ' + e.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg> ' + (editingJobId ? 'Update Job' : 'Publish Job');
+      }
+    };
+
+    // ── LOAD JOBS ────────────────────────────────────────────
+    window.loadJobs = async () => {
+      const list = document.getElementById('jobsList');
+      list.innerHTML = '<div class="loading-jobs"><span class="spinner-dark"></span> Loading jobs...</div>';
+      try {
+        const q = query(collection(db, 'jobs'), orderBy('postedAt', 'desc'));
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          list.innerHTML = '<div class="empty-state"><div class="es-icon">📋</div><p>No jobs posted yet.<br>Click "Post New Job" to get started.</p></div>';
+          updateStats(0, 0, 0);
+          return;
+        }
+        let active = 0, draft = 0;
+        list.innerHTML = '';
+        snap.forEach(d => {
+          const j = d.data();
+          if (j.Status === 'active') active++;
+          else draft++;
+          list.innerHTML += buildJobCard(d.id, j);
+        });
+        updateStats(snap.size, active, draft);
+      } catch(e) {
+        list.innerHTML = '<div class="empty-state"><p>Error loading jobs: ' + e.message + '</p></div>';
+      }
+    };
+
+    // ── DELETE JOB ───────────────────────────────────────────
+    window.deleteJob = async (id) => {
+      if (!confirm('Delete this job listing? This cannot be undone.')) return;
+      try {
+        await deleteDoc(doc(db, 'jobs', id));
+        showToast('Job deleted.', 'success');
+        loadJobs();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    };
+
+    // ── EDIT JOB ─────────────────────────────────────────────
+    window.editJob = async (id) => {
+      const snap = await getDocs(collection(db, 'jobs'));
+      snap.forEach(d => {
+        if (d.id === id) {
+          const j = d.data();
+          editingJobId = id;
+          const map = {
+            jobTitle: j.Title, jobCompany: j.Company, jobLocation: j.Location,
+            jobCountry: j.Country, jobIndustry: j.Industry, jobType: j.Type,
+            jobSalaryMin: j.SalaryMin, jobSalaryMax: j.SalaryMax, jobCurrency: j.Currency,
+            jobExperience: j.Experience, jobDeadline: j.Deadline,
+            jobDescription: j.Description, jobRequirements: j.Requirements,
+            jobBenefits: j.Benefits, jobVisa: j.Visa, jobStatus: j.Status,
+            jobSkills: j.Skills
+          };
+          Object.entries(map).forEach(([elId, val]) => {
+            const el = document.getElementById(elId);
+            if (el && val) el.value = val;
+          });
+          document.getElementById('formHeading').textContent = 'Edit Job';
+          document.getElementById('saveJobBtn').innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg> Update Job';
+          switchTab('tab-post');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    };
+
+    // ── TOGGLE STATUS ─────────────────────────────────────────
+    window.toggleStatus = async (id, currentStatus) => {
+      const newStatus = currentStatus === 'active' ? 'draft' : 'active';
+      try {
+        await updateDoc(doc(db, 'jobs', id), { Status: newStatus, updatedAt: serverTimestamp() });
+        showToast(`Job set to ${newStatus}.`, 'success');
+        loadJobs();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    };
+
+    // ── HELPERS ──────────────────────────────────────────────
+    function showDashboard(user) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display   = 'block';
+      document.getElementById('adminName').textContent  = user.displayName || user.email;
+      document.getElementById('adminEmail').textContent = user.email;
+      document.getElementById('adminAvatar').textContent = (user.displayName || user.email).charAt(0).toUpperCase();
+    }
+
+    function showLogin() {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('dashboard').style.display   = 'none';
+    }
+
+    function showError(msg) {
+      document.getElementById('loginError').textContent = msg;
+      document.getElementById('loginError').style.display = 'block';
+    }
+
+    function updateStats(total, active, draft) {
+      document.getElementById('statTotal').textContent  = total;
+      document.getElementById('statActive').textContent = active;
+      document.getElementById('statDraft').textContent  = draft;
+    }
+
+    function resetForm() {
+      document.getElementById('jobForm').reset();
+      editingJobId = null;
+      document.getElementById('formHeading').textContent = 'Post New Job';
+      document.getElementById('saveJobBtn').innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg> Publish Job';
+    }
+    window.resetForm = resetForm;
+
+    function buildJobCard(id, j) {
+      const isActive = j.Status === 'active';
+      const date = j.postedAt?.toDate ? j.postedAt.toDate().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) : 'Just now';
+      const salary = j.SalaryMin && j.SalaryMax ? `${j.Currency || '₹'}${j.SalaryMin}–${j.SalaryMax}` : j.SalaryMin ? `${j.Currency || '₹'}${j.SalaryMin}+` : 'Salary not specified';
+      return `
+        <div class="job-card" id="jc-${id}">
+          <div class="jc-header">
+            <div class="jc-left">
+              <div class="jc-avatar">${(j.Title || 'J').charAt(0)}</div>
+              <div>
+                <div class="jc-title">${j.Title || 'Untitled'}</div>
+                <div class="jc-meta">
+                  <span>${j.Company || 'North Asia Consultants'}</span>
+                  <span class="dot">·</span>
+                  <span>📍 ${j.Location || ''}, ${j.Country || ''}</span>
+                  <span class="dot">·</span>
+                  <span>${j.Industry || ''}</span>
+                </div>
+              </div>
+            </div>
+            <div class="jc-right">
+              <span class="status-badge ${isActive ? 'active' : 'draft'}">${isActive ? '● Active' : '○ Draft'}</span>
+            </div>
+          </div>
+          <div class="jc-body">
+            <div class="jc-chips">
+              <span class="chip">${j.Type || 'Full-time'}</span>
+              <span class="chip">${salary}</span>
+              <span class="chip">${j.Experience || ''}</span>
+              ${j.Visa === 'yes' ? '<span class="chip chip-green">✈ Visa Sponsored</span>' : ''}
+            </div>
+            ${j.skillsArray && j.skillsArray.length ? `<div class="jc-skills">${j.skillsArray.slice(0,5).map(s => `<span class="skill-tag">${s}</span>`).join('')}${j.skillsArray.length > 5 ? `<span class="skill-tag">+${j.skillsArray.length-5}</span>` : ''}</div>` : ''}
+          </div>
+          <div class="jc-footer">
+            <span class="jc-date">Posted ${date}</span>
+            <div class="jc-actions">
+              <button class="jc-btn" onclick="toggleStatus('${id}','${j.Status}')">${isActive ? '⏸ Set Draft' : '▶ Activate'}</button>
+              <button class="jc-btn jc-btn-blue" onclick="editJob('${id}')">✏ Edit</button>
+              <button class="jc-btn jc-btn-red" onclick="deleteJob('${id}')">🗑 Delete</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast show ' + type;
+      setTimeout(() => t.className = 'toast', 3000);
+    }
+    window.showToast = showToast;
+
+    window.switchTab = (tabId) => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+      if (tabId === 'tab-list') loadJobs();
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; background: #f0f2f5; color: #1a1a1a; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+    :root {
+      --blue: #0a66c2;
+      --blue-dark: #004182;
+      --blue-light: #e8f0fa;
+      --green: #057642;
+      --red: #dc2626;
+      --border: #e0e0e0;
+      --text: #1a1a1a;
+      --muted: #64748b;
+      --radius: 10px;
+      --sidebar-w: 240px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideIn { from { transform:translateX(100px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+
+    .spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; border-radius:50%; animation:spin .6s linear infinite; vertical-align:-3px; margin-right:6px; }
+    .spinner-dark { display:inline-block; width:16px; height:16px; border:2px solid #ddd; border-top-color:var(--blue); border-radius:50%; animation:spin .6s linear infinite; vertical-align:-3px; margin-right:8px; }
+
+    /* ── LOGIN SCREEN ─────────────────────────────────────── */
+    #loginScreen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d47a1 0%, #0a66c2 60%, #1565c0 100%);
+      position: relative; overflow: hidden;
+    }
+    #loginScreen::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size:30px 30px; }
+
+    .login-card {
+      background: #fff; border-radius: 16px; padding: 44px 40px;
+      width: 100%; max-width: 400px; text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      position: relative; z-index: 2;
+      animation: fadeIn .5s ease both;
+    }
+    .login-logo { width: 60px; height: 60px; background: var(--blue); border-radius: 14px; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:700; color:#fff; margin: 0 auto 18px; }
+    .login-card h1 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .login-card p { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+    #loginError { background:#fef2f2; color:#b91c1c; border:1px solid #fecaca; padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; display:none; }
+
+    #signInBtn {
+      width:100%; padding:13px; background:#fff; border:1.5px solid #e0e0e0;
+      border-radius:10px; font-size:14px; font-weight:600; color:#333;
+      cursor:pointer; font-family:inherit; transition:all .2s;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    #signInBtn:hover { background:#f8f9fa; border-color:#bbb; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    #signInBtn:disabled { opacity:.6; cursor:not-allowed; }
+
+    .login-note { font-size:11px; color:#aaa; margin-top:16px; line-height:1.6; }
+
+    /* ── DASHBOARD LAYOUT ─────────────────────────────────── */
+    #dashboard { display: none; min-height: 100vh; }
+
+    /* Topbar */
+    .admin-topbar {
+      background: #fff; border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top:0; z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .at-left { display:flex; align-items:center; gap:12px; }
+    .at-logo { width:34px; height:34px; background:var(--blue); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:15px; }
+    .at-brand { font-size:14px; font-weight:700; color:var(--text); }
+    .at-brand span { color:var(--blue); }
+    .at-sep { color:#ddd; margin:0 4px; }
+    .at-page { font-size:13px; color:var(--muted); font-weight:500; }
+
+    .at-right { display:flex; align-items:center; gap:14px; }
+    .admin-info { display:flex; align-items:center; gap:10px; }
+    .admin-avatar { width:34px; height:34px; background:linear-gradient(135deg,var(--blue),var(--blue-dark)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#fff; }
+    .admin-details { line-height:1.3; }
+    .admin-details .name { font-size:13px; font-weight:600; color:var(--text); }
+    .admin-details .email { font-size:11px; color:var(--muted); }
+
+    .signout-btn { padding:7px 14px; background:#f8f9fa; border:1.5px solid var(--border); border-radius:20px; font-size:12px; font-weight:600; color:#555; cursor:pointer; font-family:inherit; transition:all .2s; }
+    .signout-btn:hover { background:#fff0f0; border-color:#fca5a5; color:var(--red); }
+
+    /* Stats bar */
+    .stats-bar { background:#fff; border-bottom:1px solid var(--border); padding:16px 24px; display:flex; gap:24px; flex-wrap:wrap; }
+    .stat-item { display:flex; align-items:center; gap:10px; }
+    .stat-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+    .stat-icon.blue { background:var(--blue-light); color:var(--blue); }
+    .stat-icon.green { background:#f0fdf4; color:#16a34a; }
+    .stat-icon.amber { background:#fffbeb; color:#d97706; }
+    .stat-icon svg { width:18px; height:18px; }
+    .stat-num { font-size:20px; font-weight:700; color:var(--text); line-height:1; }
+    .stat-lbl { font-size:11px; color:var(--muted); font-weight:500; }
+    .stat-divider { width:1px; background:var(--border); height:32px; }
+
+    /* Tabs */
+    .tabs-nav { background:#fff; border-bottom:1px solid var(--border); padding:0 24px; display:flex; gap:0; }
+    .tab-btn { padding:14px 18px; font-size:13px; font-weight:600; color:var(--muted); border-bottom:2px solid transparent; cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:7px; background:none; border-top:none; border-left:none; border-right:none; font-family:inherit; }
+    .tab-btn svg { width:15px; height:15px; }
+    .tab-btn:hover { color:var(--text); }
+    .tab-btn.active { color:var(--blue); border-bottom-color:var(--blue); }
+
+    /* Content */
+    .tab-content { max-width:980px; margin:24px auto; padding:0 24px 48px; }
+    .tab-pane { display:none; animation:fadeIn .3s ease; }
+    .tab-pane.active { display:block; }
+
+    /* ── JOB FORM ─────────────────────────────────────────── */
+    .form-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .form-card-header { padding:20px 24px; border-bottom:1px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; }
+    .form-card-header h2 { font-size:16px; font-weight:700; color:var(--text); display:flex; align-items:center; gap:8px; }
+    .form-card-header h2 svg { width:18px; height:18px; color:var(--blue); }
+    .reset-btn { padding:6px 14px; background:#f8f9fa; border:1px solid var(--border); border-radius:20px; font-size:12px; font-weight:600; color:#555; cursor:pointer; font-family:inherit; transition:all .2s; }
+    .reset-btn:hover { background:#fff0f0; color:var(--red); border-color:#fca5a5; }
+
+    .form-body { padding:24px; }
+    .form-section { margin-bottom:24px; }
+    .form-section-title { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.07em; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f5f5f5; display:flex; align-items:center; gap:6px; }
+    .form-section-title svg { width:13px; height:13px; }
+
+    .form-row { display:grid; gap:14px; margin-bottom:14px; }
+    .form-row.col-2 { grid-template-columns:1fr 1fr; }
+    .form-row.col-3 { grid-template-columns:1fr 1fr 1fr; }
+    .form-row.col-4 { grid-template-columns:1fr 1fr 1fr 1fr; }
+
+    .form-group label { display:block; font-size:12px; font-weight:600; color:#444; margin-bottom:5px; }
+    .form-group label .req { color:#ef4444; margin-left:2px; }
+    .form-group label .optional { font-weight:400; color:#aaa; margin-left:4px; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width:100%; padding:9px 12px; border:1.5px solid #d8d8d8;
+      border-radius:8px; font-size:13px; font-family:inherit;
+      color:var(--text); background:#fafafa; outline:none;
+      transition:border-color .2s, box-shadow .2s, background .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(10,102,194,0.08); }
+    .form-group input.input-error { border-color:#ef4444; box-shadow:0 0 0 3px rgba(239,68,68,0.1); }
+    .form-group textarea { resize:vertical; min-height:100px; }
+    .form-group select { cursor:pointer; }
+    .form-group .hint { font-size:11px; color:#aaa; margin-top:4px; line-height:1.5; }
+
+    /* Status toggle */
+    .status-toggle { display:flex; gap:0; border:1.5px solid var(--border); border-radius:8px; overflow:hidden; }
+    .status-opt { flex:1; padding:8px; font-size:12px; font-weight:600; text-align:center; cursor:pointer; transition:all .2s; border:none; font-family:inherit; background:#fafafa; color:#666; }
+    .status-opt.sel-active { background:var(--blue); color:#fff; }
+    .status-opt.sel-draft  { background:#f59e0b; color:#fff; }
+
+    /* Submit */
+    .form-actions { display:flex; gap:10px; align-items:center; padding:20px 24px; border-top:1px solid #f0f0f0; }
+    #saveJobBtn { padding:11px 24px; background:var(--blue); color:#fff; border:none; border-radius:20px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; transition:all .2s; display:flex; align-items:center; gap:7px; }
+    #saveJobBtn:hover { background:var(--blue-dark); transform:translateY(-1px); box-shadow:0 4px 14px rgba(10,102,194,0.3); }
+    #saveJobBtn:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .preview-note { font-size:12px; color:var(--muted); }
+
+    /* ── JOB LIST ─────────────────────────────────────────── */
+    .list-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+    .list-header h2 { font-size:16px; font-weight:700; color:var(--text); }
+    .refresh-btn { padding:7px 14px; background:var(--blue-light); border:1px solid rgba(10,102,194,0.2); border-radius:20px; font-size:12px; font-weight:600; color:var(--blue); cursor:pointer; font-family:inherit; transition:all .2s; }
+    .refresh-btn:hover { background:var(--blue); color:#fff; }
+
+    .job-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; overflow:hidden; transition:box-shadow .2s; animation:fadeIn .3s ease; }
+    .job-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+
+    .jc-header { display:flex; align-items:flex-start; justify-content:space-between; padding:16px 18px 12px; gap:12px; }
+    .jc-left { display:flex; align-items:flex-start; gap:12px; }
+    .jc-avatar { width:42px; height:42px; background:linear-gradient(135deg,var(--blue),var(--blue-dark)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:#fff; flex-shrink:0; }
+    .jc-title { font-size:15px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .jc-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:12px; color:var(--muted); }
+    .jc-meta .dot { color:#ccc; }
+
+    .status-badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:100px; flex-shrink:0; }
+    .status-badge.active { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
+    .status-badge.draft  { background:#fffbeb; color:#d97706; border:1px solid #fde68a; }
+
+    .jc-body { padding:0 18px 12px; }
+    .jc-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+    .chip { background:#f5f5f5; border:1px solid #eee; color:#555; font-size:11px; font-weight:500; padding:3px 10px; border-radius:100px; }
+    .chip-green { background:#f0fdf4; color:#16a34a; border-color:#bbf7d0; }
+    .jc-skills { display:flex; flex-wrap:wrap; gap:5px; }
+    .skill-tag { background:var(--blue-light); color:var(--blue); font-size:11px; font-weight:500; padding:2px 9px; border-radius:100px; }
+
+    .jc-footer { display:flex; align-items:center; justify-content:space-between; padding:10px 18px; background:#fafafa; border-top:1px solid #f5f5f5; }
+    .jc-date { font-size:11px; color:#aaa; }
+    .jc-actions { display:flex; gap:6px; }
+    .jc-btn { padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; transition:all .2s; border:1.5px solid var(--border); background:#fff; color:#444; }
+    .jc-btn:hover { background:#f5f5f5; }
+    .jc-btn-blue { border-color:rgba(10,102,194,0.3); color:var(--blue); background:var(--blue-light); }
+    .jc-btn-blue:hover { background:var(--blue); color:#fff; }
+    .jc-btn-red { border-color:#fecaca; color:var(--red); background:#fef2f2; }
+    .jc-btn-red:hover { background:var(--red); color:#fff; }
+
+    .loading-jobs, .empty-state { text-align:center; padding:48px 24px; color:var(--muted); font-size:14px; }
+    .empty-state .es-icon { font-size:40px; margin-bottom:12px; }
+    .empty-state p { line-height:1.7; }
+
+    /* ── TOAST ────────────────────────────────────────────── */
+    .toast { position:fixed; bottom:24px; right:24px; padding:12px 20px; border-radius:10px; font-size:13px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,0.15); z-index:9999; opacity:0; transition:opacity .3s, transform .3s; transform:translateY(10px); pointer-events:none; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    .toast.success { background:#1a1a1a; color:#fff; }
+    .toast.error { background:#dc2626; color:#fff; }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .form-row.col-2, .form-row.col-3, .form-row.col-4 { grid-template-columns:1fr; }
+      .tab-content { padding:0 14px 48px; }
+      .stats-bar { gap:12px; }
+      .stat-divider { display:none; }
+      .at-page { display:none; }
+      .admin-details { display:none; }
+      .jc-header { flex-direction:column; gap:8px; }
+      .jc-actions { flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LOGIN SCREEN
+  ═══════════════════════════════════════════════════════ -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">N</div>
+      <h1>Admin Panel</h1>
+      <p>North Asia Consultants<br>Sign in with your authorised Google account to access the dashboard.</p>
+      <div id="loginError"></div>
+      <button id="signInBtn" onclick="handleGoogleSignIn()">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Sign in with Google
+      </button>
+      <p class="login-note">🔒 Only authorised admin emails can access this panel.<br>Unauthorised access attempts are blocked.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       DASHBOARD
+  ═══════════════════════════════════════════════════════ -->
+  <div id="dashboard">
+
+    <!-- Topbar -->
+    <div class="admin-topbar">
+      <div class="at-left">
+        <div class="at-logo">N</div>
+        <div class="at-brand">North Asia <span>Consultants</span></div>
+        <div class="at-sep">|</div>
+        <div class="at-page">Admin Panel</div>
+      </div>
+      <div class="at-right">
+        <div class="admin-info">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div class="admin-details">
+            <div class="name" id="adminName">Admin</div>
+            <div class="email" id="adminEmail"></div>
+          </div>
+        </div>
+        <button class="signout-btn" onclick="handleSignOut()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-icon blue">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="stat-num" id="statTotal">0</div>
+          <div class="stat-lbl">Total Jobs</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-icon green">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="stat-num" id="statActive">0</div>
+          <div class="stat-lbl">Active Jobs</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-icon amber">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="stat-num" id="statDraft">0</div>
+          <div class="stat-lbl">Drafts</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item" style="margin-left:auto;">
+        <a href="/" target="_blank" style="font-size:12px;color:var(--blue);font-weight:600;text-decoration:none;">← View Website</a>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-nav">
+      <button class="tab-btn" data-tab="tab-list" onclick="switchTab('tab-list')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.625 6.75a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0A.75.75 0 018.25 6h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75zM2.625 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zM7.5 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12A.75.75 0 017.5 12zm-4.875 5.25a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>
+        Manage Jobs
+      </button>
+      <button class="tab-btn active" data-tab="tab-post" onclick="switchTab('tab-post')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
+        Post New Job
+      </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+
+      <!-- ── MANAGE JOBS TAB ─────────────────────────────── -->
+      <div class="tab-pane" id="tab-list">
+        <div class="list-header">
+          <h2>All Job Listings</h2>
+          <button class="refresh-btn" onclick="loadJobs()">↻ Refresh</button>
+        </div>
+        <div id="jobsList">
+          <div class="loading-jobs"><span class="spinner-dark"></span> Loading jobs...</div>
+        </div>
+      </div>
+
+      <!-- ── POST JOB TAB ────────────────────────────────── -->
+      <div class="tab-pane active" id="tab-post">
+        <div class="form-card">
+          <div class="form-card-header">
+            <h2>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd"/></svg>
+              <span id="formHeading">Post New Job</span>
+            </h2>
+            <button class="reset-btn" onclick="resetForm()">✕ Clear Form</button>
+          </div>
+
+          <form class="form-body" id="jobForm" onsubmit="return false;">
+
+            <!-- BASIC INFO -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/></svg>
+                Basic Information
+              </div>
+              <div class="form-row col-2">
+                <div class="form-group">
+                  <label>Job Title <span class="req">*</span></label>
+                  <input type="text" id="jobTitle" placeholder="e.g. Senior Civil Engineer">
+                </div>
+                <div class="form-group">
+                  <label>Company Name <span class="optional">(leave blank for NAC)</span></label>
+                  <input type="text" id="jobCompany" placeholder="e.g. ABC Construction LLC">
+                </div>
+              </div>
+              <div class="form-row col-3">
+                <div class="form-group">
+                  <label>City / Location <span class="req">*</span></label>
+                  <input type="text" id="jobLocation" placeholder="e.g. Dubai, Abu Dhabi">
+                </div>
+                <div class="form-group">
+                  <label>Country <span class="req">*</span></label>
+                  <select id="jobCountry">
+                    <option value="">Select Country</option>
+                    <optgroup label="Gulf Region (GCC)">
+                      <option>UAE</option>
+                      <option>Saudi Arabia</option>
+                      <option>Qatar</option>
+                      <option>Kuwait</option>
+                      <option>Bahrain</option>
+                      <option>Oman</option>
+                    </optgroup>
+                    <optgroup label="Asia">
+                      <option>India</option>
+                      <option>Singapore</option>
+                      <option>Malaysia</option>
+                      <option>Indonesia</option>
+                      <option>Philippines</option>
+                      <option>Bangladesh</option>
+                      <option>Nepal</option>
+                      <option>Sri Lanka</option>
+                    </optgroup>
+                    <optgroup label="Europe">
+                      <option>United Kingdom</option>
+                      <option>Germany</option>
+                      <option>France</option>
+                      <option>Netherlands</option>
+                      <option>Other Europe</option>
+                    </optgroup>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Industry <span class="req">*</span></label>
+                  <select id="jobIndustry">
+                    <option value="">Select Industry</option>
+                    <option>Oil & Gas</option>
+                    <option>Construction & Engineering</option>
+                    <option>IT & Technology</option>
+                    <option>Healthcare & Medical</option>
+                    <option>Finance & Banking</option>
+                    <option>Hospitality & Tourism</option>
+                    <option>Retail & FMCG</option>
+                    <option>Logistics & Supply Chain</option>
+                    <option>Manufacturing</option>
+                    <option>Education</option>
+                    <option>Real Estate</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- JOB DETAILS -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
+                Job Details
+              </div>
+              <div class="form-row col-4">
+                <div class="form-group">
+                  <label>Job Type <span class="req">*</span></label>
+                  <select id="jobType">
+                    <option value="">Select Type</option>
+                    <option>Full-time</option>
+                    <option>Part-time</option>
+                    <option>Contract</option>
+                    <option>Temporary</option>
+                    <option>Freelance</option>
+                    <option>Internship</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Experience Level</label>
+                  <select id="jobExperience">
+                    <option value="">Any Level</option>
+                    <option>Entry Level (0–1 yr)</option>
+                    <option>Junior (1–3 yrs)</option>
+                    <option>Mid-Level (3–5 yrs)</option>
+                    <option>Senior (5–10 yrs)</option>
+                    <option>Expert (10+ yrs)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Visa Sponsorship</label>
+                  <select id="jobVisa">
+                    <option value="no">Not Provided</option>
+                    <option value="yes">Yes — Sponsored</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Application Deadline</label>
+                  <input type="date" id="jobDeadline">
+                </div>
+              </div>
+              <div class="form-row col-3">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <select id="jobCurrency">
+                    <option value="AED">AED (UAE Dirham)</option>
+                    <option value="SAR">SAR (Saudi Riyal)</option>
+                    <option value="QAR">QAR (Qatari Riyal)</option>
+                    <option value="KWD">KWD (Kuwaiti Dinar)</option>
+                    <option value="BHD">BHD (Bahraini Dinar)</option>
+                    <option value="OMR">OMR (Omani Rial)</option>
+                    <option value="INR">INR (Indian Rupee)</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="EUR">EUR</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Salary Min <span class="optional">(monthly)</span></label>
+                  <input type="number" id="jobSalaryMin" placeholder="e.g. 8000">
+                </div>
+                <div class="form-group">
+                  <label>Salary Max <span class="optional">(monthly)</span></label>
+                  <input type="number" id="jobSalaryMax" placeholder="e.g. 15000">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Key Skills <span class="optional">(comma separated)</span></label>
+                  <input type="text" id="jobSkills" placeholder="e.g. AutoCAD, Project Management, MS Excel, PMP Certified">
+                  <div class="hint">Separate skills with commas. These appear as tags on the job listing.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" clip-rule="evenodd"/></svg>
+                Job Content
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Job Description <span class="req">*</span></label>
+                  <textarea id="jobDescription" style="min-height:130px;" placeholder="Describe the role, responsibilities, and what the candidate will be doing day-to-day..."></textarea>
+                </div>
+              </div>
+              <div class="form-row col-2">
+                <div class="form-group">
+                  <label>Requirements <span class="optional">(qualifications, must-haves)</span></label>
+                  <textarea id="jobRequirements" placeholder="• Bachelor's degree in Civil Engineering&#10;• 5+ years GCC experience&#10;• Valid driving licence&#10;• PMP certification preferred"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Benefits & Perks <span class="optional">(what's on offer)</span></label>
+                  <textarea id="jobBenefits" placeholder="• Competitive tax-free salary&#10;• Accommodation allowance&#10;• Annual flights home&#10;• Medical insurance&#10;• 30 days annual leave"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- STATUS -->
+            <div class="form-section">
+              <div class="form-section-title">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                Listing Status
+              </div>
+              <div class="form-group" style="max-width:300px;">
+                <label>Publish Status</label>
+                <select id="jobStatus">
+                  <option value="active">● Active — Visible on website</option>
+                  <option value="draft">○ Draft — Hidden from website</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+
+          <div class="form-actions">
+            <button id="saveJobBtn" onclick="saveJob()">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+              Publish Job
+            </button>
+            <span class="preview-note">Jobs marked "Active" appear live on the website immediately.</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-content -->
+  </div><!-- /dashboard -->
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Init tabs on load
+    document.querySelector('[data-tab="tab-post"]').classList.add('active');
+  </script>
+</body>
+</html>
