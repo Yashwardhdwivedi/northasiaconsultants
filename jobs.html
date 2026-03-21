@@ -958,10 +958,14 @@
         let activeJobs = [];
         allSnap.forEach(d => {
           const data = d.data();
-          if ((data.Status || '').toLowerCase() === 'active') {
+          // Check every possible field name and value variation
+          const statusVal = (data.Status || data.status || data.STATUS || '').toString().toLowerCase().trim();
+          console.log('Doc ID:', d.id, '| Raw Status:', data.Status, '| Normalised:', statusVal);
+          if (statusVal === 'active' || statusVal.includes('active')) {
             activeJobs.push({ id: d.id, data });
           }
         });
+        console.log('Total docs:', allSnap.size, '| Active found:', activeJobs.length);
 
         // Sort by postedAt descending (newest first)
         activeJobs.sort((a, b) => {
