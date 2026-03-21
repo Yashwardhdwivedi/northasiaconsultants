@@ -950,19 +950,34 @@
     const db  = getFirestore(app);
 
     // ── LOAD ACTIVE JOBS ──────────────────────────────────────
+    // Note: fetches ALL jobs then filters client-side to avoid needing Firestore indexes
     async function loadJobs() {
       try {
-        const q    = query(collection(db, 'jobs'), where('Status', '==', 'active'), orderBy('postedAt', 'desc'));
-        const snap = await getDocs(q);
+        const allSnap = await getDocs(collection(db, 'jobs'));
+        
+        let activeJobs = [];
+        allSnap.forEach(d => {
+          const data = d.data();
+          if ((data.Status || '').toLowerCase() === 'active') {
+            activeJobs.push({ id: d.id, data });
+          }
+        });
 
-        if (!snap.empty) {
+        // Sort by postedAt descending (newest first)
+        activeJobs.sort((a, b) => {
+          const ta = a.data.postedAt?.seconds || 0;
+          const tb = b.data.postedAt?.seconds || 0;
+          return tb - ta;
+        });
+
+        if (activeJobs.length > 0) {
           document.getElementById('liveJobsSection').style.display = 'block';
           document.getElementById('comingSoonSection').style.display = 'none';
           const sk = document.getElementById('skeletonSection');
           if (sk) sk.style.display = 'none';
-          document.getElementById('jobCountBadge').textContent = snap.size;
+          document.getElementById('jobCountBadge').textContent = activeJobs.length;
           let html = '';
-          snap.forEach(d => { html += buildJobCard(d.id, d.data()); });
+          activeJobs.forEach(job => { html += buildJobCard(job.id, job.data); });
           document.getElementById('liveJobsList').innerHTML = html;
         } else {
           document.getElementById('comingSoonSection').style.display = 'block';
@@ -970,7 +985,7 @@
           if (sk) sk.style.display = 'none';
         }
       } catch(e) {
-        console.error('Jobs load error:', e);
+        console.error('Jobs load error:', e.message);
       }
     }
 
