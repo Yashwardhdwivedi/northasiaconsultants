@@ -12,7 +12,7 @@
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; }
- 
+
     :root {
       --blue: #0a66c2;
       --blue-dark: #004182;
@@ -26,14 +26,14 @@
       --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
       --radius: 10px;
     }
- 
+
     /* ===== SCROLL PROGRESS ===== */
     #progress {
       position: fixed; top: 0; left: 0; height: 3px;
       background: linear-gradient(90deg, var(--blue), #38bdf8);
       width: 0%; z-index: 9999; transition: width .1s;
     }
- 
+
     /* ===== ANIMATIONS ===== */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(32px); }
@@ -81,13 +81,13 @@
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
- 
+
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: .1s; }
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
- 
+
     /* ===== TOPBAR ===== */
     .topbar {
       background: var(--blue);
@@ -99,7 +99,7 @@
     .topbar strong { color: #fff; font-weight: 600; }
     .topbar a { color: #fff; font-weight: 600; font-size: 13px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.35); transition: background .2s; white-space: nowrap; }
     .topbar a:hover { background: rgba(255,255,255,0.3); }
- 
+
     /* ===== NAVBAR ===== */
     nav {
       background: var(--white);
@@ -118,24 +118,24 @@
     .logo-name { font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; }
     .logo-name span { color: var(--blue); }
     .logo-tagline { font-size: 10px; color: var(--muted); font-weight: 400; }
- 
+
     .nav-search { flex: 1; max-width: 380px; position: relative; }
     .nav-search input { width: 100%; height: 38px; border: 1.5px solid #d0d0d0; border-radius: 20px; padding: 0 16px 0 38px; font-size: 13px; font-family: inherit; outline: none; background: #f8f9fa; color: var(--text); transition: border-color .2s, background .2s, box-shadow .2s; }
     .nav-search input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(10,102,194,0.1); }
     .nav-search .s-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #888; }
- 
+
     .nav-links { display: flex; align-items: center; }
     .nav-links a { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 10px; height: 64px; color: var(--muted); font-size: 11px; font-weight: 500; gap: 3px; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; }
     .nav-links a svg { width: 20px; height: 20px; transition: color .2s; }
     .nav-links a:hover { color: var(--text); border-bottom-color: var(--text); }
     .nav-links a.active { color: var(--text); border-bottom-color: var(--text); font-weight: 600; }
- 
+
     .nav-cta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
     .btn-outline-nav { padding: 7px 16px; border: 1.5px solid var(--blue); border-radius: 20px; color: var(--blue); font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
     .btn-outline-nav:hover { background: var(--blue-light); }
     .btn-solid-nav { padding: 7px 16px; background: var(--blue); border-radius: 20px; color: #fff; font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
     .btn-solid-nav:hover { background: var(--blue-dark); transform: translateY(-1px); }
- 
+
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text); }
     #mobileMenu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 12px 20px 20px; }
     #mobileMenu.open { display: block; animation: fadeUp .25s ease; }
@@ -146,7 +146,7 @@
     .mob-cta-row a { flex: 1; text-align: center; padding: 10px; border-radius: 20px; font-size: 14px; font-weight: 600; }
     .mob-cta-row .mc-outline { border: 1.5px solid var(--blue); color: var(--blue); }
     .mob-cta-row .mc-solid { background: var(--blue); color: #fff; }
- 
+
     /* ===== PAGE HERO ===== */
     .page-hero {
       background: linear-gradient(135deg, #0d47a1 0%, #0a66c2 50%, #1565c0 100%);
@@ -176,15 +176,15 @@
     .breadcrumb .current { font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; }
     .page-hero-h1 { font-size: clamp(26px, 4vw, 44px); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px; }
     .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.65; }
- 
+
     /* ===== MAIN LAYOUT ===== */
     .page-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
     .two-col { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
- 
+
     /* ===== CARDS ===== */
     .card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px; }
     .card-pad { padding: 20px 22px; }
- 
+
     /* ===== FILTER BAR ===== */
     .filter-bar {
       background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
@@ -210,7 +210,7 @@
       font-size: 13px; font-weight: 600; border: none; cursor: not-allowed;
       font-family: inherit; opacity: 0.6;
     }
- 
+
     /* ===== MAIN COMING SOON ===== */
     .jobs-cs {
       background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
@@ -226,7 +226,7 @@
       background-image: radial-gradient(circle, rgba(10,102,194,0.06) 1px, transparent 1px);
       background-size: 24px 24px;
     }
- 
+
     /* Orbit animation wrapper */
     .orbit-wrap {
       width: 200px; height: 200px;
@@ -241,7 +241,7 @@
       z-index: 2; box-shadow: 0 0 0 12px rgba(10,102,194,0.06);
     }
     .orbit-center svg { width: 34px; height: 34px; color: var(--blue); }
- 
+
     .orbit-ring {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -250,7 +250,7 @@
     .orbit-ring-1 { width: 120px; height: 120px; }
     .orbit-ring-2 { width: 156px; height: 156px; }
     .orbit-ring-3 { width: 196px; height: 196px; }
- 
+
     .orbit-dot {
       position: absolute; top: 50%; left: 50%;
       width: 28px; height: 28px; border-radius: 50%;
@@ -262,7 +262,7 @@
     .orbit-dot-1 { animation: orbit 5s linear infinite; }
     .orbit-dot-2 { animation: orbit2 7s linear infinite; }
     .orbit-dot-3 { animation: orbit3 9s linear infinite; }
- 
+
     /* Badge */
     .cs-badge-main {
       display: inline-flex; align-items: center; gap: 6px;
@@ -272,20 +272,20 @@
       border: 1px solid #fde68a; position: relative; z-index: 2;
     }
     .cs-badge-main svg { width: 12px; height: 12px; }
- 
+
     .cs-main-title {
       font-size: clamp(22px, 3.5vw, 36px); font-weight: 700;
       color: var(--text); margin-bottom: 12px;
       position: relative; z-index: 2;
     }
     .cs-main-title em { color: var(--blue); font-style: normal; }
- 
+
     .cs-main-sub {
       font-size: 15px; color: var(--muted); line-height: 1.7;
       max-width: 500px; margin: 0 auto 32px;
       position: relative; z-index: 2;
     }
- 
+
     /* Progress */
     .cs-progress-wrap {
       max-width: 380px; margin: 0 auto 10px;
@@ -302,7 +302,7 @@
       background-size: 200% 100%;
       animation: shimmer 2s linear infinite;
     }
- 
+
     /* What's coming chips */
     .cs-features {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
@@ -315,7 +315,7 @@
       padding: 6px 14px; border-radius: 100px;
     }
     .cs-feature svg { width: 13px; height: 13px; color: var(--blue); }
- 
+
     /* Notify form */
     .cs-notify-form {
       display: flex; gap: 0; max-width: 400px; margin: 0 auto;
@@ -338,7 +338,7 @@
     }
     .cs-notify-form button:hover { background: var(--blue-dark); }
     .cs-notify-form button svg { width: 14px; height: 14px; }
- 
+
     .cs-success {
       display: none; align-items: center; justify-content: center; gap: 8px;
       background: #f0fdf4; border: 1.5px solid rgba(5,118,66,0.25);
@@ -348,7 +348,7 @@
     .cs-success.show { display: flex; animation: slideUp .4s ease; }
     .cs-success svg { width: 18px; height: 18px; color: var(--green); flex-shrink: 0; }
     .cs-success span { font-size: 13px; font-weight: 600; color: var(--green); }
- 
+
     /* Wave divider */
     .wave-divider { display: flex; align-items: center; gap: 3px; justify-content: center; margin: 20px 0 0; position: relative; z-index: 2; }
     .wave-bar { width: 3px; border-radius: 3px; background: var(--blue); opacity: 0.3; }
@@ -357,7 +357,7 @@
     .wave-bar:nth-child(3) { height: 20px; animation: wave 1.2s ease-in-out infinite; animation-delay: .2s; }
     .wave-bar:nth-child(4) { height: 14px; animation: wave 1.2s ease-in-out infinite; animation-delay: .3s; }
     .wave-bar:nth-child(5) { height: 8px; animation: wave 1.2s ease-in-out infinite; animation-delay: .4s; }
- 
+
     /* ===== SKELETON JOBS ===== */
     .skeleton-section { margin-bottom: 16px; }
     .skeleton-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #f5f5f5; }
@@ -391,11 +391,11 @@
       white-space: nowrap;
     }
     .locked-badge svg { width: 14px; height: 14px; color: var(--blue); }
- 
+
     /* ===== SIDEBAR ===== */
     .sidebar-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
     .sc-pad { padding: 18px 20px; }
- 
+
     .profile-av { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; margin: 0 auto 12px; }
     .profile-name { font-size: 15px; font-weight: 700; color: var(--text); text-align: center; }
     .profile-tag { font-size: 12px; color: var(--muted); text-align: center; margin: 4px 0 14px; line-height: 1.5; }
@@ -404,14 +404,14 @@
     .pstat span:last-child { font-weight: 700; color: var(--blue); }
     .pb { display: block; width: 100%; background: var(--blue); color: #fff; text-align: center; padding: 10px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 14px; transition: all .2s; }
     .pb:hover { background: var(--blue-dark); }
- 
+
     .ql-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
     .ql-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f8f8f8; color: #333; font-size: 13px; font-weight: 500; transition: color .15s; }
     .ql-item:last-child { border: none; }
     .ql-item:hover { color: var(--blue); }
     .ql-item svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
     .ql-badge { margin-left: auto; background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 100px; }
- 
+
     .cs-title-sm { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
     .cs-title-sm svg { width: 16px; height: 16px; color: var(--blue); }
     .ci { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #333; margin-bottom: 10px; }
@@ -421,11 +421,11 @@
     .wa-btn { display: flex; align-items: center; justify-content: center; gap: 7px; background: #25d366; color: #fff; padding: 10px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 14px; transition: background .2s; }
     .wa-btn:hover { background: #1db954; }
     .wa-btn svg { width: 16px; height: 16px; }
- 
+
     .loc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .loc-chip { background: #f5f5f5; color: #333; font-size: 12px; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--border); font-weight: 500; cursor: pointer; transition: all .2s; }
     .loc-chip:hover { background: var(--blue-light); border-color: rgba(10,102,194,0.3); color: var(--blue); }
- 
+
     /* Sidebar coming soon mini */
     .sb-cs {
       background: linear-gradient(135deg, var(--blue-light), #f0f7ff);
@@ -436,7 +436,7 @@
     .sb-cs-icon svg { width: 20px; height: 20px; color: #fff; }
     .sb-cs-t { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
     .sb-cs-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
- 
+
     /* ===== FOOTER ===== */
     footer { background: #fff; border-top: 1px solid var(--border); margin-top: 20px; padding: 40px 20px 24px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
@@ -455,7 +455,7 @@
     .footer-links { display: flex; gap: 16px; }
     .footer-links a { font-size: 12px; color: #888; transition: color .2s; }
     .footer-links a:hover { color: var(--blue); }
- 
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px) {
       .two-col { grid-template-columns: 1fr; }
@@ -483,7 +483,7 @@
 </head>
 <body>
   <div id="progress"></div>
- 
+
   <!-- TOPBAR -->
   <div class="topbar">
     <p>
@@ -492,7 +492,7 @@
     </p>
     <a href="/contact.html">Get Started →</a>
   </div>
- 
+
   <!-- NAVBAR -->
   <nav>
     <div class="nav-inner">
@@ -545,7 +545,7 @@
       </div>
     </div>
   </nav>
- 
+
   <!-- PAGE HERO -->
   <div class="page-hero">
     <div class="page-hero-dots"></div>
@@ -560,14 +560,14 @@
       <p class="page-hero-sub">Discover roles across Gulf, Asia, Europe and global markets. All placements are free for candidates.</p>
     </div>
   </div>
- 
+
   <!-- PAGE BODY -->
   <div class="page-wrap">
     <div class="two-col">
- 
+
       <!-- MAIN COLUMN -->
       <div class="main-col">
- 
+
         <!-- FILTER BAR (disabled / preview) -->
         <div class="filter-bar reveal">
           <div class="filter-search">
@@ -588,12 +588,21 @@
           </div>
           <button class="filter-btn">Search Jobs</button>
         </div>
- 
-        <!-- MAIN COMING SOON CARD -->
-        <div class="jobs-cs reveal">
+
+        <!-- LIVE JOBS FROM FIREBASE -->
+        <div id="liveJobsSection" style="display:none; margin-bottom:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div style="font-size:17px;font-weight:700;color:var(--text);">Open Positions <span id="jobCountBadge" style="background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:100px;margin-left:8px;vertical-align:middle;">0</span></div>
+            <div style="font-size:13px;color:var(--muted);">Updated live from our database</div>
+          </div>
+          <div id="liveJobsList"></div>
+        </div>
+
+        <!-- MAIN COMING SOON CARD (hidden when live jobs exist) -->
+        <div class="jobs-cs reveal" id="comingSoonSection">
           <div class="jobs-cs-bg"></div>
           <div class="jobs-cs-dots"></div>
- 
+
           <!-- Orbiting animation -->
           <div class="orbit-wrap">
             <div class="orbit-ring orbit-ring-1"></div>
@@ -606,15 +615,15 @@
             <div class="orbit-dot orbit-dot-2">💻</div>
             <div class="orbit-dot orbit-dot-3">🏗</div>
           </div>
- 
+
           <div class="cs-badge-main">
             <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg>
             Coming Soon
           </div>
- 
+
           <h2 class="cs-main-title">Our Job Board is <em>Launching Soon</em></h2>
           <p class="cs-main-sub">We're building a world-class jobs platform featuring hundreds of live roles across the Gulf, Asia, Europe and beyond. Enter your email to be the first to know when we go live.</p>
- 
+
           <!-- Progress bar -->
           <div class="cs-progress-wrap">
             <div class="cs-prog-header">
@@ -625,7 +634,7 @@
               <div class="cs-progress-fill" id="csProgressFill"></div>
             </div>
           </div>
- 
+
           <!-- What's coming -->
           <div class="cs-features">
             <div class="cs-feature">
@@ -653,7 +662,7 @@
               Free for candidates
             </div>
           </div>
- 
+
           <!-- Notify form -->
           <div class="cs-notify-form" id="notifyForm">
             <input type="email" id="emailInput" placeholder="Enter your email for early access..." />
@@ -666,7 +675,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
             <span>You're on the early access list!</span>
           </div>
- 
+
           <div class="wave-divider">
             <div class="wave-bar"></div>
             <div class="wave-bar"></div>
@@ -675,9 +684,9 @@
             <div class="wave-bar"></div>
           </div>
         </div>
- 
+
         <!-- SKELETON JOB LISTINGS (blurred preview) -->
-        <div class="card skeleton-section reveal reveal-delay-1" style="position:relative;">
+        <div id="skeletonSection" class="card skeleton-section reveal reveal-delay-1" style="position:relative;">
           <div class="skeleton-head">
             <div class="skeleton-title-wrap">
               <div class="skel skel-xl"></div>
@@ -685,7 +694,7 @@
             </div>
             <div class="skel skel-md"></div>
           </div>
- 
+
           <!-- Skeleton jobs -->
           <div class="skeleton-job">
             <div class="skel skel-circle skel-logo"></div>
@@ -723,19 +732,19 @@
             </div>
             <div class="skel skel-action" style="border-radius:20px;"></div>
           </div>
- 
+
           <div class="skeleton-overlay"></div>
           <div class="locked-badge">
             <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
             Job listings unlock soon
           </div>
         </div>
- 
+
       </div><!-- /main-col -->
- 
+
       <!-- SIDEBAR -->
       <div class="sidebar">
- 
+
         <!-- Coming soon sidebar widget -->
         <div class="sb-cs reveal">
           <div class="sb-cs-icon">
@@ -744,7 +753,7 @@
           <div class="sb-cs-t">Jobs Launching Soon</div>
           <div class="sb-cs-p">Hundreds of Gulf & global roles across 8+ industries. Coming very soon.</div>
         </div>
- 
+
         <!-- Company card -->
         <div class="sidebar-card reveal reveal-delay-1">
           <div class="sc-pad" style="text-align:center;">
@@ -758,7 +767,7 @@
             <a href="/candidates.html" class="pb">Submit Your CV</a>
           </div>
         </div>
- 
+
         <!-- Quick links -->
         <div class="sidebar-card reveal reveal-delay-2">
           <div class="sc-pad">
@@ -785,7 +794,7 @@
             </a>
           </div>
         </div>
- 
+
         <!-- Contact card -->
         <div class="sidebar-card reveal reveal-delay-3">
           <div class="sc-pad">
@@ -794,14 +803,14 @@
               Reach Us Directly
             </div>
             <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg><a href="tel:+919326051900">+91 93260 51900</a></div>
-            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
+            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="/cdn-cgi/l/email-protection#1b72757d745b7574696f737a68727a787475686e776f7a756f6835787476"><span class="__cf_email__" data-cfemail="dfb6b1b9b09fb1b0adabb7beacb6bebcb0b1acaab3abbeb1abacf1bcb0b2">[email&#160;protected]</span></a></div>
             <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Chat on WhatsApp
             </a>
           </div>
         </div>
- 
+
         <!-- Locations -->
         <div class="sidebar-card reveal">
           <div class="sc-pad">
@@ -819,11 +828,11 @@
             </div>
           </div>
         </div>
- 
+
       </div><!-- /sidebar -->
     </div><!-- /two-col -->
   </div><!-- /page-wrap -->
- 
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
@@ -841,7 +850,7 @@
             <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
             <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
             <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+            <a href="/cdn-cgi/l/email-protection#c5acaba3aa85abaab7b1ada4b6aca4a6aaabb6b0a9b1a4abb1b6eba6aaa8" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
           </div>
         </div>
         <div class="fc">
@@ -880,62 +889,215 @@
       </div>
     </div>
   </footer>
- 
-  <script>
-    /* Mobile menu */
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
+
+  <!-- APPLY MODAL -->
+  <div id="applyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:#fff;border-radius:14px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.25);">
+      <div style="background:linear-gradient(135deg,#0d47a1,#0a66c2);padding:20px 24px;display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <div style="color:#fff;font-size:16px;font-weight:700;" id="applyModalTitle">Apply for this Job</div>
+          <div style="color:rgba(255,255,255,0.75);font-size:12px;margin-top:2px;" id="applyModalCompany"></div>
+        </div>
+        <button onclick="document.getElementById('applyModal').style.display='none';document.body.style.overflow='';" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;">✕</button>
+      </div>
+      <div id="applyForm" style="padding:24px;">
+        <input type="hidden" id="applyJobId">
+        <div style="margin-bottom:13px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:5px;">Full Name <span style="color:#ef4444">*</span></label>
+          <input id="applyName" type="text" placeholder="Your full name" style="width:100%;padding:10px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;">
+        </div>
+        <div style="margin-bottom:13px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:5px;">Email Address <span style="color:#ef4444">*</span></label>
+          <input id="applyEmail" type="email" placeholder="your@email.com" style="width:100%;padding:10px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;">
+        </div>
+        <div style="margin-bottom:13px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:5px;">Phone Number</label>
+          <input id="applyPhone" type="tel" placeholder="+91 or +971..." style="width:100%;padding:10px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:5px;">Cover Note <span style="font-weight:400;color:#aaa">(optional)</span></label>
+          <textarea id="applyMessage" placeholder="Why are you a good fit for this role?" style="width:100%;padding:10px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:80px;background:#fafafa;"></textarea>
+        </div>
+        <button id="applySubmitBtn" onclick="window._submitApplication()" style="width:100%;padding:12px;background:#0a66c2;color:#fff;border:none;border-radius:20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Submit Application</button>
+      </div>
+      <div id="applySuccess" style="display:none;padding:36px 24px;text-align:center;">
+        <div style="width:60px;height:60px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" style="color:#16a34a"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+        </div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">Application Sent! 🎉</div>
+        <p style="font-size:13px;color:#666;line-height:1.7;margin-bottom:20px;">Thank you! Our team will review your application and contact you within 48 hours.</p>
+        <button onclick="document.getElementById('applyModal').style.display='none';document.body.style.overflow='';" style="background:#0a66c2;color:#fff;border:none;padding:10px 24px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE + LIVE JOBS -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, serverTimestamp }
+      from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
+      authDomain:        "northasiawebsite.firebaseapp.com",
+      projectId:         "northasiawebsite",
+      storageBucket:     "northasiawebsite.firebasestorage.app",
+      messagingSenderId: "643873729069",
+      appId:             "1:643873729069:web:01e9a5f35a0f4815ece6a4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // ── LOAD ACTIVE JOBS ──────────────────────────────────────
+    async function loadJobs() {
+      try {
+        const q    = query(collection(db, 'jobs'), where('Status', '==', 'active'), orderBy('postedAt', 'desc'));
+        const snap = await getDocs(q);
+
+        if (!snap.empty) {
+          document.getElementById('liveJobsSection').style.display = 'block';
+          document.getElementById('comingSoonSection').style.display = 'none';
+          const sk = document.getElementById('skeletonSection');
+          if (sk) sk.style.display = 'none';
+          document.getElementById('jobCountBadge').textContent = snap.size;
+          let html = '';
+          snap.forEach(d => { html += buildJobCard(d.id, d.data()); });
+          document.getElementById('liveJobsList').innerHTML = html;
+        } else {
+          document.getElementById('comingSoonSection').style.display = 'block';
+          const sk = document.getElementById('skeletonSection');
+          if (sk) sk.style.display = 'none';
+        }
+      } catch(e) {
+        console.error('Jobs load error:', e);
+      }
     }
- 
-    /* Scroll progress */
+
+    function buildJobCard(id, j) {
+      const salary = (j.SalaryMin && j.SalaryMax)
+        ? `${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()} – ${Number(j.SalaryMax).toLocaleString()} / mo`
+        : j.SalaryMin ? `${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()}+ / mo`
+        : 'Salary not disclosed';
+
+      const skills = (j.skillsArray||[]).slice(0,5).map(s =>
+        `<span style="background:#e8f0fa;color:#0a66c2;font-size:11px;font-weight:500;padding:3px 9px;border-radius:100px;">${s}</span>`
+      ).join('');
+
+      const deadline = j.Deadline
+        ? `<span style="font-size:11px;color:#888;">Apply by ${new Date(j.Deadline).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>`
+        : '<span></span>';
+
+      const titleSafe   = (j.Title||'').replace(/'/g,"\'");
+      const companySafe = (j.Company||'North Asia Consultants').replace(/'/g,"\'");
+
+      return `<div style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin-bottom:12px;overflow:hidden;transition:box-shadow .2s,border-color .2s;" onmouseenter="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.09)';this.style.borderColor='rgba(10,102,194,0.25)'" onmouseleave="this.style.boxShadow='none';this.style.borderColor='#e0e0e0'">
+        <div style="padding:18px 20px 12px;display:flex;align-items:flex-start;gap:14px;">
+          <div style="width:46px;height:46px;background:linear-gradient(135deg,#0a66c2,#004182);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0;">${(j.Title||'J').charAt(0)}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:15px;font-weight:700;color:#191919;margin-bottom:4px;">${j.Title||''}</div>
+            <div style="font-size:12px;color:#666;display:flex;flex-wrap:wrap;gap:6px;">
+              <span>${j.Company||'North Asia Consultants'}</span>
+              <span style="color:#ddd">·</span>
+              <span>📍 ${j.Location||''}, ${j.Country||''}</span>
+              <span style="color:#ddd">·</span>
+              <span>🏢 ${j.Industry||''}</span>
+            </div>
+          </div>
+          ${j.Visa==='yes'?'<span style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;font-size:10px;font-weight:700;padding:4px 10px;border-radius:100px;flex-shrink:0;white-space:nowrap;">✈ Visa Sponsored</span>':''}
+        </div>
+        <div style="padding:0 20px 14px;">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+            <span style="background:#f5f5f5;border:1px solid #eee;color:#555;font-size:11px;padding:3px 10px;border-radius:100px;">${j.Type||'Full-time'}</span>
+            <span style="background:#f5f5f5;border:1px solid #eee;color:#555;font-size:11px;padding:3px 10px;border-radius:100px;">💰 ${salary}</span>
+            ${j.Experience?`<span style="background:#f5f5f5;border:1px solid #eee;color:#555;font-size:11px;padding:3px 10px;border-radius:100px;">${j.Experience}</span>`:''}
+          </div>
+          <div style="font-size:13px;color:#444;line-height:1.7;margin-bottom:${skills?'10px':'0'}">${(j.Description||'').substring(0,220)}${(j.Description||'').length>220?'...':''}</div>
+          ${skills?`<div style="display:flex;flex-wrap:wrap;gap:5px;">${skills}</div>`:''}
+        </div>
+        <div style="padding:10px 20px;background:#fafafa;border-top:1px solid #f5f5f5;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          ${deadline}
+          <button onclick="window._openApply('${id}','${titleSafe}','${companySafe}')" style="background:#0a66c2;color:#fff;border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;" onmouseenter="this.style.background='#004182'" onmouseleave="this.style.background='#0a66c2'">Apply Now →</button>
+        </div>
+      </div>`;
+    }
+
+    // Expose to global scope for inline onclick handlers
+    window._openApply = function(jobId, title, company) {
+      document.getElementById('applyJobId').value = jobId;
+      document.getElementById('applyModalTitle').textContent = title;
+      document.getElementById('applyModalCompany').textContent = company;
+      document.getElementById('applyForm').style.display = 'block';
+      document.getElementById('applySuccess').style.display = 'none';
+      document.getElementById('applyModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+    window._submitApplication = async function() {
+      const jobId   = document.getElementById('applyJobId').value;
+      const name    = document.getElementById('applyName').value.trim();
+      const email   = document.getElementById('applyEmail').value.trim();
+      const phone   = document.getElementById('applyPhone').value.trim();
+      const message = document.getElementById('applyMessage').value.trim();
+      if (!name || !email) { alert('Please enter your name and email.'); return; }
+      const btn = document.getElementById('applySubmitBtn');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      try {
+        await addDoc(collection(db, 'applications'), {
+          jobId, name, email, phone, message,
+          appliedAt: serverTimestamp(), status: 'new'
+        });
+        document.getElementById('applyForm').style.display = 'none';
+        document.getElementById('applySuccess').style.display = 'block';
+      } catch(e) {
+        alert('Error submitting. Please WhatsApp us directly.');
+        btn.disabled = false; btn.textContent = 'Submit Application';
+      }
+    };
+
+    document.getElementById('applyModal').addEventListener('click', function(e) {
+      if (e.target === this) { this.style.display = 'none'; document.body.style.overflow = ''; }
+    });
+
+    // Run on page load
+    loadJobs();
+  </script>
+
+  <script>
+    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
     window.addEventListener('scroll', () => {
       const s = document.documentElement.scrollTop;
       const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       document.getElementById('progress').style.width = (s / h * 100) + '%';
     }, { passive: true });
- 
-    /* Scroll reveal */
+
     const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObserver.unobserve(e.target);
-        }
-      });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
- 
-    /* Progress bar animation */
+
     const progObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          setTimeout(() => {
-            document.getElementById('csProgressFill').style.width = '65%';
-          }, 500);
+          setTimeout(() => { const el = document.getElementById('csProgressFill'); if(el) el.style.width = '65%'; }, 500);
           progObserver.unobserve(e.target);
         }
       });
     }, { threshold: 0.3 });
     const jobsCs = document.querySelector('.jobs-cs');
     if (jobsCs) progObserver.observe(jobsCs);
- 
-    /* Notify handler */
+
     function handleNotify() {
       const email = document.getElementById('emailInput').value.trim();
       if (!email || !email.includes('@')) {
         document.getElementById('emailInput').style.borderColor = '#ef4444';
-        document.getElementById('emailInput').focus();
         setTimeout(() => { document.getElementById('emailInput').style.borderColor = ''; }, 2000);
         return;
       }
       document.getElementById('notifyForm').style.display = 'none';
       document.getElementById('notifySuccess').classList.add('show');
     }
- 
-    /* Allow pressing Enter in email input */
-    document.getElementById('emailInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleNotify();
-    });
   </script>
 </body>
 </html>
