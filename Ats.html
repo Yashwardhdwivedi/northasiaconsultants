@@ -19,17 +19,18 @@
     @keyframes spin{to{transform:rotate(360deg);}}
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
     @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-    @keyframes scanBeam{0%{top:-4px;}100%{top:102%;}}
     @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
     @keyframes particleBurst{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}
     @keyframes overlayIn{from{opacity:0;}to{opacity:1;}}
     @keyframes boxIn{from{opacity:0;transform:scale(0.85) translateY(30px);}to{opacity:1;transform:scale(1) translateY(0);}}
     @keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+    @keyframes scanBeam{0%{top:-4px;}100%{top:102%;}}
     @keyframes orb1{from{transform:rotate(0deg) translateX(75px) rotate(0deg);}to{transform:rotate(360deg) translateX(75px) rotate(-360deg);}}
     @keyframes orb2{from{transform:rotate(120deg) translateX(88px) rotate(-120deg);}to{transform:rotate(480deg) translateX(88px) rotate(-480deg);}}
     @keyframes orb3{from{transform:rotate(240deg) translateX(100px) rotate(-240deg);}to{transform:rotate(600deg) translateX(100px) rotate(-600deg);}}
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
     .reveal.visible{opacity:1;transform:translateY(0);}
+
     .topbar{background:var(--blue);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center;}
     .topbar p{font-size:13px;color:rgba(255,255,255,0.92);}
     .topbar strong{color:#fff;font-weight:600;}
@@ -60,6 +61,7 @@
     .mob-cta-row a{flex:1;text-align:center;padding:10px;border-radius:20px;font-size:14px;font-weight:600;}
     .mob-cta-row .mc-outline{border:1.5px solid var(--blue);color:var(--blue);}
     .mob-cta-row .mc-solid{background:var(--blue);color:#fff;}
+
     .page-hero{background:linear-gradient(135deg,#0d47a1 0%,#0a66c2 55%,#1565c0 100%);position:relative;overflow:hidden;padding:56px 20px 60px;}
     .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
     .hero-glow{position:absolute;top:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
@@ -71,6 +73,7 @@
     .hero-sub{font-size:15px;color:rgba(255,255,255,0.78);max-width:580px;margin:0 auto 24px;line-height:1.7;}
     .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
     .hero-pill{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.9);font-size:12px;font-weight:500;padding:5px 14px;border-radius:100px;}
+
     .page-wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
     .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
     .icard{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
@@ -112,6 +115,7 @@
     .jd-ta::placeholder{color:#bbb;}
     .wc{font-size:11px;color:#aaa;text-align:right;margin-top:5px;}
     .wc span{color:var(--blue);font-weight:600;}
+
     .analyze-row{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
     .an-note{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;}
     .an-note svg{width:14px;height:14px;color:var(--green);flex-shrink:0;}
@@ -119,6 +123,7 @@
     #analyzeBtn:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,102,194,0.35);}
     #analyzeBtn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;}
     .btn-spin{width:17px;height:17px;border:2.5px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .65s linear infinite;display:none;}
+
     #loadingSection{display:none;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;}
     .load-inner{padding:40px 28px;text-align:center;}
     .scan-wrap{width:140px;height:160px;position:relative;margin:0 auto 24px;}
@@ -127,14 +132,13 @@
     .scan-lines{position:absolute;left:12px;right:12px;top:28px;display:flex;flex-direction:column;gap:5px;}
     .scan-ln{height:2px;background:#e0e0e0;border-radius:1px;}
     .scan-ln:nth-child(1){width:85%;}.scan-ln:nth-child(2){width:70%;}.scan-ln:nth-child(3){width:90%;}.scan-ln:nth-child(4){width:60%;}.scan-ln:nth-child(5){width:80%;}.scan-ln:nth-child(6){width:45%;}
-    .scan-beam{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,rgba(10,102,194,0.9) 30%,rgba(56,189,248,1) 50%,rgba(10,102,194,0.9) 70%,transparent 100%);animation:scanBeam 1.6s ease-in-out infinite;box-shadow:0 0 12px rgba(10,102,194,0.7);z-index:10;}
+    .scan-beam{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,rgba(10,102,194,0.9) 30%,rgba(56,189,248,1) 50%,rgba(10,102,194,0.9) 70%,transparent);animation:scanBeam 1.6s ease-in-out infinite;box-shadow:0 0 12px rgba(10,102,194,0.7);z-index:10;}
     .scan-glow{position:absolute;left:0;right:0;height:40px;background:linear-gradient(to bottom,rgba(10,102,194,0.12),transparent);animation:scanBeam 1.6s ease-in-out infinite;}
     .orb-ring{position:absolute;top:50%;left:50%;width:0;height:0;}
     .orb-dot{position:absolute;width:8px;height:8px;border-radius:50%;}
     .orb-dot:nth-child(1){animation:orb1 3s linear infinite;background:#0a66c2;}
     .orb-dot:nth-child(2){animation:orb2 3.5s linear infinite;background:#38bdf8;width:6px;height:6px;}
     .orb-dot:nth-child(3){animation:orb3 2.8s linear infinite;background:#93c5fd;width:5px;height:5px;}
-    .ai-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(90deg,#7c3aed,#0a66c2);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;}
     .load-title{font-size:17px;font-weight:700;color:var(--text);margin-bottom:6px;}
     .load-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
     .ls-grid{display:flex;flex-direction:column;gap:7px;max-width:300px;margin:0 auto;}
@@ -144,6 +148,7 @@
     .ls-dot{width:22px;height:22px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;transition:all .3s;}
     .ls.active .ls-dot{background:var(--blue);color:#fff;animation:pulse .8s infinite;}
     .ls.done .ls-dot{background:var(--green);color:#fff;}
+
     #scoreOverlay{position:fixed;inset:0;z-index:9999;background:rgba(4,12,40,0.96);display:none;align-items:center;justify-content:center;animation:overlayIn .4s ease;}
     #scoreOverlay.show{display:flex;}
     #confettiWrap{position:fixed;inset:0;pointer-events:none;z-index:10000;overflow:hidden;}
@@ -170,6 +175,7 @@
     .ol-btn{padding:13px 36px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.35);color:#fff;border-radius:24px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .5s 2.1s,background .2s,transform .2s;opacity:0;}
     .ol-btn.in{opacity:1;}
     .ol-btn:hover{background:rgba(255,255,255,0.25);transform:translateY(-2px);}
+
     #resultsSection{display:none;animation:fadeIn .5s ease;}
     .sb{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:14px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
     .sb-ring{position:relative;width:90px;height:90px;flex-shrink:0;}
@@ -199,25 +205,10 @@
     .kw-chips{display:flex;flex-wrap:wrap;gap:5px;}
     .kw-yes{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
     .kw-no{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
-    .kws{background:#fff;border:1.5px solid rgba(124,58,237,0.25);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;position:relative;overflow:hidden;}
-    .kws::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c3aed,#0a66c2,#38bdf8);}
-    .kws-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
-    .kws-ttl{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;}
-    .kws-badge{background:linear-gradient(90deg,#7c3aed,#0a66c2);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.05em;}
-    .kws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;}
-    .kws-card{background:#faf5ff;border:1px solid rgba(124,58,237,0.2);border-radius:9px;padding:13px 14px;transition:all .2s;}
-    .kws-card:hover{border-color:rgba(124,58,237,0.4);box-shadow:0 2px 10px rgba(124,58,237,0.12);}
-    .kws-kw{font-size:13px;font-weight:700;color:#5b21b6;margin-bottom:4px;}
-    .kws-where{font-size:11px;color:#7c3aed;line-height:1.5;}
-    .kws-eg{font-size:11px;color:#6d28d9;font-style:italic;margin-top:4px;line-height:1.4;}
-    .kws-pri{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;margin-top:6px;}
-    .pri-h{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;}
-    .pri-m{background:#fffbeb;color:#d97706;border:1px solid #fde68a;}
-    .pri-l{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;}
-    .kws-load{text-align:center;padding:20px;color:var(--muted);font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;}
-    .mini-spin{width:14px;height:14px;border:2px solid #ddd;border-top-color:#7c3aed;border-radius:50%;animation:spin .6s linear infinite;}
-    .sugs{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;}
-    .sugs-h{font-size:15px;font-weight:700;color:var(--text);margin-bottom:16px;}
+
+    /* Tips box */
+    .tips-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;}
+    .tips-box h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px;}
     .sug-item{display:flex;gap:12px;padding:13px;border-radius:10px;margin-bottom:8px;border:1px solid transparent;animation:fadeIn .4s ease both;}
     .sug-item:last-child{margin-bottom:0;}
     .sug-item.critical{background:#fff7ed;border-color:#fed7aa;}
@@ -226,6 +217,7 @@
     .sug-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
     .sug-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
     .sug-txt{font-size:13px;color:#333;line-height:1.6;}
+
     .res-cta{background:linear-gradient(135deg,#0d47a1,#0a66c2);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden;}
     .res-cta::before{content:'';position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06);}
     .res-cta h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
@@ -237,9 +229,7 @@
     .rcta-o:hover{background:rgba(255,255,255,0.15);}
     .re-btn{display:flex;align-items:center;gap:7px;background:#f8f9fa;border:1.5px solid var(--border);color:#444;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin:0 auto 20px;}
     .re-btn:hover{background:var(--blue-light);border-color:rgba(10,102,194,0.3);color:var(--blue);}
-    #errSection{display:none;background:#fff;border:1px solid #fecaca;border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:16px;}
-    #errSection h3{color:#dc2626;font-size:16px;font-weight:700;margin-bottom:8px;}
-    #errSection p{font-size:13px;color:#555;line-height:1.6;}
+
     footer{background:#fff;border-top:1px solid var(--border);padding:36px 20px 24px;}
     .footer-inner{max-width:1200px;margin:0 auto;}
     .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:24px;border-bottom:1px solid #eee;}
@@ -257,8 +247,9 @@
     .footer-links{display:flex;gap:14px;}
     .footer-links a{font-size:12px;color:#888;transition:color .2s;}
     .footer-links a:hover{color:var(--blue);}
-    @media(max-width:760px){.input-grid{grid-template-columns:1fr;}.kw-grid{grid-template-columns:1fr;}.sb{flex-direction:column;align-items:flex-start;}.footer-grid{grid-template-columns:1fr 1fr;gap:24px;}.rcta-btns{flex-direction:column;align-items:center;}.kws-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:520px){.nav-links,.nav-cta{display:none;}.hamburger{display:block;}.page-wrap{padding:14px 14px 48px;}.footer-grid{grid-template-columns:1fr;gap:20px;}.analyze-row{flex-direction:column;align-items:stretch;}#analyzeBtn{justify-content:center;}.kws-grid{grid-template-columns:1fr;}}
+
+    @media(max-width:760px){.input-grid{grid-template-columns:1fr;}.kw-grid{grid-template-columns:1fr;}.sb{flex-direction:column;align-items:flex-start;}.footer-grid{grid-template-columns:1fr 1fr;gap:24px;}.rcta-btns{flex-direction:column;align-items:center;}}
+    @media(max-width:520px){.nav-links,.nav-cta{display:none;}.hamburger{display:block;}.page-wrap{padding:14px 14px 48px;}.footer-grid{grid-template-columns:1fr;gap:20px;}.analyze-row{flex-direction:column;align-items:stretch;}#analyzeBtn{justify-content:center;}}
   </style>
 </head>
 <body>
@@ -287,35 +278,41 @@
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <p><svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg><strong>Free ATS Analyzer</strong> — Upload CV + paste JD → AI score + keyword suggestions.</p>
-  <a href="/jobs.html">Browse Jobs →</a>
+  <p><svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg><strong>Free ATS Analyzer</strong> — Upload CV + paste JD → instant score + keyword gaps. No AI needed.</p>
+  <a href="jobs.html">Browse Jobs →</a>
 </div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo">
+    <a href="index.html" class="logo">
       <div class="logo-icon">N</div>
       <div><div class="logo-name">North Asia <span>Consultants</span></div><div class="logo-tagline">Global Recruitment Experts</div></div>
     </a>
     <div class="nav-links">
-      <a href="/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>Home</a>
-      <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd"/></svg>Jobs</a>
-      <a href="/ats-analyzer.html" class="active"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>ATS Analyzer</a>
-      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <a href="index.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>Home</a>
+      <a href="jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd"/></svg>Jobs</a>
+      <a href="about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>About</a>
+      <a href="services.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 01-.517.608 7.45 7.45 0 00-.478.198.798.798 0 01-.796-.064l-.453-.324a1.875 1.875 0 00-2.416.2l-.243.243a1.875 1.875 0 00-.2 2.416l.324.453a.798.798 0 01.064.796 7.48 7.48 0 00-.198.478.798.798 0 01-.608.517l-.55.092a1.875 1.875 0 00-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 01-.064.796l-.324.453a1.875 1.875 0 00.2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 01.796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 01.517-.608 7.52 7.52 0 00.478-.198.798.798 0 01.796.064l.453.324a1.875 1.875 0 002.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 01-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 001.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 01-.608-.517 7.507 7.507 0 00-.198-.478.798.798 0 01.064-.796l.324-.453a1.875 1.875 0 00-.2-2.416l-.243-.243a1.875 1.875 0 00-2.416-.2l-.453.324a.798.798 0 01-.796.064 7.462 7.462 0 00-.478-.198.798.798 0 01-.517-.608l-.091-.55a1.875 1.875 0 00-1.85-1.566h-.344zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd"/></svg>Services</a>
+      <a href="industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5H15v-18a.75.75 0 000-1.5H3zM6.75 19.5v-2.25a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v2.25a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75zM6 6.75A.75.75 0 016.75 6h.75a.75.75 0 010 1.5h-.75A.75.75 0 016 6.75zM6.75 9a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75zM6 12.75a.75.75 0 01.75-.75h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 6a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75zm-.75 3.75A.75.75 0 0110.5 9h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 12a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75z" clip-rule="evenodd"/></svg>Industries</a>
+      <a href="contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+      <a href="Ats.html" class="active"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>ATS Score</a>
     </div>
     <div class="nav-cta">
-      <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
-      <a href="/employers.html" class="btn-solid-nav">Hire Talent</a>
+      <a href="candidates.html" class="btn-outline-nav">Find Jobs</a>
+      <a href="employers.html" class="btn-solid-nav">Hire Talent</a>
     </div>
     <button class="hamburger" onclick="toggleMenu()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
   </div>
   <div id="mobileMenu">
-    <a href="/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/></svg>Home</a>
-    <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25z" clip-rule="evenodd"/></svg>Browse Jobs</a>
-    <a href="/ats-analyzer.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>ATS Analyzer</a>
-    <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
-    <div class="mob-cta-row"><a href="/candidates.html" class="mc-outline">Find Jobs</a><a href="/employers.html" class="mc-solid">Hire Talent</a></div>
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/></svg>Home</a>
+    <a href="jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25z" clip-rule="evenodd"/></svg>Jobs</a>
+    <a href="about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>About</a>
+    <a href="services.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 01-.517.608 7.45 7.45 0 00-.478.198.798.798 0 01-.796-.064l-.453-.324a1.875 1.875 0 00-2.416.2l-.243.243a1.875 1.875 0 00-.2 2.416l.324.453a.798.798 0 01.064.796 7.48 7.48 0 00-.198.478.798.798 0 01-.608.517l-.55.092a1.875 1.875 0 00-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 01-.064.796l-.324.453a1.875 1.875 0 00.2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 01.796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 01.517-.608 7.52 7.52 0 00.478-.198.798.798 0 01.796.064l.453.324a1.875 1.875 0 002.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 01-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 001.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 01-.608-.517 7.507 7.507 0 00-.198-.478.798.798 0 01.064-.796l.324-.453a1.875 1.875 0 00-.2-2.416l-.243-.243a1.875 1.875 0 00-2.416-.2l-.453.324a.798.798 0 01-.796.064 7.462 7.462 0 00-.478-.198.798.798 0 01-.517-.608l-.091-.55a1.875 1.875 0 00-1.85-1.566h-.344zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd"/></svg>Services</a>
+    <a href="industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5H15v-18a.75.75 0 000-1.5H3z" clip-rule="evenodd"/></svg>Industries</a>
+    <a href="contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
+    <a href="Ats.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>ATS Score</a>
+    <div class="mob-cta-row"><a href="candidates.html" class="mc-outline">Find Jobs</a><a href="employers.html" class="mc-solid">Hire Talent</a></div>
   </div>
 </nav>
 
@@ -323,15 +320,15 @@
 <div class="page-hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-badge"><div class="badge-dot"></div> Powered by Groq AI · Free · Instant</div>
+    <div class="hero-badge"><div class="badge-dot"></div> Instant · 100% Free · No Signup · Works Offline</div>
     <h1 class="hero-h1">Free <em>ATS Score</em> Analyzer</h1>
-    <p class="hero-sub">Upload your CV (PDF/Word) + paste the job description. Our AI scores your CV and suggests exact keywords to add — in under 30 seconds.</p>
+    <p class="hero-sub">Upload your CV (PDF/Word) + paste the job description. Get an instant ATS score, keyword gap analysis and improvement tips — no AI, no signup, no internet needed.</p>
     <div class="hero-pills">
       <span class="hero-pill">📄 PDF &amp; DOCX Upload</span>
-      <span class="hero-pill">🤖 Groq Llama 3.1</span>
-      <span class="hero-pill">🔑 Keyword Suggestions</span>
-      <span class="hero-pill">⚡ &lt;30 sec</span>
-      <span class="hero-pill">🔒 Never Stored</span>
+      <span class="hero-pill">⚡ Instant Results</span>
+      <span class="hero-pill">🔑 Keyword Gap Analysis</span>
+      <span class="hero-pill">💡 Improvement Tips</span>
+      <span class="hero-pill">🔒 100% Private</span>
     </div>
   </div>
 </div>
@@ -339,6 +336,7 @@
 <div class="page-wrap">
   <!-- INPUT CARDS -->
   <div class="input-grid reveal">
+    <!-- CV -->
     <div class="icard">
       <div class="icard-hd">
         <div class="icard-ico b"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75-6.75a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/><path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/></svg></div>
@@ -363,16 +361,17 @@
         <div class="wc">Words: <span id="cvWC">0</span></div>
       </div>
     </div>
+    <!-- JD -->
     <div class="icard">
       <div class="icard-hd">
         <div class="icard-ico g"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg></div>
         <div><div class="icard-ttl">Job Description <span style="color:#ef4444;font-size:12px;">*</span></div><div class="icard-sub">Paste the full job posting you're applying to</div></div>
       </div>
       <div class="icard-bd">
-        <textarea class="jd-ta" id="jdPaste" placeholder="Paste the full job description here...&#10;&#10;Example:&#10;Senior Civil Engineer — Dubai, UAE&#10;&#10;Requirements:&#10;• 5+ years GCC experience&#10;• AutoCAD, Revit proficiency&#10;• PMP certification preferred..." oninput="wc('jdPaste','jdWC')"></textarea>
+        <textarea class="jd-ta" id="jdPaste" placeholder="Paste the full job description here...&#10;&#10;Example:&#10;Senior Civil Engineer — Dubai, UAE&#10;&#10;Requirements:&#10;• 5+ years GCC experience&#10;• AutoCAD, Revit proficiency&#10;• PMP certification preferred&#10;• Strong project management skills..." oninput="wc('jdPaste','jdWC')"></textarea>
         <div class="wc">Words: <span id="jdWC">0</span></div>
         <div style="margin-top:14px;background:#f8f9fa;border-radius:8px;padding:12px 14px;">
-          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">💡 Tips</div>
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">💡 Tips for best results</div>
           <div style="font-size:12px;color:#555;line-height:1.7;">• Paste the <strong>complete</strong> JD including all requirements<br>• Include skills, qualifications &amp; responsibilities<br>• More text = more accurate keyword matching</div>
         </div>
       </div>
@@ -383,7 +382,7 @@
   <div class="analyze-row reveal">
     <div class="an-note">
       <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
-      Private &amp; secure — your data is never stored or shared.
+      100% private — everything runs in your browser. Nothing is sent anywhere.
     </div>
     <button id="analyzeBtn" onclick="runAnalysis()">
       <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>
@@ -391,8 +390,6 @@
       <span id="btnTxt">Analyze My CV</span>
     </button>
   </div>
-
-  <div id="errSection"><div style="font-size:32px;margin-bottom:12px;">⚠️</div><h3 id="errTitle">Analysis Failed</h3><p id="errMsg">Something went wrong. Please try again.</p></div>
 
   <!-- LOADING -->
   <div id="loadingSection">
@@ -404,35 +401,35 @@
         </div>
         <div class="orb-ring"><div class="orb-dot"></div><div class="orb-dot"></div><div class="orb-dot"></div></div>
       </div>
-      <div class="ai-badge"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd"/></svg>Groq AI · Llama 3.1 · Free</div>
       <div class="load-title">Analyzing your CV...</div>
-      <div class="load-sub">Comparing against job requirements with AI</div>
+      <div class="load-sub">Matching keywords against job requirements</div>
       <div class="ls-grid">
         <div class="ls" id="ls1"><div class="ls-dot" id="ld1">1</div>Reading CV content</div>
-        <div class="ls" id="ls2"><div class="ls-dot" id="ld2">2</div>Parsing job requirements</div>
-        <div class="ls" id="ls3"><div class="ls-dot" id="ld3">3</div>Matching keywords &amp; skills</div>
+        <div class="ls" id="ls2"><div class="ls-dot" id="ld2">2</div>Extracting JD keywords</div>
+        <div class="ls" id="ls3"><div class="ls-dot" id="ld3">3</div>Matching skills &amp; terms</div>
         <div class="ls" id="ls4"><div class="ls-dot" id="ld4">4</div>Calculating ATS score</div>
-        <div class="ls" id="ls5"><div class="ls-dot" id="ld5">5</div>Generating keyword suggestions</div>
+        <div class="ls" id="ls5"><div class="ls-dot" id="ld5">5</div>Building improvement tips</div>
       </div>
     </div>
   </div>
 
   <!-- RESULTS -->
   <div id="resultsSection">
+    <!-- Score banner -->
     <div class="sb">
       <div class="sb-ring"><svg width="90" height="90" viewBox="0 0 90 90"><circle class="sb-trk" cx="45" cy="45" r="39" transform="rotate(-90 45 45)"/><circle class="sb-fill" id="sbFill" cx="45" cy="45" r="39" transform="rotate(-90 45 45)"/></svg><div class="sb-ctr"><div class="sb-num" id="sbNum">0</div><div class="sb-pct">/ 100</div></div></div>
       <div class="sb-info"><div class="sb-grade" id="sbGrade">—</div><div class="sb-desc" id="sbDesc">—</div><div class="sb-chips" id="sbChips"></div></div>
     </div>
+    <!-- Category bars -->
     <div class="cats"><div class="cats-h">📊 Score Breakdown</div><div id="catsContent"></div></div>
+    <!-- Keywords -->
     <div class="kw-grid">
-      <div class="kw-box"><div class="kw-ttl" style="color:#16a34a;">✅ Keywords Found</div><div class="kw-chips" id="kwFound"></div></div>
+      <div class="kw-box"><div class="kw-ttl" style="color:#16a34a;">✅ Keywords Found in CV</div><div class="kw-chips" id="kwFound"></div></div>
       <div class="kw-box"><div class="kw-ttl" style="color:#dc2626;">❌ Missing Keywords</div><div class="kw-chips" id="kwMissing"></div></div>
     </div>
-    <div class="kws">
-      <div class="kws-hd"><div class="kws-ttl">🔑 AI Keyword Suggestions <span class="kws-badge">Groq AI</span></div><div style="font-size:12px;color:var(--muted);">Copy these into your CV to boost your score</div></div>
-      <div id="kwsSuggest"><div class="kws-load"><div class="mini-spin"></div>Generating smart suggestions...</div></div>
-    </div>
-    <div class="sugs"><div class="sugs-h">💡 Actionable Improvements</div><div id="sugsContent"></div></div>
+    <!-- Tips -->
+    <div class="tips-box"><h3>💡 Actionable Improvements</h3><div id="sugsContent"></div></div>
+    <!-- CTA -->
     <div class="res-cta">
       <h3>Want Expert Help Optimising Your CV?</h3>
       <p>Our recruitment specialists review CVs daily and help candidates land Gulf, Asia &amp; European roles — completely free.</p>
@@ -455,38 +452,28 @@
           <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
         </div>
       </div>
-      <div class="fc"><h4>Tools</h4><ul><li><a href="/ats-analyzer.html">ATS Analyzer</a></li><li><a href="/jobs.html">Browse Jobs</a></li><li><a href="/candidates.html">Submit CV</a></li></ul></div>
-      <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/services.html">Services</a></li><li><a href="/contact.html">Contact</a></li></ul></div>
-      <div class="fc"><h4>Employers</h4><ul><li><a href="/employers.html">Post a Job</a></li><li><a href="/employers.html">Our Process</a></li></ul></div>
+      <div class="fc"><h4>Tools</h4><ul><li><a href="Ats.html">ATS Analyzer</a></li><li><a href="jobs.html">Browse Jobs</a></li><li><a href="candidates.html">Submit CV</a></li></ul></div>
+      <div class="fc"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="fc"><h4>Employers</h4><ul><li><a href="employers.html">Post a Job</a></li><li><a href="industries.html">Industries</a></li></ul></div>
     </div>
     <div class="footer-bottom"><p>© 2025 North Asia Consultants. All rights reserved.</p><div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div></div>
   </div>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  ▼▼▼  ONLY THING YOU NEED TO CHANGE  ▼▼▼
-//  1. Go to https://console.groq.com
-//  2. Sign up free (2 min, no credit card)
-//  3. Click "API Keys" → "Create API Key"
-//  4. Copy the key and paste it below, replacing the placeholder
-//  ⚠️  Do NOT push this file to a public GitHub repo
-// ═══════════════════════════════════════════════════════════════
-const GROQ_KEY = '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';
-// ═══════════════════════════════════════════════════════════════
+// ─── PDF.js worker ────────────────────────────────────────────
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-const GROQ_URL   = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.1-8b-instant';
+let cvText = '', loadTimer = null;
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-let cvText = '', loadTimer = null, lastResult = null;
-
+// ─── Helpers ──────────────────────────────────────────────────
 function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
-const ro = new IntersectionObserver(e=>{ e.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add('visible'); ro.unobserve(x.target); }}); },{threshold:.08});
+const ro = new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 function wc(id,sid){ const t=document.getElementById(id).value.trim(); document.getElementById(sid).textContent=t?t.split(/\s+/).length:0; }
 
+// ─── Drag & Drop ──────────────────────────────────────────────
 function onDragOver(e){ e.preventDefault(); document.getElementById('dz').classList.add('over'); }
 function onDragLeave(){ document.getElementById('dz').classList.remove('over'); }
 function onDrop(e){ e.preventDefault(); document.getElementById('dz').classList.remove('over'); const f=e.dataTransfer.files[0]; if(f) processFile(f); }
@@ -503,88 +490,265 @@ async function processFile(file){
     else if(ext==='txt') cvText=await readTXT(file);
     else{ alert('Unsupported format. Use PDF, DOCX, DOC, or TXT.'); document.getElementById('rp').classList.remove('show'); return; }
     document.getElementById('rpFill').style.width='100%';
-    document.getElementById('dzEm').textContent=ext==='pdf'?'📕':ext==='docx'||ext==='doc'?'📘':'📄';
+    document.getElementById('dzEm').textContent=ext==='pdf'?'📕':'📘';
     document.getElementById('dz').classList.add('has-file');
     document.getElementById('fpIco').textContent=ext==='pdf'?'📕':'📘';
     document.getElementById('fpName').textContent=file.name;
     document.getElementById('fpSz').textContent=`${(file.size/1024).toFixed(1)} KB · ${cvText.split(/\s+/).length} words extracted`;
     document.getElementById('fp').classList.add('show');
-    document.getElementById('cvPaste').value=cvText.substring(0,3000)+(cvText.length>3000?'\n\n[... truncated for display — full CV will be analyzed]':'');
+    document.getElementById('cvPaste').value=cvText.substring(0,3000);
     wc('cvPaste','cvWC');
     setTimeout(()=>{ document.getElementById('rp').classList.remove('show'); document.getElementById('rpFill').style.width='0%'; },900);
-  }catch(err){ document.getElementById('rp').classList.remove('show'); alert('Could not read file: '+err.message+'\n\nPaste your CV text manually instead.'); }
+  }catch(err){ document.getElementById('rp').classList.remove('show'); alert('Could not read file: '+err.message+'\n\nPlease paste your CV text manually.'); }
 }
-
 async function readPDF(file){
-  return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=async e=>{ try{ const pdf=await pdfjsLib.getDocument({data:new Uint8Array(e.target.result)}).promise; let t=''; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); const c=await p.getTextContent(); t+=c.items.map(x=>x.str).join(' ')+'\n'; document.getElementById('rpFill').style.width=Math.round(35+(i/pdf.numPages)*55)+'%'; } res(t.trim()); }catch(e){rej(e);} };
-    r.onerror=()=>rej(new Error('Failed to read file')); r.readAsArrayBuffer(file);
-  });
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=async e=>{ try{ const pdf=await pdfjsLib.getDocument({data:new Uint8Array(e.target.result)}).promise; let t=''; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); const c=await p.getTextContent(); t+=c.items.map(x=>x.str).join(' ')+'\n'; document.getElementById('rpFill').style.width=Math.round(35+(i/pdf.numPages)*55)+'%'; } res(t.trim()); }catch(e){rej(e);} }; r.onerror=()=>rej(new Error('Read failed')); r.readAsArrayBuffer(file); });
 }
 async function readDOCX(file){
-  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=async e=>{ try{ const x=await mammoth.extractRawText({arrayBuffer:e.target.result}); res(x.value.trim()); }catch(e){rej(e);} }; r.onerror=()=>rej(new Error('Failed to read')); r.readAsArrayBuffer(file); });
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=async e=>{ try{ const x=await mammoth.extractRawText({arrayBuffer:e.target.result}); res(x.value.trim()); }catch(e){rej(e);} }; r.onerror=()=>rej(new Error('Read failed')); r.readAsArrayBuffer(file); });
 }
 async function readTXT(file){
-  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.trim()); r.onerror=()=>rej(new Error('Failed to read')); r.readAsText(file); });
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.trim()); r.onerror=()=>rej(new Error('Read failed')); r.readAsText(file); });
 }
 function removeFile(){ cvText=''; document.getElementById('dz').className='dz'; document.getElementById('dzEm').textContent='📄'; document.getElementById('fp').classList.remove('show'); document.getElementById('cvFile').value=''; document.getElementById('cvPaste').value=''; wc('cvPaste','cvWC'); }
 
-function startSteps(){ let i=1; document.getElementById('ls'+i).classList.add('active'); document.getElementById('ld'+i).textContent='●'; loadTimer=setInterval(()=>{ document.getElementById('ls'+i).classList.remove('active'); document.getElementById('ls'+i).classList.add('done'); document.getElementById('ld'+i).textContent='✓'; if(i<5){ i++; document.getElementById('ls'+i).classList.add('active'); document.getElementById('ld'+i).textContent='●'; } },1200); }
+// ─── Loading steps ────────────────────────────────────────────
+function startSteps(){ let i=1; document.getElementById('ls'+i).classList.add('active'); document.getElementById('ld'+i).textContent='●'; loadTimer=setInterval(()=>{ document.getElementById('ls'+i).classList.remove('active'); document.getElementById('ls'+i).classList.add('done'); document.getElementById('ld'+i).textContent='✓'; if(i<5){i++;document.getElementById('ls'+i).classList.add('active');document.getElementById('ld'+i).textContent='●';} },400); }
 function stopSteps(){ clearInterval(loadTimer); for(let i=1;i<=5;i++){ document.getElementById('ls'+i).classList.remove('active'); document.getElementById('ls'+i).classList.add('done'); document.getElementById('ld'+i).textContent='✓'; } }
 function resetSteps(){ for(let i=1;i<=5;i++){ document.getElementById('ls'+i).classList.remove('active','done'); document.getElementById('ld'+i).textContent=String(i); } }
 
-async function callGroq(messages,maxTokens=1200){
-  const res=await fetch(GROQ_URL,{ method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY}, body:JSON.stringify({model:GROQ_MODEL,messages,temperature:0.3,max_tokens:maxTokens}) });
-  if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error(e.error?.message||'Groq error '+res.status); }
-  return res.json();
+// ═══════════════════════════════════════════════════════════════
+//  PURE JS ATS ENGINE — No API, No key, Works from file://
+// ═══════════════════════════════════════════════════════════════
+
+// Tokenise text → unique lowercase words (3+ chars, no stopwords)
+const STOPWORDS = new Set(['the','and','for','are','was','were','with','that','this','have','has','had','from','they','been','will','would','could','should','their','there','then','than','when','what','which','who','how','not','but','you','your','our','all','any','can','may','its','also','into','each','more','about','after','over','some','just','other','such','these','those','both','very','does','did','being','using','used','able','make','made','must','well','work','only','one','two','new','per','yet','get','set']);
+
+function tokenize(text){
+  return [...new Set(
+    text.toLowerCase()
+        .replace(/[^a-z0-9\s\-\+\#\.]/g,' ')
+        .split(/\s+/)
+        .filter(w=>w.length>=3 && !STOPWORDS.has(w))
+  )];
 }
 
-async function runAnalysis(){
-  const cv=cvText||document.getElementById('cvPaste').value.trim();
-  const jd=document.getElementById('jdPaste').value.trim();
+// Extract meaningful n-grams (bigrams) from JD
+function bigrams(text){
+  const words = text.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w=>w.length>2&&!STOPWORDS.has(w));
+  const bg = [];
+  for(let i=0;i<words.length-1;i++) bg.push(words[i]+' '+words[i+1]);
+  return [...new Set(bg)];
+}
+
+// Score how well CV covers a keyword (exact or partial match)
+function cvContains(cvLower, kw){
+  if(cvLower.includes(kw)) return true;
+  // stem: check if 5+ char root present
+  if(kw.length>=6 && cvLower.includes(kw.substring(0,kw.length-2))) return true;
+  return false;
+}
+
+// Weight table for keyword categories
+const SECTION_WEIGHTS = {
+  skills:      {weight:30, patterns:[/skill/i,/proficien/i,/expert/i,/knowledge/i,/experienc.*with/i,/familiar/i,/certified/i,/tool/i,/software/i,/platform/i,/framework/i]},
+  experience:  {weight:30, patterns:[/year.*experienc/i,/experienc/i,/background/i,/history/i,/role/i,/position/i,/responsib/i,/manag/i,/led/i,/develop/i,/achiev/i]},
+  education:   {weight:15, patterns:[/degree/i,/bachelor/i,/master/i,/phd/i,/diploma/i,/certif/i,/qualif/i,/graduat/i,/university/i,/college/i]},
+  formatting:  {weight:10, patterns:[]}, // checked separately
+  keywords:    {weight:15, patterns:[]}  // JD keyword coverage
+};
+
+function analyzeATS(cvRaw, jdRaw){
+  const cvL  = cvRaw.toLowerCase();
+  const jdL  = jdRaw.toLowerCase();
+
+  const cvTokens = tokenize(cvRaw);
+  const jdTokens = tokenize(jdRaw);
+  const jdBg     = bigrams(jdRaw);
+
+  // ── 1. Keyword match ──────────────────────────────────────
+  const found   = [];
+  const missing = [];
+
+  // Single keywords from JD
+  jdTokens.forEach(kw=>{
+    if(kw.length<4) return; // skip very short
+    if(cvContains(cvL, kw)) found.push(kw);
+    else missing.push(kw);
+  });
+
+  // Bigrams — high value phrases
+  const foundPhrases=[], missingPhrases=[];
+  jdBg.forEach(bg=>{
+    if(bg.split(' ').some(w=>STOPWORDS.has(w))) return;
+    if(cvL.includes(bg)) foundPhrases.push(bg);
+    else missingPhrases.push(bg);
+  });
+
+  const kwScore = jdTokens.length===0 ? 50 :
+    Math.round((found.length / jdTokens.length)*100);
+
+  // ── 2. Skills alignment ───────────────────────────────────
+  // Look for tech/tool keywords that commonly appear in JDs
+  const techRx = /\b(python|java|javascript|typescript|react|node|angular|vue|sql|mysql|postgresql|mongodb|aws|azure|gcp|docker|kubernetes|git|linux|excel|powerbi|tableau|autocad|revit|sap|salesforce|hubspot|photoshop|illustrator|figma|c\+\+|\.net|php|ruby|swift|kotlin|r\b|matlab|spss|pmp|agile|scrum|six sigma|iso|lean|kaizen)\b/gi;
+  const jdTech = [...new Set((jdRaw.match(techRx)||[]).map(s=>s.toLowerCase()))];
+  const cvTech = [...new Set((cvRaw.match(techRx)||[]).map(s=>s.toLowerCase()))];
+  const techFound   = jdTech.filter(t=>cvTech.includes(t));
+  const techMissing = jdTech.filter(t=>!cvTech.includes(t));
+  const skillsScore = jdTech.length===0 ? 65 :
+    Math.round((techFound.length/jdTech.length)*100);
+
+  // ── 3. Experience relevance ───────────────────────────────
+  // Check years of experience requirement
+  const yrsRx  = /(\d+)\+?\s*years?\s*(of\s*)?(experience|exp)/i;
+  const jdYrs  = (jdRaw.match(yrsRx)||[])[1];
+  const cvYrs  = (cvRaw.match(/(\d{4})\s*[-–]\s*(\d{4}|present|current)/gi)||[]).length; // rough job count
+  let expScore = 70;
+  if(jdYrs){
+    const req=parseInt(jdYrs);
+    // Estimate years from date ranges in CV
+    const ranges=(cvRaw.match(/(\d{4})\s*[-–]\s*(\d{4}|present|current)/gi)||[]);
+    let estYears=0;
+    ranges.forEach(r=>{ const m=r.match(/(\d{4})\s*[-–]\s*(\d{4}|present|current)/i); if(m){ const end=m[2].toLowerCase().includes('present')||m[2].toLowerCase().includes('current')?new Date().getFullYear():parseInt(m[2]); estYears+=Math.max(0,end-parseInt(m[1])); } });
+    if(estYears===0) expScore=55;
+    else if(estYears>=req) expScore=Math.min(95,70+Math.round((estYears/req)*15));
+    else expScore=Math.max(30,Math.round((estYears/req)*75));
+  }
+
+  // ── 4. Education match ────────────────────────────────────
+  const eduLevels={phd:4,doctorate:4,master:3,mba:3,'post-grad':3,bachelor:2,degree:2,diploma:1,certif:1};
+  let jdEduLevel=0, cvEduLevel=0;
+  Object.entries(eduLevels).forEach(([k,v])=>{
+    if(jdL.includes(k)&&v>jdEduLevel) jdEduLevel=v;
+    if(cvL.includes(k)&&v>cvEduLevel) cvEduLevel=v;
+  });
+  const eduScore = jdEduLevel===0 ? 75 :
+    cvEduLevel>=jdEduLevel ? 90 :
+    cvEduLevel===0 ? 40 :
+    Math.round((cvEduLevel/jdEduLevel)*80);
+
+  // ── 5. CV formatting ──────────────────────────────────────
+  let fmtScore=50;
+  const wordCount=cvRaw.split(/\s+/).length;
+  if(wordCount>=300&&wordCount<=1200) fmtScore+=20;
+  if(/contact|email|phone|linkedin/i.test(cvL)) fmtScore+=10;
+  if(/experience|employment|work history/i.test(cvL)) fmtScore+=10;
+  if(/education|qualification/i.test(cvL)) fmtScore+=5;
+  if(/skill/i.test(cvL)) fmtScore+=5;
+  fmtScore=Math.min(100,fmtScore);
+
+  // ── Overall score (weighted) ──────────────────────────────
+  const overall = Math.round(
+    kwScore    * 0.30 +
+    skillsScore* 0.25 +
+    expScore   * 0.20 +
+    eduScore   * 0.15 +
+    fmtScore   * 0.10
+  );
+
+  // ── Grade ─────────────────────────────────────────────────
+  const grade = overall>=80?'Excellent':overall>=65?'Good':overall>=45?'Fair':'Poor';
+
+  // ── Summary ───────────────────────────────────────────────
+  const pct=Math.round((found.length/(jdTokens.length||1))*100);
+  const summary = `Your CV matches ${pct}% of the job description keywords. ${
+    skillsScore>=70?'Technical skills alignment is strong.':'Some required technical skills are missing from your CV.'
+  } ${
+    overall>=65?'Overall this is a competitive application.':'Adding the missing keywords and skills below could significantly improve your ATS score.'
+  }`;
+
+  // ── Suggestions ───────────────────────────────────────────
+  const suggestions = [];
+
+  // Critical: missing keywords
+  if(missing.length>0){
+    const top=missing.slice(0,5).join(', ');
+    suggestions.push({priority:'critical',icon:'🔴',label:'Missing Keywords',text:`Add these keywords naturally into your CV: ${top}. ATS systems filter out CVs that don't contain the exact words from the job description.`});
+  }
+  // Critical: missing tech
+  if(techMissing.length>0){
+    suggestions.push({priority:'critical',icon:'🔴',label:'Missing Technical Skills',text:`These tools/technologies appear in the JD but not your CV: ${techMissing.slice(0,4).join(', ')}. Add a dedicated Skills section listing them if you have experience.`});
+  }
+  // Important: word count
+  if(wordCount<300){
+    suggestions.push({priority:'important',icon:'🟡',label:'CV Too Short',text:`Your CV has only ~${wordCount} words. ATS systems rank longer, more detailed CVs higher. Aim for 400–800 words with full descriptions of each role.`});
+  } else if(wordCount>1200){
+    suggestions.push({priority:'important',icon:'🟡',label:'CV May Be Too Long',text:`Your CV is ~${wordCount} words. Consider condensing to 600–1000 words to keep it focused and readable.`});
+  }
+  // Important: contact info
+  if(!/email|@|phone|linkedin/i.test(cvL)){
+    suggestions.push({priority:'important',icon:'🟡',label:'Contact Info Missing',text:'Ensure your email, phone number, and LinkedIn URL are clearly visible at the top of your CV.'});
+  }
+  // Important: experience section
+  if(!/experience|employment|work history/i.test(cvL)){
+    suggestions.push({priority:'important',icon:'🟡',label:'No Experience Section',text:'Add a clearly labelled "Work Experience" or "Employment History" section. ATS systems look for these headings to parse your roles.'});
+  }
+  // Important: quantifiable results
+  if(!/\d+%|\$\d+|\d+ (million|thousand|projects|clients|team)/i.test(cvL)){
+    suggestions.push({priority:'important',icon:'🟡',label:'Add Measurable Results',text:'Include numbers and results in your bullet points (e.g. "Reduced costs by 20%", "Managed a team of 12"). This massively improves ATS relevance scoring.'});
+  }
+  // Good: phrases found
+  if(foundPhrases.length>0){
+    suggestions.push({priority:'good',icon:'🟢',label:'Strength',text:`Great — your CV contains key phrases from the JD: "${foundPhrases.slice(0,3).join('", "')}" which boosts ATS ranking.`});
+  }
+  if(fmtScore>=75){
+    suggestions.push({priority:'good',icon:'🟢',label:'Good Structure',text:'Your CV appears well-structured with the key sections ATS systems look for. Keep the formatting clean and simple.'});
+  }
+
+  // ── Top keywords to display ───────────────────────────────
+  const displayFound   = [...techFound, ...found.filter(k=>!techFound.includes(k))].slice(0,14);
+  const displayMissing = [...techMissing, ...missing.filter(k=>!techMissing.includes(k))].slice(0,12);
+
+  return { overall, grade, summary,
+    categories:[
+      {name:'Keyword Match',    score:kwScore,     icon:'🔑'},
+      {name:'Skills Alignment', score:skillsScore, icon:'⚡'},
+      {name:'Experience Match', score:expScore,    icon:'💼'},
+      {name:'Education Match',  score:eduScore,    icon:'🎓'},
+      {name:'CV Structure',     score:fmtScore,    icon:'📄'},
+    ],
+    foundKeywords:   displayFound,
+    missingKeywords: displayMissing,
+    suggestions
+  };
+}
+
+// ─── MAIN ────────────────────────────────────────────────────
+function runAnalysis(){
+  const cv = cvText || document.getElementById('cvPaste').value.trim();
+  const jd = document.getElementById('jdPaste').value.trim();
   if(!cv){ alert('Please upload your CV or paste your CV text.'); return; }
   if(!jd){ alert('Please paste the job description.'); return; }
-  if(cv.split(/\s+/).length<30){ alert('Your CV seems too short. Please provide the full CV.'); return; }
+  if(cv.split(/\s+/).length<30){ alert('Your CV seems too short. Please provide the full CV text.'); return; }
   if(jd.split(/\s+/).length<15){ alert('The job description is too short. Paste the full JD.'); return; }
-  if(GROQ_KEY==='YOUR_GROQ_API_KEY_HERE'){ alert('⚠️ One-time setup needed!\n\n1. Go to https://console.groq.com\n2. Sign up free (2 min)\n3. Create an API Key\n4. Open this HTML file in a text editor\n5. Replace YOUR_GROQ_API_KEY_HERE with your key\n6. Save and re-open the page\n\nAfter that, all visitors use it for free — no setup needed for them!'); return; }
 
   document.getElementById('analyzeBtn').disabled=true;
   document.getElementById('btnSpin').style.display='inline-block';
   document.getElementById('btnTxt').textContent='Analyzing...';
   document.getElementById('loadingSection').style.display='block';
   document.getElementById('resultsSection').style.display='none';
-  document.getElementById('errSection').style.display='none';
   document.getElementById('loadingSection').scrollIntoView({behavior:'smooth',block:'start'});
   resetSteps(); startSteps();
 
-  const cvT=cv.substring(0,4000), jdT=jd.substring(0,2000);
-  const prompt=`You are an ATS expert. Analyze this CV vs job description.\n\nCV:\n${cvT}\n\nJOB DESCRIPTION:\n${jdT}\n\nReturn ONLY valid JSON (no markdown, no backticks):\n{"overallScore":<0-100>,"grade":"<Excellent|Good|Fair|Poor>","summary":"<2-3 sentences>","categories":[{"name":"Keyword Match","score":<0-100>,"icon":"🔑"},{"name":"Skills Alignment","score":<0-100>,"icon":"⚡"},{"name":"Experience Relevance","score":<0-100>,"icon":"💼"},{"name":"Education Match","score":<0-100>,"icon":"🎓"},{"name":"CV Formatting","score":<0-100>,"icon":"📄"}],"foundKeywords":[<up to 12 strings>],"missingKeywords":[<up to 10 strings>],"suggestions":[{"priority":"critical","text":"<specific fix>"},{"priority":"important","text":"<improvement>"},{"priority":"good","text":"<what was done well>"}]}`;
-
-  try{
-    const data=await callGroq([{role:'user',content:prompt}]);
-    const raw=data.choices[0].message.content.trim();
-    const result=JSON.parse(raw.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim());
-    stopSteps(); lastResult=result;
-    setTimeout(()=>{ document.getElementById('loadingSection').style.display='none'; showOverlay(result,jdT,cvT); },600);
-  }catch(err){
+  // Run after short delay so loading UI renders
+  setTimeout(()=>{
+    const result = analyzeATS(cv, jd);
     stopSteps();
-    document.getElementById('loadingSection').style.display='none';
-    document.getElementById('analyzeBtn').disabled=false;
-    document.getElementById('btnSpin').style.display='none';
-    document.getElementById('btnTxt').textContent='Analyze My CV';
-    const t=err.message.includes('401')?'Invalid API Key':err.message.includes('429')?'Rate Limit — Retry in a moment':err.message.includes('JSON')?'Unexpected Response':'Analysis Failed';
-    const m=err.message.includes('401')?'API key is invalid. Open the HTML file, fix GROQ_KEY, and re-upload.':err.message.includes('429')?'Groq rate limit hit. Wait a few seconds and try again.':err.message.includes('JSON')?'AI returned unexpected format. Please try again.':'Error: '+err.message;
-    document.getElementById('errTitle').textContent=t;
-    document.getElementById('errMsg').textContent=m;
-    document.getElementById('errSection').style.display='block';
-    document.getElementById('errSection').scrollIntoView({behavior:'smooth',block:'center'});
-  }
+    setTimeout(()=>{
+      document.getElementById('loadingSection').style.display='none';
+      showOverlay(result);
+    }, 400);
+  }, 2200);
 }
 
-function showOverlay(r,jd,cv){
-  const score=Math.min(100,Math.max(0,r.overallScore||0));
-  const cfg=score>=80?{stroke:'#22c55e',grade:'🏆 Excellent Match!',line:'Your CV is highly optimised for this role.',confetti:true}:score>=65?{stroke:'#38bdf8',grade:'👍 Good Match',line:'Strong alignment. Add missing keywords to push higher.',confetti:true}:score>=45?{stroke:'#fbbf24',grade:'⚠️ Fair Match',line:'Some gaps found. Follow the suggestions below.',confetti:false}:{stroke:'#f87171',grade:'❌ Needs Work',line:'Significant gaps. The report below has specific steps.',confetti:false};
+// ─── OVERLAY ─────────────────────────────────────────────────
+function showOverlay(r){
+  const score=Math.min(100,Math.max(0,r.overall));
+  const cfg=score>=80?{stroke:'#22c55e',grade:'🏆 Excellent Match!',line:'Your CV is well optimised for this role.',confetti:true}:
+            score>=65?{stroke:'#38bdf8',grade:'👍 Good Match',line:'Strong alignment. Add the missing keywords to push higher.',confetti:true}:
+            score>=45?{stroke:'#fbbf24',grade:'⚠️ Fair Match',line:'Some gaps found. Follow the improvement tips below.',confetti:false}:
+                      {stroke:'#f87171',grade:'❌ Needs Work',line:'Significant gaps. The full report below shows what to fix.',confetti:false};
+
   document.getElementById('rFill1').style.stroke=cfg.stroke;
   [['rFill1',691],['rFill2',628],['rFill3',565]].forEach(([id,c])=>document.getElementById(id).style.strokeDashoffset=c);
   document.getElementById('rNum').classList.remove('pop'); document.getElementById('rNum').textContent='0';
@@ -592,57 +756,84 @@ function showOverlay(r,jd,cv){
   document.getElementById('olGrade').textContent=cfg.grade; document.getElementById('olGrade').style.color=cfg.stroke;
   document.getElementById('olLine').textContent=cfg.line;
   document.getElementById('scoreOverlay').classList.add('show'); document.body.style.overflow='hidden';
-  requestAnimationFrame(()=>setTimeout(()=>{ document.getElementById('rFill1').style.strokeDashoffset=691-(score/100)*691; document.getElementById('rFill2').style.strokeDashoffset=628-(score/100)*628; document.getElementById('rFill3').style.strokeDashoffset=565-(score/100)*565; },50));
+
+  requestAnimationFrame(()=>setTimeout(()=>{
+    document.getElementById('rFill1').style.strokeDashoffset=691-(score/100)*691;
+    document.getElementById('rFill2').style.strokeDashoffset=628-(score/100)*628;
+    document.getElementById('rFill3').style.strokeDashoffset=565-(score/100)*565;
+  },50));
+
   let cur=0; const tk=setInterval(()=>{ cur=Math.min(cur+Math.ceil(score/25),score); document.getElementById('rNum').textContent=cur; if(cur>=score){clearInterval(tk);document.getElementById('rNum').classList.add('pop');} },55);
   setTimeout(()=>spawnParts(cfg.stroke),950);
   setTimeout(()=>document.getElementById('olGrade').classList.add('in'),1500);
   setTimeout(()=>document.getElementById('olLine').classList.add('in'),1800);
   setTimeout(()=>document.getElementById('olBtn').classList.add('in'),2100);
   if(cfg.confetti) setTimeout(()=>spawnConfetti(),1000);
-  setTimeout(()=>fetchSuggestions(r.missingKeywords||[],jd,cv),400);
+
+  // Store for render
+  window._lastResult = r;
 }
 
 function spawnParts(color){ const ring=document.getElementById('parts'); ring.innerHTML=''; const cols=[color,'#fff','rgba(255,255,255,0.6)',color]; for(let i=0;i<20;i++){ const p=document.createElement('div'); p.className='part'; const angle=(i/20)*Math.PI*2,dist=100+Math.random()*70; p.style.cssText=`background:${cols[i%4]};width:${4+Math.random()*7}px;height:${4+Math.random()*7}px;--tx:${Math.cos(angle)*dist}px;--ty:${Math.sin(angle)*dist}px;animation-delay:${Math.random()*.3}s;animation-duration:${.8+Math.random()*.4}s;margin:-4px 0 0 -4px;`; ring.appendChild(p); } }
 function spawnConfetti(){ const w=document.getElementById('confettiWrap'); w.innerHTML=''; const cols=['#22c55e','#0a66c2','#f59e0b','#38bdf8','#f472b6','#a78bfa','#34d399']; for(let i=0;i<65;i++){ const c=document.createElement('div'); c.className='conf'; c.style.cssText=`left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*7)]};--dur:${1.5+Math.random()*2}s;--delay:${Math.random()*1}s;transform:rotate(${Math.random()*360}deg);width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};`; w.appendChild(c); } setTimeout(()=>w.innerHTML='',4500); }
 
-function closeOverlay(){ const ol=document.getElementById('scoreOverlay'); ol.style.opacity='0'; ol.style.transition='opacity .4s'; setTimeout(()=>{ ol.classList.remove('show'); ol.style.opacity=''; ol.style.transition=''; document.body.style.overflow=''; if(lastResult) renderResults(lastResult); document.getElementById('analyzeBtn').disabled=false; document.getElementById('btnSpin').style.display='none'; document.getElementById('btnTxt').textContent='Analyze My CV'; },400); }
+function closeOverlay(){
+  const ol=document.getElementById('scoreOverlay');
+  ol.style.opacity='0'; ol.style.transition='opacity .4s';
+  setTimeout(()=>{
+    ol.classList.remove('show'); ol.style.opacity=''; ol.style.transition=''; document.body.style.overflow='';
+    renderResults(window._lastResult);
+    document.getElementById('analyzeBtn').disabled=false;
+    document.getElementById('btnSpin').style.display='none';
+    document.getElementById('btnTxt').textContent='Analyze My CV';
+  },400);
+}
 document.getElementById('scoreOverlay').addEventListener('click',function(e){ if(e.target===this) closeOverlay(); });
 
+// ─── RENDER RESULTS ───────────────────────────────────────────
 function renderResults(r){
-  const score=Math.min(100,Math.max(0,r.overallScore||0));
-  const circ=245,offset=circ-(score/100)*circ;
+  const score=Math.min(100,Math.max(0,r.overall));
+  const circ=245, offset=circ-(score/100)*circ;
   const bc=score>=75?'#057642':score>=55?'#0a66c2':score>=35?'#d97706':'#dc2626';
   const gc={Excellent:{c:'#057642',e:'🏆'},Good:{c:'#0a66c2',e:'👍'},Fair:{c:'#d97706',e:'⚠️'},Poor:{c:'#dc2626',e:'❌'}};
   const g=gc[r.grade]||gc.Fair;
   document.getElementById('sbFill').style.stroke=bc; document.getElementById('sbFill').style.strokeDashoffset=circ; document.getElementById('sbNum').textContent=score;
   setTimeout(()=>document.getElementById('sbFill').style.strokeDashoffset=offset,100);
   document.getElementById('sbGrade').innerHTML=`<span style="color:${g.c}">${g.e} ${r.grade}</span>`;
-  document.getElementById('sbDesc').textContent=r.summary||'';
-  document.getElementById('sbChips').innerHTML=`<span class="sb-chip" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">${(r.foundKeywords||[]).length} keywords found</span><span class="sb-chip" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;">${(r.missingKeywords||[]).length} keywords missing</span>`;
-  document.getElementById('catsContent').innerHTML=(r.categories||[]).map(cat=>{ const s=Math.min(100,Math.max(0,cat.score)); const cc=s>=75?'#057642':s>=50?'#0a66c2':s>=30?'#d97706':'#dc2626'; return `<div class="cat-row"><div class="cat-top"><div class="cat-name">${cat.icon||''} ${cat.name}</div><div class="cat-pct" style="color:${cc}">${s}%</div></div><div class="cat-trk"><div class="cat-fill" style="background:${cc};--w:${s}%;"></div></div></div>`; }).join('');
+  document.getElementById('sbDesc').textContent=r.summary;
+  document.getElementById('sbChips').innerHTML=`<span class="sb-chip" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">${r.foundKeywords.length} keywords found</span><span class="sb-chip" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;">${r.missingKeywords.length} keywords missing</span>`;
+
+  document.getElementById('catsContent').innerHTML=r.categories.map(cat=>{
+    const s=Math.min(100,Math.max(0,cat.score));
+    const cc=s>=75?'#057642':s>=50?'#0a66c2':s>=30?'#d97706':'#dc2626';
+    return `<div class="cat-row"><div class="cat-top"><div class="cat-name">${cat.icon} ${cat.name}</div><div class="cat-pct" style="color:${cc}">${s}%</div></div><div class="cat-trk"><div class="cat-fill" style="background:${cc};--w:${s}%;"></div></div></div>`;
+  }).join('');
   setTimeout(()=>document.querySelectorAll('.cat-fill').forEach(b=>b.style.width=b.style.getPropertyValue('--w')),150);
-  document.getElementById('kwFound').innerHTML=(r.foundKeywords||[]).map(k=>`<span class="kw-yes">✓ ${k}</span>`).join('')||'<span style="font-size:12px;color:var(--muted)">None detected</span>';
-  document.getElementById('kwMissing').innerHTML=(r.missingKeywords||[]).map(k=>`<span class="kw-no">✗ ${k}</span>`).join('')||'<span style="font-size:12px;color:#16a34a">None — great match! 🎉</span>';
-  const si={critical:'🔴',important:'🟡',good:'🟢'},sl={critical:'Critical Fix',important:'Improvement',good:'Strength'},sc={critical:'#ea580c',important:'#d97706',good:'#057642'};
-  document.getElementById('sugsContent').innerHTML=(r.suggestions||[]).map((s,i)=>`<div class="sug-item ${s.priority}" style="animation-delay:${i*.1}s"><div class="sug-ico">${si[s.priority]||'💡'}</div><div><div class="sug-lbl" style="color:${sc[s.priority]}">${sl[s.priority]||s.priority}</div><div class="sug-txt">${s.text}</div></div></div>`).join('')||'<p style="color:var(--muted);font-size:13px;">No suggestions available.</p>';
+
+  document.getElementById('kwFound').innerHTML=r.foundKeywords.length
+    ? r.foundKeywords.map(k=>`<span class="kw-yes">✓ ${k}</span>`).join('')
+    : '<span style="font-size:12px;color:var(--muted)">None detected</span>';
+  document.getElementById('kwMissing').innerHTML=r.missingKeywords.length
+    ? r.missingKeywords.map(k=>`<span class="kw-no">✗ ${k}</span>`).join('')
+    : '<span style="font-size:12px;color:#16a34a">None — great match! 🎉</span>';
+
+  document.getElementById('sugsContent').innerHTML=r.suggestions.map((s,i)=>`
+    <div class="sug-item ${s.priority}" style="animation-delay:${i*.08}s">
+      <div class="sug-ico">${s.icon}</div>
+      <div><div class="sug-lbl" style="color:${s.priority==='critical'?'#ea580c':s.priority==='important'?'#d97706':'#057642'}">${s.label}</div><div class="sug-txt">${s.text}</div></div>
+    </div>`).join('') || '<p style="color:var(--muted);font-size:13px;">No issues found — great CV!</p>';
+
   document.getElementById('resultsSection').style.display='block';
   document.getElementById('resultsSection').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-async function fetchSuggestions(missing,jd,cv){
-  const el=document.getElementById('kwsSuggest');
-  if(!missing.length){ el.innerHTML='<div style="text-align:center;padding:16px;font-size:13px;color:#16a34a;">✅ Your CV already contains all major keywords!</div>'; return; }
-  const prompt=`CV keyword strategist. For each missing keyword, explain WHERE and HOW to add it naturally.\n\nMissing keywords: ${missing.slice(0,7).join(', ')}\nJD context: ${jd.substring(0,600)}\nCV context: ${cv.substring(0,600)}\n\nReturn ONLY JSON array (no markdown):\n[{"keyword":"<word>","priority":"<high|medium|low>","where":"<exact CV section>","example":"<short natural sentence>"}]\nMax 6 items. Be specific.`;
-  try{
-    const data=await callGroq([{role:'user',content:prompt}],800);
-    const raw=data.choices[0].message.content.trim();
-    const items=JSON.parse(raw.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim());
-    const pc={high:'pri-h',medium:'pri-m',low:'pri-l'},pl={high:'🔴 High Priority',medium:'🟡 Medium',low:'🟢 Nice to have'};
-    el.innerHTML=`<div class="kws-grid">${items.map(s=>`<div class="kws-card"><div class="kws-kw">${s.keyword}</div><div class="kws-where">📍 Add to: ${s.where}</div><div class="kws-eg">"${s.example}"</div><span class="kws-pri ${pc[s.priority]||'pri-m'}">${pl[s.priority]||s.priority}</span></div>`).join('')}</div>`;
-  }catch(err){ el.innerHTML=`<div style="text-align:center;padding:16px;font-size:13px;color:var(--muted);">Add these missing keywords to your CV:<div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:10px;">${missing.map(k=>`<span class="kw-no">+ ${k}</span>`).join('')}</div></div>`; }
+// ─── RESET ────────────────────────────────────────────────────
+function resetAll(){
+  cvText=''; window._lastResult=null; removeFile();
+  document.getElementById('jdPaste').value=''; wc('jdPaste','jdWC');
+  document.getElementById('resultsSection').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function resetAll(){ cvText=''; lastResult=null; removeFile(); document.getElementById('jdPaste').value=''; wc('jdPaste','jdWC'); document.getElementById('resultsSection').style.display='none'; document.getElementById('errSection').style.display='none'; document.getElementById('kwsSuggest').innerHTML='<div class="kws-load"><div class="mini-spin"></div>Generating smart suggestions...</div>'; window.scrollTo({top:0,behavior:'smooth'}); }
 </script>
 </body>
 </html>
