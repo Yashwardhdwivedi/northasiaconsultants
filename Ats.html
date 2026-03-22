@@ -33,14 +33,12 @@
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
     .reveal.visible{opacity:1;transform:translateY(0);}
 
-    /* ── TOPBAR ── */
     .topbar{background:var(--blue);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;text-align:center;}
     .topbar p{font-size:13px;color:rgba(255,255,255,0.92);}
     .topbar strong{color:#fff;font-weight:600;}
     .topbar a{color:#fff;font-weight:600;font-size:13px;background:rgba(255,255,255,0.2);padding:3px 12px;border-radius:100px;border:1px solid rgba(255,255,255,0.35);transition:background .2s;}
     .topbar a:hover{background:rgba(255,255,255,0.3);}
 
-    /* ── NAV ── */
     nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
     .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
     .logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
@@ -67,7 +65,6 @@
     .mob-cta-row .mc-outline{border:1.5px solid var(--blue);color:var(--blue);}
     .mob-cta-row .mc-solid{background:var(--blue);color:#fff;}
 
-    /* ── HERO ── */
     .page-hero{background:linear-gradient(135deg,#0d47a1 0%,#0a66c2 55%,#1565c0 100%);position:relative;overflow:hidden;padding:56px 20px 60px;}
     .page-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
     .hero-glow{position:absolute;top:-80px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
@@ -80,10 +77,26 @@
     .hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
     .hero-pill{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.9);font-size:12px;font-weight:500;padding:5px 14px;border-radius:100px;}
 
-    /* ── PAGE ── */
+    /* ── API KEY SETUP BANNER ── */
+    #apiSetupBanner{background:#fff;border:2px solid #fbbf24;border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;display:flex;align-items:flex-start;gap:14px;}
+    #apiSetupBanner.hidden{display:none;}
+    .api-ico{font-size:28px;flex-shrink:0;}
+    .api-info{flex:1;}
+    .api-info h3{font-size:14px;font-weight:700;color:#92400e;margin-bottom:6px;}
+    .api-info p{font-size:12px;color:#78350f;line-height:1.65;margin-bottom:10px;}
+    .api-input-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    #apiKeyInput{flex:1;min-width:220px;padding:9px 14px;border:1.5px solid #fbbf24;border-radius:8px;font-size:13px;font-family:inherit;color:var(--text);background:#fffbeb;outline:none;transition:border-color .2s;}
+    #apiKeyInput:focus{border-color:#d97706;background:#fff;}
+    #apiKeyInput::placeholder{color:#c5a254;}
+    #saveApiBtn{padding:9px 18px;background:#d97706;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;}
+    #saveApiBtn:hover{background:#b45309;}
+    .api-link{font-size:11px;color:#0a66c2;font-weight:600;}
+    .api-saved{display:none;align-items:center;gap:6px;font-size:12px;color:#057642;font-weight:600;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:5px 10px;margin-top:6px;}
+    .api-saved.show{display:flex;}
+    #changeKeyBtn{background:none;border:none;color:#0a66c2;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;margin-left:8px;text-decoration:underline;}
+
     .page-wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px;}
 
-    /* ── INPUT GRID ── */
     .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
     .icard{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
     .icard-hd{padding:16px 20px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:10px;}
@@ -97,7 +110,6 @@
     .icard-sub{font-size:11px;color:var(--muted);}
     .icard-bd{padding:18px 20px;}
 
-    /* Drop zone */
     .dz{border:2.5px dashed #d0d0d0;border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .25s;background:#fafafa;position:relative;}
     .dz:hover,.dz.over{border-color:var(--blue);background:var(--blue-light);}
     .dz.has-file{border-color:#16a34a;border-style:solid;background:#f0fdf4;}
@@ -127,7 +139,6 @@
     .wc{font-size:11px;color:#aaa;text-align:right;margin-top:5px;}
     .wc span{color:var(--blue);font-weight:600;}
 
-    /* ── ANALYZE ROW ── */
     .analyze-row{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
     .an-note{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;}
     .an-note svg{width:14px;height:14px;color:var(--green);flex-shrink:0;}
@@ -136,7 +147,6 @@
     #analyzeBtn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;}
     .btn-spin{width:17px;height:17px;border:2.5px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .65s linear infinite;display:none;}
 
-    /* ── LOADING ── */
     #loadingSection{display:none;background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;}
     .load-inner{padding:40px 28px;text-align:center;}
     .scan-wrap{width:140px;height:160px;position:relative;margin:0 auto 24px;}
@@ -168,7 +178,6 @@
     .ls.active .ls-dot{background:var(--blue);color:#fff;animation:pulse .8s infinite;}
     .ls.done .ls-dot{background:var(--green);color:#fff;}
 
-    /* ── SCORE OVERLAY ── */
     #scoreOverlay{position:fixed;inset:0;z-index:9999;background:rgba(4,12,40,0.96);display:none;align-items:center;justify-content:center;animation:overlayIn .4s ease;}
     #scoreOverlay.show{display:flex;}
     #confettiWrap{position:fixed;inset:0;pointer-events:none;z-index:10000;overflow:hidden;}
@@ -176,13 +185,10 @@
     .ol-box{text-align:center;position:relative;animation:boxIn .5s ease both;}
     .rings{position:relative;width:270px;height:270px;margin:0 auto 24px;}
     .r-svg{position:absolute;inset:0;}
-    /* Outer ring r=110 circ≈691 */
     .r-trk{fill:none;stroke:rgba(255,255,255,0.07);stroke-width:10;}
     .r-fill{fill:none;stroke-linecap:round;stroke-width:10;stroke-dasharray:691;stroke-dashoffset:691;transition:stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1);}
-    /* Mid ring r=100 circ≈628 */
     .r-trk2{fill:none;stroke:rgba(255,255,255,0.05);stroke-width:6;}
     .r-fill2{fill:none;stroke-linecap:round;stroke-width:6;stroke-dasharray:628;stroke-dashoffset:628;transition:stroke-dashoffset 2.4s .15s cubic-bezier(.4,0,.2,1);}
-    /* Inner ring r=90 circ≈565 */
     .r-trk3{fill:none;stroke:rgba(255,255,255,0.04);stroke-width:3;}
     .r-fill3{fill:none;stroke-linecap:round;stroke-width:3;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 2.6s .3s cubic-bezier(.4,0,.2,1);}
     .r-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
@@ -199,7 +205,6 @@
     .ol-btn.in{opacity:1;}
     .ol-btn:hover{background:rgba(255,255,255,0.25);transform:translateY(-2px);}
 
-    /* ── RESULTS ── */
     #resultsSection{display:none;animation:fadeIn .5s ease;}
     .sb{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:14px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
     .sb-ring{position:relative;width:90px;height:90px;flex-shrink:0;}
@@ -230,7 +235,6 @@
     .kw-yes{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
     .kw-no{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
 
-    /* AI Keyword suggestions */
     .kws{background:#fff;border:1.5px solid rgba(124,58,237,0.25);border-radius:var(--radius);padding:22px 24px;margin-bottom:14px;position:relative;overflow:hidden;}
     .kws::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c3aed,#0a66c2,#38bdf8);}
     .kws-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
@@ -295,12 +299,11 @@
     .footer-links a:hover{color:var(--blue);}
 
     @media(max-width:760px){.input-grid{grid-template-columns:1fr;}.kw-grid{grid-template-columns:1fr;}.sb{flex-direction:column;align-items:flex-start;}.footer-grid{grid-template-columns:1fr 1fr;gap:24px;}.rcta-btns{flex-direction:column;align-items:center;}.kws-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:520px){.nav-links,.nav-cta{display:none;}.hamburger{display:block;}.page-wrap{padding:14px 14px 48px;}.footer-grid{grid-template-columns:1fr;gap:20px;}.analyze-row{flex-direction:column;align-items:stretch;}#analyzeBtn{justify-content:center;}.kws-grid{grid-template-columns:1fr;}}
+    @media(max-width:520px){.nav-links,.nav-cta{display:none;}.hamburger{display:block;}.page-wrap{padding:14px 14px 48px;}.footer-grid{grid-template-columns:1fr;gap:20px;}.analyze-row{flex-direction:column;align-items:stretch;}#analyzeBtn{justify-content:center;}.kws-grid{grid-template-columns:1fr;}.api-input-row{flex-direction:column;align-items:stretch;}}
   </style>
 </head>
 <body>
 
-<!-- CONFETTI -->
 <div id="confettiWrap"></div>
 
 <!-- SCORE OVERLAY -->
@@ -392,9 +395,28 @@
 <!-- PAGE BODY -->
 <div class="page-wrap">
 
+  <!-- ── API KEY SETUP BANNER ── -->
+  <div id="apiSetupBanner" class="reveal">
+    <div class="api-ico">🔑</div>
+    <div class="api-info">
+      <h3>Enter Your Free Groq API Key to Get Started</h3>
+      <p>
+        Get a free key in 2 minutes at <a href="https://console.groq.com" target="_blank" class="api-link">console.groq.com</a> — no credit card needed. Your key is saved in your browser only and never sent to any server except Groq's own API.
+      </p>
+      <div class="api-input-row">
+        <input type="password" id="apiKeyInput" placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+        <button id="saveApiBtn" onclick="saveApiKey()">Save &amp; Activate ✓</button>
+      </div>
+      <div class="api-saved" id="apiSavedMsg">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+        API key saved! Ready to analyze.
+        <button id="changeKeyBtn" onclick="changeApiKey()">Change key</button>
+      </div>
+    </div>
+  </div>
+
   <!-- INPUT CARDS -->
   <div class="input-grid reveal">
-
     <!-- CV Card -->
     <div class="icard">
       <div class="icard-hd">
@@ -511,8 +533,6 @@ Requirements:
 
   <!-- RESULTS -->
   <div id="resultsSection">
-
-    <!-- Score banner -->
     <div class="sb">
       <div class="sb-ring">
         <svg width="90" height="90" viewBox="0 0 90 90">
@@ -527,32 +547,20 @@ Requirements:
         <div class="sb-chips" id="sbChips"></div>
       </div>
     </div>
-
-    <!-- Category bars -->
     <div class="cats">
       <div class="cats-h">📊 Score Breakdown</div>
       <div id="catsContent"></div>
     </div>
-
-    <!-- Keywords -->
     <div class="kw-grid">
       <div class="kw-box">
-        <div class="kw-ttl" style="color:#16a34a;">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-          ✅ Keywords Found
-        </div>
+        <div class="kw-ttl" style="color:#16a34a;">✅ Keywords Found</div>
         <div class="kw-chips" id="kwFound"></div>
       </div>
       <div class="kw-box">
-        <div class="kw-ttl" style="color:#dc2626;">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd"/></svg>
-          ❌ Missing Keywords
-        </div>
+        <div class="kw-ttl" style="color:#dc2626;">❌ Missing Keywords</div>
         <div class="kw-chips" id="kwMissing"></div>
       </div>
     </div>
-
-    <!-- AI Keyword Suggestions -->
     <div class="kws">
       <div class="kws-hd">
         <div class="kws-ttl">🔑 AI Keyword Suggestions <span class="kws-badge">Groq AI</span></div>
@@ -560,14 +568,10 @@ Requirements:
       </div>
       <div id="kwsSuggest"><div class="kws-load"><div class="mini-spin"></div>Generating smart suggestions...</div></div>
     </div>
-
-    <!-- Suggestions -->
     <div class="sugs">
       <div class="sugs-h">💡 Actionable Improvements</div>
       <div id="sugsContent"></div>
     </div>
-
-    <!-- CTA -->
     <div class="res-cta">
       <h3>Want Expert Help Optimising Your CV?</h3>
       <p>Our recruitment specialists review CVs daily and help candidates land Gulf, Asia &amp; European roles — completely free.</p>
@@ -576,12 +580,11 @@ Requirements:
         <a href="/jobs.html" class="rcta-o">Browse Open Jobs</a>
       </div>
     </div>
-
     <button class="re-btn" onclick="resetAll()">
       <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd"/></svg>
       Analyze Another CV
     </button>
-  </div><!-- /results -->
+  </div>
 
 </div><!-- /page-wrap -->
 
@@ -616,30 +619,62 @@ Requirements:
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  ▼▼▼  PASTE YOUR GROQ API KEY HERE  ▼▼▼
-//  Free key in 2 minutes → https://console.groq.com
-// ═══════════════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════
-//  Paste your Cloudflare Worker URL below (no trailing /)
-//  Worker URL looks like: https://groq-proxy.YOUR-NAME.workers.dev
-// ═══════════════════════════════════════════════════════
-const PROXY_URL  = "YOUR_CLOUDFLARE_WORKER_URL_HERE";
-const GROQ_MODEL = "llama-3.1-8b-instant";
-// No API key here — it lives safely in the Worker ✅
+// ═══════════════════════════════════════════════════════════
+//  GROQ DIRECT — No backend needed. API key stored in
+//  localStorage (browser only, never sent to your server).
+//  Users enter their own key once via the UI banner above.
+//
+//  ⚠️ NOTE: Groq's free tier allows direct browser calls
+//  (no CORS issues) — this is why frontend-only works here.
+// ═══════════════════════════════════════════════════════════
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL   = 'llama-3.1-8b-instant';
+const LS_KEY       = 'groq_api_key_ats';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 let cvText = '', loadTimer = null, lastResult = null;
 
-// ── Helpers ────────────────────────────────────────────────────
+// ── API Key Management ─────────────────────────────────────
+function getApiKey(){ return localStorage.getItem(LS_KEY) || ''; }
+
+function saveApiKey(){
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if(!key){ alert('Please paste your Groq API key first.'); return; }
+  if(!key.startsWith('gsk_')){ alert('That doesn\'t look like a valid Groq key.\nIt should start with "gsk_"\n\nGet yours free at https://console.groq.com'); return; }
+  localStorage.setItem(LS_KEY, key);
+  document.getElementById('apiKeyInput').value = '';
+  showApiSaved();
+}
+
+function showApiSaved(){
+  document.getElementById('apiSavedMsg').classList.add('show');
+  document.getElementById('apiKeyInput').style.display = 'none';
+  document.getElementById('saveApiBtn').style.display  = 'none';
+}
+
+function changeApiKey(){
+  localStorage.removeItem(LS_KEY);
+  document.getElementById('apiSavedMsg').classList.remove('show');
+  document.getElementById('apiKeyInput').style.display = '';
+  document.getElementById('saveApiBtn').style.display  = '';
+  document.getElementById('apiKeyInput').focus();
+}
+
+// On page load — check if key already saved
+(function initApiState(){
+  const k = getApiKey();
+  if(k){ showApiSaved(); }
+})();
+
+// ── Helpers ────────────────────────────────────────────────
 function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
 const ro = new IntersectionObserver(e=>{ e.forEach(x=>{ if(x.isIntersecting){ x.target.classList.add('visible'); ro.unobserve(x.target); }}); },{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 function wc(id,sid){ const t=document.getElementById(id).value.trim(); document.getElementById(sid).textContent=t?t.split(/\s+/).length:0; }
 
-// ── Drag & Drop ────────────────────────────────────────────────
+// ── Drag & Drop ────────────────────────────────────────────
 function onDragOver(e){ e.preventDefault(); document.getElementById('dz').classList.add('over'); }
 function onDragLeave(){ document.getElementById('dz').classList.remove('over'); }
 function onDrop(e){ e.preventDefault(); document.getElementById('dz').classList.remove('over'); const f=e.dataTransfer.files[0]; if(f) processFile(f); }
@@ -713,7 +748,7 @@ function removeFile(){
   wc('cvPaste','cvWC');
 }
 
-// ── Loading steps ──────────────────────────────────────────────
+// ── Loading steps ──────────────────────────────────────────
 function startSteps(){
   let i=1; document.getElementById('ls'+i).classList.add('active'); document.getElementById('ld'+i).textContent='●';
   loadTimer=setInterval(()=>{
@@ -724,116 +759,50 @@ function startSteps(){
 function stopSteps(){ clearInterval(loadTimer); for(let i=1;i<=5;i++){ document.getElementById('ls'+i).classList.remove('active'); document.getElementById('ls'+i).classList.add('done'); document.getElementById('ld'+i).textContent='✓'; } }
 function resetSteps(){ for(let i=1;i<=5;i++){ document.getElementById('ls'+i).classList.remove('active','done'); document.getElementById('ld'+i).textContent=String(i); } }
 
-// ── MAIN ANALYSIS ──────────────────────────────────────────────
-async function runAnalysis() {
-  const cvText = document.getElementById("cvPaste").value.trim();
-  const jdText = document.getElementById("jdPaste").value.trim();
+// ── Groq API call (direct, no proxy) ──────────────────────
+async function callGroq(messages, maxTokens=1200){
+  const key = getApiKey();
+  if(!key) throw new Error('NO_KEY');
+  const res = await fetch(GROQ_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${key}`
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages,
+      temperature: 0.3,
+      max_tokens: maxTokens
+    })
+  });
+  if(!res.ok){
+    const e = await res.json().catch(()=>({}));
+    const msg = e.error?.message || ('Groq error ' + res.status);
+    throw new Error(msg);
+  }
+  return res.json();
+}
 
-  if (!cvText || !jdText) {
-    alert("Please enter CV and Job Description");
+// ── MAIN ANALYSIS ──────────────────────────────────────────
+async function runAnalysis(){
+  const cv = cvText || document.getElementById('cvPaste').value.trim();
+  const jd = document.getElementById('jdPaste').value.trim();
+
+  if(!cv){ alert('Please upload your CV or paste your CV text.'); return; }
+  if(!jd){ alert('Please paste the job description.'); return; }
+  if(cv.split(/\s+/).length<30){ alert('Your CV seems too short. Please provide the full CV.'); return; }
+  if(jd.split(/\s+/).length<15){ alert('The job description is too short. Paste the complete JD.'); return; }
+
+  // Check key exists before starting animation
+  if(!getApiKey()){
+    document.getElementById('apiSetupBanner').scrollIntoView({behavior:'smooth',block:'center'});
+    document.getElementById('apiKeyInput').focus();
+    document.getElementById('apiSetupBanner').style.border='2px solid #dc2626';
+    setTimeout(()=>document.getElementById('apiSetupBanner').style.border='',2000);
+    alert('Please enter your Groq API key first (see the yellow box above).\n\nGet a free key at https://console.groq.com — takes 2 minutes!');
     return;
   }
-
-  document.getElementById("loadingSection").style.display = "block";
-  document.getElementById("resultsSection").style.display = "none";
-  document.getElementById("errSection").style.display = "none";
-
-  try {
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${GROQ_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "llama3-8b-8192",
-        temperature: 0.3,
-        messages: [
-          {
-            role: "system",
-            content: `You are an ATS system.
-
-Return ONLY JSON:
-
-{
-  "score": number,
-  "grade": "A/B/C/D",
-  "summary": "short explanation",
-  "keywords_found": [],
-  "keywords_missing": [],
-  "suggestions": []
-}`
-          },
-          {
-            role: "user",
-            content: "CV:\n" + cvText + "\n\nJD:\n" + jdText
-          }
-        ]
-      })
-    });
-
-    if (!response.ok) {
-      const txt = await response.text();
-      throw new Error(txt);
-    }
-
-    const result = await response.json();
-    let content = result.choices[0].message.content;
-
-    // Clean JSON
-    const start = content.indexOf("{");
-    const end = content.lastIndexOf("}");
-    const data = JSON.parse(content.substring(start, end + 1));
-
-    renderResults(data);
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("loadingSection").style.display = "none";
-    document.getElementById("errSection").style.display = "block";
-    document.getElementById("errMsg").innerText = err.message;
-  }
-}
-
-function renderResults(data) {
-  document.getElementById("loadingSection").style.display = "none";
-  document.getElementById("resultsSection").style.display = "block";
-
-  // Score
-  document.getElementById("sbNum").innerText = data.score || 0;
-  document.getElementById("sbGrade").innerText = data.grade || "—";
-  document.getElementById("sbDesc").innerText = data.summary || "";
-
-  // Circle animation
-  const circle = document.getElementById("sbFill");
-  const offset = 245 - (245 * (data.score || 0)) / 100;
-  circle.style.strokeDashoffset = offset;
-
-  // Keywords found
-  const found = document.getElementById("kwFound");
-  found.innerHTML = "";
-  (data.keywords_found || []).forEach(k => {
-    found.innerHTML += `<span class="kw-yes">${k}</span>`;
-  });
-
-  // Missing
-  const missing = document.getElementById("kwMissing");
-  missing.innerHTML = "";
-  (data.keywords_missing || []).forEach(k => {
-    missing.innerHTML += `<span class="kw-no">${k}</span>`;
-  });
-
-  // Suggestions
-  const sug = document.getElementById("sugsContent");
-  sug.innerHTML = "";
-  (data.suggestions || []).forEach(s => {
-    sug.innerHTML += `
-      <div class="sug-item important">
-        <div class="sug-ico">💡</div>
-        <div class="sug-txt">${s}</div>
-      </div>`;
-  });
-}
 
   document.getElementById('analyzeBtn').disabled=true;
   document.getElementById('btnSpin').style.display='inline-block';
@@ -859,9 +828,7 @@ Return ONLY valid JSON (no markdown, no backticks):
 {"overallScore":<0-100>,"grade":"<Excellent|Good|Fair|Poor>","summary":"<2-3 sentences>","categories":[{"name":"Keyword Match","score":<0-100>,"icon":"🔑"},{"name":"Skills Alignment","score":<0-100>,"icon":"⚡"},{"name":"Experience Relevance","score":<0-100>,"icon":"💼"},{"name":"Education Match","score":<0-100>,"icon":"🎓"},{"name":"CV Formatting","score":<0-100>,"icon":"📄"}],"foundKeywords":[<up to 12 strings>],"missingKeywords":[<up to 10 strings>],"suggestions":[{"priority":"critical","text":"<specific fix>"},{"priority":"important","text":"<improvement>"},{"priority":"good","text":"<what was done well>"}]}`;
 
   try {
-    const res=await fetch(PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:GROQ_MODEL,messages:[{role:'user',content:prompt}],temperature:.3,max_tokens:1200})});
-    if(!res.ok){ const e=await res.json(); throw new Error(e.error?.message||'Groq error '+res.status); }
-    const data=await res.json();
+    const data = await callGroq([{role:'user',content:prompt}], 1200);
     const raw=data.choices[0].message.content.trim();
     const clean=raw.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
     const result=JSON.parse(clean);
@@ -873,14 +840,31 @@ Return ONLY valid JSON (no markdown, no backticks):
     document.getElementById('analyzeBtn').disabled=false;
     document.getElementById('btnSpin').style.display='none';
     document.getElementById('btnTxt').textContent='Analyze My CV';
-    document.getElementById('errTitle').textContent=err.message.includes('JSON')?'Unexpected Response':'Analysis Failed';
-    document.getElementById('errMsg').textContent=err.message.includes('401')?'Invalid Groq API key. Check console.groq.com':err.message.includes('429')?'Rate limit hit. Wait a moment and retry.':'Error: '+err.message;
+
+    let title='Analysis Failed', msg='';
+    if(err.message==='NO_KEY'){
+      title='API Key Missing';
+      msg='Please enter your Groq API key in the yellow box above. Get one free at https://console.groq.com';
+    } else if(err.message.includes('401')||err.message.includes('invalid_api_key')){
+      title='Invalid API Key';
+      msg='Your Groq API key is invalid or expired. Click "Change key" above and re-enter it. Get a new one at https://console.groq.com';
+    } else if(err.message.includes('429')){
+      title='Rate Limit Hit';
+      msg='You\'ve hit Groq\'s rate limit. Wait a moment and try again — free tier allows many requests per minute.';
+    } else if(err.message.includes('JSON')){
+      title='Unexpected Response';
+      msg='The AI returned an unexpected format. Please try again.';
+    } else {
+      msg='Error: '+err.message;
+    }
+    document.getElementById('errTitle').textContent=title;
+    document.getElementById('errMsg').textContent=msg;
     document.getElementById('errSection').style.display='block';
     document.getElementById('errSection').scrollIntoView({behavior:'smooth',block:'center'});
   }
 }
 
-// ── SCORE OVERLAY ──────────────────────────────────────────────
+// ── SCORE OVERLAY ──────────────────────────────────────────
 function showOverlay(r, jd, cv){
   const score=Math.min(100,Math.max(0,r.overallScore||0));
   const cfg =
@@ -890,7 +874,6 @@ function showOverlay(r, jd, cv){
               {stroke:'#f87171',grade:'❌ Needs Work',       line:'Significant gaps. The report below has specific steps.',confetti:false};
 
   document.getElementById('rFill1').style.stroke=cfg.stroke;
-  // reset
   [['rFill1',691],['rFill2',628],['rFill3',565]].forEach(([id,c])=>document.getElementById(id).style.strokeDashoffset=c);
   document.getElementById('rNum').classList.remove('pop'); document.getElementById('rNum').textContent='0';
   ['olGrade','olLine','olBtn'].forEach(id=>document.getElementById(id).classList.remove('in'));
@@ -915,7 +898,6 @@ function showOverlay(r, jd, cv){
   setTimeout(()=>document.getElementById('olBtn').classList.add('in'),2100);
   if(cfg.confetti) setTimeout(()=>spawnConfetti(),1000);
 
-  // fetch keyword suggestions in background
   setTimeout(()=>fetchSuggestions(r.missingKeywords||[],jd,cv),400);
 }
 
@@ -942,8 +924,7 @@ function spawnConfetti(){
 
 function closeOverlay(){
   const ol=document.getElementById('scoreOverlay');
-  ol.style.opacity='0';
-  ol.style.transition='opacity .4s';
+  ol.style.opacity='0'; ol.style.transition='opacity .4s';
   setTimeout(()=>{ ol.classList.remove('show'); ol.style.opacity=''; ol.style.transition=''; document.body.style.overflow='';
     if(lastResult) renderResults(lastResult);
     document.getElementById('analyzeBtn').disabled=false;
@@ -954,7 +935,7 @@ function closeOverlay(){
 
 document.getElementById('scoreOverlay').addEventListener('click',function(e){ if(e.target===this) closeOverlay(); });
 
-// ── RENDER RESULTS ─────────────────────────────────────────────
+// ── RENDER RESULTS ─────────────────────────────────────────
 function renderResults(r){
   const score=Math.min(100,Math.max(0,r.overallScore||0));
   const circ=245, offset=circ-(score/100)*circ;
@@ -994,7 +975,7 @@ function renderResults(r){
   document.getElementById('resultsSection').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ── AI KEYWORD SUGGESTIONS ─────────────────────────────────────
+// ── AI KEYWORD SUGGESTIONS ─────────────────────────────────
 async function fetchSuggestions(missing, jd, cv){
   const el=document.getElementById('kwsSuggest');
   if(!missing.length){ el.innerHTML='<div style="text-align:center;padding:16px;font-size:13px;color:#16a34a;">✅ Your CV already contains all major keywords!</div>'; return; }
@@ -1010,9 +991,7 @@ Return ONLY JSON array (no markdown):
 Max 6 items. Be specific.`;
 
   try {
-    const res=await fetch(PROXY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:GROQ_MODEL,messages:[{role:'user',content:prompt}],temperature:.4,max_tokens:800})});
-    if(!res.ok) throw new Error('error');
-    const data=await res.json();
+    const data = await callGroq([{role:'user',content:prompt}], 800);
     const raw=data.choices[0].message.content.trim();
     const clean=raw.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
     const items=JSON.parse(clean);
@@ -1024,7 +1003,7 @@ Max 6 items. Be specific.`;
   }
 }
 
-// ── RESET ──────────────────────────────────────────────────────
+// ── RESET ──────────────────────────────────────────────────
 function resetAll(){
   cvText=''; lastResult=null;
   removeFile();
@@ -1036,4 +1015,4 @@ function resetAll(){
 }
 </script>
 </body>
-                                                            </html>
+</html>
