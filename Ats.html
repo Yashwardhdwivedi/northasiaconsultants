@@ -51,29 +51,23 @@
        NAVBAR — identical to index.html
     ══════════════════════════════════════════ */
     nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-    .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-
-    /* Logo */
-    .logo{display:flex;align-items:center;gap:10px;flex:1;}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
     .logo-icon{width:36px;height:36px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0;}
-    .logo-name{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;line-height:1.2;}
+    .logo-text{line-height:1.2;}
+    .logo-name{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;}
     .logo-name span{color:var(--blue);}
     .logo-tagline{font-size:10px;color:var(--muted);font-weight:400;}
-
-    /* Desktop nav links */
+    .nav-spacer{flex:1;}
     .nav-links{display:flex;align-items:center;}
-    .nav-links a{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px;height:64px;color:var(--muted);font-size:11px;font-weight:500;gap:2px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
-    .nav-links a svg{width:18px;height:18px;}
+    .nav-links a{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px;height:64px;color:var(--muted);font-size:11px;font-weight:500;gap:3px;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+    .nav-links a svg{width:20px;height:20px;}
     .nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--text);font-weight:600;}
-
-    /* CTA buttons */
     .nav-cta{display:flex;gap:8px;align-items:center;flex-shrink:0;}
-    .btn-outline-nav{padding:7px 14px;border:1.5px solid var(--blue);border-radius:20px;color:var(--blue);font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap;}
+    .btn-outline-nav{padding:7px 16px;border:1.5px solid var(--blue);border-radius:20px;color:var(--blue);font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap;}
     .btn-outline-nav:hover{background:var(--blue-light);}
-    .btn-solid-nav{padding:7px 14px;background:var(--blue);border-radius:20px;color:#fff;font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap;}
-    .btn-solid-nav:hover{background:var(--blue-dark);}
-
-    /* Hamburger */
+    .btn-solid-nav{padding:7px 16px;background:var(--blue);border-radius:20px;color:#fff;font-size:13px;font-weight:600;transition:all .2s;white-space:nowrap;}
+    .btn-solid-nav:hover{background:var(--blue-dark);transform:translateY(-1px);}
     .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);}
 
     /* Mobile menu */
@@ -339,11 +333,12 @@
   <div class="nav-inner">
     <a href="index.html" class="logo">
       <div class="logo-icon">N</div>
-      <div>
+      <div class="logo-text">
         <div class="logo-name">North Asia <span>Consultants</span></div>
         <div class="logo-tagline">Global Recruitment Experts</div>
       </div>
     </a>
+    <div class="nav-spacer"></div>
     <div class="nav-links">
       <a href="index.html">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>
