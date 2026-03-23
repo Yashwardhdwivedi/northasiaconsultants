@@ -49,6 +49,7 @@
         showDashboard(user);
         loadJobs();
         loadApplications();
+        loadCandidates();
       } else if (user) {
         // Signed in but not an admin
         signOut(auth);
@@ -393,6 +394,157 @@
       }
     };
 
+    // ── CANDIDATES ────────────────────────────────────────────
+    let allCandidatesData = [];
+
+    window.loadCandidates = async function() {
+      const list = document.getElementById('candidatesList');
+      list.innerHTML = '<div class="loading-jobs"><span class="spinner-dark"></span> Loading candidates...</div>';
+      try {
+        const snap = await getDocs(collection(db, 'candidates'));
+        allCandidatesData = [];
+        snap.forEach(d => allCandidatesData.push({ id: d.id, data: d.data() }));
+
+        // Sort newest first
+        allCandidatesData.sort((a, b) => {
+          const ta = a.data.submittedAt?.seconds || 0;
+          const tb = b.data.submittedAt?.seconds || 0;
+          return tb - ta;
+        });
+
+        // Update stats
+        document.getElementById('statCandidates').textContent = allCandidatesData.length;
+        const badge = document.getElementById('candTabBadge');
+        badge.textContent = allCandidatesData.length;
+        badge.style.display = allCandidatesData.length > 0 ? 'inline-block' : 'none';
+
+        filterCandidates();
+      } catch(e) {
+        list.innerHTML = `<div class="empty-state"><p style="color:#dc2626;">Error: ${e.message}</p></div>`;
+      }
+    };
+
+    window.filterCandidates = function() {
+      const industry = document.getElementById('candIndustryFilter').value;
+      const status   = document.getElementById('candStatusFilter').value;
+      const search   = document.getElementById('candSearch').value.toLowerCase().trim();
+      const list     = document.getElementById('candidatesList');
+
+      let filtered = allCandidatesData.filter(c => {
+        const d = c.data;
+        if (industry !== 'all' && d.industry !== industry) return false;
+        if (status   !== 'all' && (d.status || 'new') !== status) return false;
+        if (search) {
+          const hay = `${d.fullName||''} ${d.email||''} ${d.phone||''} ${d.jobTitle||''} ${d.industry||''} ${d.location||''}`.toLowerCase();
+          if (!hay.includes(search)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('candCount').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="es-icon">👤</div><p>No candidates match your filters.</p></div>';
+        return;
+      }
+
+      const statusColors = {
+        new:         'background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd;',
+        reviewing:   'background:#fef9c3;color:#854d0e;border:1px solid #fde047;',
+        shortlisted: 'background:#dcfce7;color:#166534;border:1px solid #86efac;',
+        placed:      'background:#fdf4ff;color:#7e22ce;border:1px solid #e9d5ff;',
+        rejected:    'background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;',
+      };
+      const statusLabels = { new:'🔵 New', reviewing:'🟡 Reviewing', shortlisted:'🟢 Shortlisted', placed:'⭐ Placed', rejected:'🔴 Rejected' };
+
+      const rows = filtered.map(c => {
+        const d = c.data;
+        const status = d.status || 'new';
+        const sc = statusColors[status] || statusColors.new;
+        const date = d.submittedAt?.toDate
+          ? d.submittedAt.toDate().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+          : 'Just now';
+        const initials = (d.fullName || '?').split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
+        const bgColors = ['#0a66c2','#057642','#9333ea','#f97316','#ef4444','#06b6d4'];
+        const avatarBg = bgColors[initials.charCodeAt(0) % bgColors.length];
+
+        return `<tr style="border-bottom:1px solid #f8f8f8;" onmouseenter="this.style.background='#fafafa'" onmouseleave="this.style.background='transparent'">
+          <td style="padding:12px 16px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:${avatarBg};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;">${initials}</div>
+              <div>
+                <div style="font-weight:600;color:var(--text);font-size:13px;">${d.fullName || '—'}</div>
+                <div style="font-size:11px;color:var(--muted);">${d.jobTitle || 'Not specified'}</div>
+              </div>
+            </div>
+          </td>
+          <td style="padding:12px 16px;">
+            <div style="font-size:13px;"><a href="mailto:${d.email||''}" style="color:var(--blue);font-weight:500;">${d.email || '—'}</a></div>
+            <div style="font-size:11px;color:var(--muted);">${d.phone ? `<a href="tel:${d.phone}" style="color:inherit;">${d.phone}</a>` : '—'}</div>
+          </td>
+          <td style="padding:12px 16px;font-size:12px;color:var(--muted);">${d.industry || '—'}</td>
+          <td style="padding:12px 16px;font-size:12px;color:var(--muted);">${d.location || '—'}</td>
+          <td style="padding:12px 16px;font-size:11px;color:var(--muted);white-space:nowrap;">${date}</td>
+          <td style="padding:12px 16px;">
+            <select onchange="updateCandidateStatus('${c.id}', this.value)" style="padding:4px 8px;border-radius:20px;font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:inherit;${sc}outline:none;">
+              ${Object.entries(statusLabels).map(([val, lbl]) => `<option value="${val}" ${status===val?'selected':''}>${lbl}</option>`).join('')}
+            </select>
+          </td>
+          <td style="padding:12px 16px;">
+            <div style="display:flex;gap:6px;align-items:center;">
+              ${d.cvUrl ? `<a href="${d.cvUrl}" target="_blank" style="padding:4px 10px;background:#f0fdf4;color:#16a34a;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #bbf7d0;white-space:nowrap;">📄 CV</a>` : '<span style="font-size:11px;color:#bbb;">No CV</span>'}
+              <a href="mailto:${d.email||''}?subject=Re: Your application at North Asia Consultants" style="padding:4px 10px;background:var(--blue-light);color:var(--blue);border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(10,102,194,0.2);white-space:nowrap;">✉ Email</a>
+              ${d.phone ? `<a href="https://wa.me/${(d.phone||'').replace(/[^0-9]/g,'')}" target="_blank" style="padding:4px 10px;background:#f0fdf4;color:#16a34a;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #bbf7d0;white-space:nowrap;">💬 WA</a>` : ''}
+              <button onclick="deleteCandidate('${c.id}')" style="padding:4px 10px;background:#fef2f2;color:#dc2626;border-radius:20px;font-size:11px;font-weight:600;border:1px solid #fecaca;cursor:pointer;font-family:inherit;">🗑</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+
+      list.innerHTML = `
+        <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead>
+                <tr style="background:#fafafa;border-bottom:1px solid #f0f0f0;">
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Candidate</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Contact</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Industry</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Location</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Submitted</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Status</th>
+                  <th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>`;
+    };
+
+    window.updateCandidateStatus = async function(candId, newStatus) {
+      try {
+        await updateDoc(doc(db, 'candidates', candId), { status: newStatus, updatedAt: serverTimestamp() });
+        showToast('Status updated to ' + newStatus, 'success');
+        // Update local data
+        const c = allCandidatesData.find(x => x.id === candId);
+        if (c) c.data.status = newStatus;
+      } catch(e) {
+        showToast('Error: ' + e.message, 'error');
+      }
+    };
+
+    window.deleteCandidate = async function(candId) {
+      if (!confirm('Delete this candidate? This cannot be undone.')) return;
+      try {
+        await deleteDoc(doc(db, 'candidates', candId));
+        showToast('Candidate deleted.', 'success');
+        loadCandidates();
+      } catch(e) {
+        showToast('Error: ' + e.message, 'error');
+      }
+    };
+
     function showDashboard(user) {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('dashboard').style.display   = 'block';
@@ -484,6 +636,7 @@
       document.getElementById(tabId).classList.add('active');
       if (tabId === 'tab-list') loadJobs();
       if (tabId === 'tab-applications') loadApplications();
+      if (tabId === 'tab-candidates') loadCandidates();
     };
   </script>
 
@@ -794,6 +947,16 @@
         </div>
       </div>
       <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-icon" style="background:#f0fdf4;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:#057642"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <div class="stat-num" id="statCandidates">0</div>
+          <div class="stat-lbl">Candidates</div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
       <div class="stat-item" style="margin-left:auto;">
         <a href="/" target="_blank" style="font-size:12px;color:var(--blue);font-weight:600;text-decoration:none;">← View Website</a>
       </div>
@@ -813,6 +976,11 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/></svg>
         Applications
         <span id="appTabBadge" style="background:#9333ea;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px;margin-left:4px;display:none;">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-candidates" onclick="switchTab('tab-candidates')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd"/></svg>
+        Candidates
+        <span id="candTabBadge" style="background:#057642;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px;margin-left:4px;display:none;">0</span>
       </button>
     </div>
 
@@ -848,6 +1016,44 @@
 
         <div id="applicationsList">
           <div class="loading-jobs"><span class="spinner-dark"></span> Loading applications...</div>
+        </div>
+      </div>
+
+      <!-- ── CANDIDATES TAB ─────────────────────────────── -->
+      <div class="tab-pane" id="tab-candidates">
+        <div class="list-header">
+          <h2>Candidate Submissions</h2>
+          <button class="refresh-btn" onclick="loadCandidates()">↻ Refresh</button>
+        </div>
+
+        <!-- Filters -->
+        <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <label style="font-size:13px;font-weight:600;color:#444;white-space:nowrap;">Filter:</label>
+          <select id="candIndustryFilter" onchange="filterCandidates()" style="padding:8px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;min-width:160px;">
+            <option value="all">All Industries</option>
+            <option>Oil & Gas</option>
+            <option>Construction & Engineering</option>
+            <option>Information Technology</option>
+            <option>Hospitality & Tourism</option>
+            <option>Healthcare & Life Sciences</option>
+            <option>Finance & Banking</option>
+            <option>Retail & Consumer Goods</option>
+            <option>Logistics & Supply Chain</option>
+          </select>
+          <select id="candStatusFilter" onchange="filterCandidates()" style="padding:8px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;min-width:140px;">
+            <option value="all">All Statuses</option>
+            <option value="new">🔵 New</option>
+            <option value="reviewing">🟡 Reviewing</option>
+            <option value="shortlisted">🟢 Shortlisted</option>
+            <option value="placed">⭐ Placed</option>
+            <option value="rejected">🔴 Rejected</option>
+          </select>
+          <input id="candSearch" type="text" placeholder="Search name, email, role..." oninput="filterCandidates()" style="padding:8px 12px;border:1.5px solid #d8d8d8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fafafa;flex:1;min-width:180px;">
+          <div style="font-size:12px;color:var(--muted);white-space:nowrap;">Showing: <strong id="candCount" style="color:var(--text);">0</strong></div>
+        </div>
+
+        <div id="candidatesList">
+          <div class="loading-jobs"><span class="spinner-dark"></span> Loading candidates...</div>
         </div>
       </div>
 
