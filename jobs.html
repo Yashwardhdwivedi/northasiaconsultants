@@ -3,1111 +3,912 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jobs | North Asia Consultants</title>
+  <title>Gulf Job Placement Assistance | North Asia Consultants</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f3f2ef; color: #191919; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; background:#f3f2ef; color:#191919; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    img { max-width:100%; display:block; }
+    a { text-decoration:none; }
 
     :root {
-      --blue: #0a66c2;
-      --blue-dark: #004182;
-      --blue-light: #e8f0fa;
-      --green: #057642;
-      --white: #ffffff;
-      --bg: #f3f2ef;
-      --border: #e0e0e0;
-      --text: #191919;
-      --muted: #666666;
-      --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      --radius: 10px;
+      --blue:#0a66c2; --blue-dark:#004182; --blue-light:#e8f0fa;
+      --white:#fff; --bg:#f3f2ef; --border:#e0e0e0; --text:#191919; --muted:#666;
+      --ink:#0A1628; --ink-2:#10233C; --steel:#1C3350;
+      --hair:rgba(200,155,60,.22); --gold:#C89B3C; --gold-br:#E8BE63;
+      --sand:#F6F2E9; --flame:#E8722C; --ok:#0d6b3f;
     }
 
-    /* ===== SCROLL PROGRESS ===== */
-    #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), #38bdf8); width: 0%; z-index: 9999; transition: width .1s; }
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes spin    { to{transform:rotate(360deg)} }
+    @keyframes flare   { 0%,100%{opacity:.5;transform:scaleY(1)} 50%{opacity:.85;transform:scaleY(1.12)} }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .rd1{transition-delay:.08s} .rd2{transition-delay:.16s} .rd3{transition-delay:.24s}
+    @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important} .reveal{opacity:1;transform:none} }
+    :focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+    #progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--flame)); width:0%; z-index:9999; transition:width .1s; }
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeUp   { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse    { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-    @keyframes float    { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-    @keyframes orbit    { from { transform: rotate(0deg) translateX(54px) rotate(0deg); } to { transform: rotate(360deg) translateX(54px) rotate(-360deg); } }
-    @keyframes orbit2   { from { transform: rotate(120deg) translateX(70px) rotate(-120deg); } to { transform: rotate(480deg) translateX(70px) rotate(-480deg); } }
-    @keyframes orbit3   { from { transform: rotate(240deg) translateX(88px) rotate(-240deg); } to { transform: rotate(600deg) translateX(88px) rotate(-600deg); } }
-    @keyframes shimmer  { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    @keyframes wave     { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1); } }
-    @keyframes slideUp  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes spin     { to { transform: rotate(360deg); } }
+    /* ── existing chrome ── */
+    .topbar { background:var(--blue); padding:10px 16px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; text-align:center; }
+    .topbar p { font-size:13px; color:rgba(255,255,255,.92); line-height:1.4; }
+    .topbar strong { color:#fff; font-weight:600; }
+    .topbar a { color:#fff; font-weight:600; font-size:13px; background:rgba(255,255,255,.2); padding:3px 12px; border-radius:100px; border:1px solid rgba(255,255,255,.35); white-space:nowrap; }
+    .topbar a:hover { background:rgba(255,255,255,.3); }
+    nav { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:900; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+    .nav-inner { max-width:1200px; margin:0 auto; padding:0 20px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .logo-icon { width:36px; height:36px; background:var(--blue); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:16px; }
+    .logo-name { font-size:15px; font-weight:700; color:var(--text); white-space:nowrap; }
+    .logo-name span { color:var(--blue); }
+    .logo-tagline { font-size:10px; color:var(--muted); }
+    .nav-links { display:flex; align-items:center; }
+    .nav-links a { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 10px; height:64px; color:var(--muted); font-size:11px; font-weight:500; gap:3px; border-bottom:2px solid transparent; transition:all .2s; white-space:nowrap; }
+    .nav-links a svg { width:20px; height:20px; }
+    .nav-links a:hover { color:var(--text); border-bottom-color:var(--text); }
+    .nav-links a.active { color:var(--text); border-bottom-color:var(--text); font-weight:600; }
+    .nav-cta { display:flex; gap:8px; align-items:center; }
+    .btn-outline-nav { padding:7px 16px; border:1.5px solid var(--blue); border-radius:20px; color:var(--blue); font-size:13px; font-weight:600; white-space:nowrap; }
+    .btn-outline-nav:hover { background:var(--blue-light); }
+    .btn-solid-nav { padding:7px 16px; background:var(--blue); border-radius:20px; color:#fff; font-size:13px; font-weight:600; white-space:nowrap; }
+    .btn-solid-nav:hover { background:var(--blue-dark); }
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; color:var(--text); }
+    #mobileMenu { display:none; background:#fff; border-top:1px solid var(--border); padding:12px 20px 20px; }
+    #mobileMenu.open { display:block; animation:fadeUp .25s ease; }
+    #mobileMenu a { display:block; padding:12px 0; font-size:15px; color:#333; border-bottom:1px solid #f5f5f5; font-weight:500; }
+    #mobileMenu a:last-of-type { border:none; }
+    .mob-cta-row { display:flex; gap:10px; margin-top:14px; }
+    .mob-cta-row a { flex:1; text-align:center; padding:10px; border-radius:20px; font-size:14px; font-weight:600; }
+    .mob-cta-row .mc-outline { border:1.5px solid var(--blue); color:var(--blue); }
+    .mob-cta-row .mc-solid { background:var(--blue); color:#fff; }
 
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: .1s; }
-    .reveal-delay-2 { transition-delay: .2s; }
-    .reveal-delay-3 { transition-delay: .3s; }
+    /* ── HERO ── */
+    .hero { position:relative; background:var(--ink); overflow:hidden; }
+    .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(900px 420px at 78% 10%,rgba(232,114,44,.16),transparent 62%),linear-gradient(180deg,#0A1628 0%,#0D1E33 55%,#08111F 100%); }
+    .hero-grid { position:absolute; inset:0; opacity:.5; background-image:linear-gradient(rgba(200,155,60,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(200,155,60,.055) 1px,transparent 1px); background-size:68px 68px; mask-image:linear-gradient(180deg,#000,transparent 88%); }
+    .derrick { position:absolute; right:5%; bottom:0; width:min(340px,36vw); height:78%; opacity:.45; pointer-events:none; }
+    .flare { animation:flare 3.4s ease-in-out infinite; transform-origin:bottom center; }
+    .hero-inner { position:relative; z-index:3; max-width:1200px; margin:0 auto; padding:54px 20px 58px; }
+    .crumb { display:flex; align-items:center; gap:7px; margin-bottom:24px; }
+    .crumb a { font-size:12px; color:rgba(255,255,255,.5); font-weight:500; }
+    .crumb a:hover { color:var(--gold-br); }
+    .crumb span { font-size:12px; color:rgba(255,255,255,.3); }
+    .crumb .cur { color:rgba(255,255,255,.82); font-weight:600; }
+    .eyebrow { display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-br); border:1px solid var(--hair); background:rgba(200,155,60,.07); padding:6px 14px; border-radius:3px; margin-bottom:22px; }
+    .eyebrow i { width:5px; height:5px; border-radius:50%; background:var(--flame); font-style:normal; box-shadow:0 0 0 3px rgba(232,114,44,.2); }
+    .hero-h1 { font-size:clamp(32px,5.2vw,58px); font-weight:800; letter-spacing:-.03em; line-height:1.04; color:#fff; max-width:17ch; }
+    .hero-h1 em { font-style:normal; color:var(--gold-br); }
+    .hero-lede { margin-top:18px; font-size:clamp(15px,1.7vw,19px); line-height:1.62; color:rgba(255,255,255,.66); max-width:46ch; }
+    .promise-set { display:flex; flex-direction:column; margin-top:32px; max-width:560px; border-left:2px solid var(--gold); }
+    .promise { padding:14px 0 14px 18px; }
+    .promise + .promise { border-top:1px solid rgba(255,255,255,.07); }
+    .promise b { display:block; font-size:clamp(15px,1.9vw,19px); font-weight:700; color:#fff; letter-spacing:-.01em; }
+    .promise small { display:block; margin-top:5px; font-size:13.5px; line-height:1.55; color:rgba(255,255,255,.55); }
+    .hero-cta-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:32px; }
+    .btn-gold { display:inline-flex; align-items:center; gap:9px; background:linear-gradient(180deg,var(--gold-br),var(--gold)); color:#20160A; font-size:15px; font-weight:700; padding:14px 26px; border-radius:6px; border:none; cursor:pointer; font-family:inherit; box-shadow:0 8px 24px rgba(200,155,60,.24); transition:transform .16s,box-shadow .16s; }
+    .btn-gold:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(200,155,60,.32); }
+    .btn-gold svg { width:16px; height:16px; }
+    .btn-ghost { display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,.8); font-size:14px; font-weight:600; padding:14px 20px; border:1px solid rgba(255,255,255,.18); border-radius:6px; transition:all .2s; }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold-br); }
+    .hero-note { margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:rgba(255,255,255,.42); }
 
-    /* ===== TOPBAR ===== */
-    .topbar { background: var(--blue); padding: 10px 16px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; text-align: center; }
-    .topbar p { font-size: 13px; color: rgba(255,255,255,0.92); line-height: 1.4; }
-    .topbar strong { color: #fff; font-weight: 600; }
-    .topbar a { color: #fff; font-weight: 600; font-size: 13px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.35); transition: background .2s; white-space: nowrap; }
-    .topbar a:hover { background: rgba(255,255,255,0.3); }
+    .fee-strip { position:relative; z-index:3; background:var(--ink-2); border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); }
+    .fee-inner { max-width:1200px; margin:0 auto; padding:18px 20px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; }
+    .fee-tag { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.42); }
+    .fee-amt { display:flex; align-items:baseline; gap:10px; }
+    .fee-amt s { font-size:15px; color:rgba(255,255,255,.34); }
+    .fee-amt b { font-size:30px; font-weight:800; color:var(--gold-br); letter-spacing:-.02em; }
+    .off-badge { font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.1em; background:var(--flame); color:#fff; padding:5px 11px; border-radius:3px; }
+    .fee-when { font-size:13.5px; color:rgba(255,255,255,.7); line-height:1.5; max-width:44ch; }
+    .fee-when b { color:#fff; font-weight:700; }
 
-    /* ===== NAVBAR ===== */
-    nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 900; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .logo-icon { width: 36px; height: 36px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
-    .logo-text { line-height: 1.2; }
-    .logo-name { font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; }
-    .logo-name span { color: var(--blue); }
-    .logo-tagline { font-size: 10px; color: var(--muted); font-weight: 400; }
-    .nav-search { flex: 1; max-width: 380px; position: relative; }
-    .nav-search input { width: 100%; height: 38px; border: 1.5px solid #d0d0d0; border-radius: 20px; padding: 0 16px 0 38px; font-size: 13px; font-family: inherit; outline: none; background: #f8f9fa; color: var(--text); transition: border-color .2s, background .2s, box-shadow .2s; }
-    .nav-search input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(10,102,194,0.1); }
-    .nav-search .s-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #888; }
-    .nav-links { display: flex; align-items: center; }
-    .nav-links a { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 10px; height: 64px; color: var(--muted); font-size: 11px; font-weight: 500; gap: 3px; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; }
-    .nav-links a svg { width: 20px; height: 20px; }
-    .nav-links a:hover { color: var(--text); border-bottom-color: var(--text); }
-    .nav-links a.active { color: var(--text); border-bottom-color: var(--text); font-weight: 600; }
-    .nav-cta { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-    .btn-outline-nav { padding: 7px 16px; border: 1.5px solid var(--blue); border-radius: 20px; color: var(--blue); font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
-    .btn-outline-nav:hover { background: var(--blue-light); }
-    .btn-solid-nav { padding: 7px 16px; background: var(--blue); border-radius: 20px; color: #fff; font-size: 13px; font-weight: 600; transition: all .2s; white-space: nowrap; }
-    .btn-solid-nav:hover { background: var(--blue-dark); transform: translateY(-1px); }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text); }
-    #mobileMenu { display: none; background: #fff; border-top: 1px solid var(--border); padding: 12px 20px 20px; }
-    #mobileMenu.open { display: block; animation: fadeUp .25s ease; }
-    #mobileMenu a { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 15px; color: #333; border-bottom: 1px solid #f5f5f5; font-weight: 500; }
-    #mobileMenu a:last-child { border: none; }
-    #mobileMenu a svg { width: 18px; height: 18px; color: var(--blue); }
-    .mob-cta-row { display: flex; gap: 10px; margin-top: 14px; }
-    .mob-cta-row a { flex: 1; text-align: center; padding: 10px; border-radius: 20px; font-size: 14px; font-weight: 600; }
-    .mob-cta-row .mc-outline { border: 1.5px solid var(--blue); color: var(--blue); }
-    .mob-cta-row .mc-solid { background: var(--blue); color: #fff; }
+    /* ── sections ── */
+    .wrap { max-width:1200px; margin:0 auto; padding:52px 20px; }
+    .sec-head { margin-bottom:24px; }
+    .sec-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+    .sec-h2 { font-size:clamp(24px,3.4vw,36px); font-weight:800; letter-spacing:-.025em; color:var(--ink); margin-top:8px; }
+    .sec-sub { font-size:15px; color:var(--muted); margin-top:9px; line-height:1.65; max-width:58ch; }
 
-    /* ===== PAGE HERO ===== */
-    .page-hero { background: linear-gradient(135deg, #0d47a1 0%, #0a66c2 50%, #1565c0 100%); position: relative; overflow: hidden; padding: 52px 20px; }
-    .page-hero-dots { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 32px 32px; }
-    .page-hero-glow { position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 65%); border-radius: 50%; pointer-events: none; }
-    .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; animation: fadeUp .6s ease both; }
-    .breadcrumb { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
-    .breadcrumb a { font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500; transition: color .2s; }
-    .breadcrumb a:hover { color: #fff; }
-    .breadcrumb span { font-size: 13px; color: rgba(255,255,255,0.4); }
-    .breadcrumb .current { font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; }
-    .page-hero-h1 { font-size: clamp(26px, 4vw, 44px); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px; }
-    .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 520px; line-height: 1.65; }
+    /* deliverables */
+    .value-sec { background:var(--ink); position:relative; overflow:hidden; }
+    .value-sec::before { content:''; position:absolute; inset:0; background:radial-gradient(700px 340px at 12% 0%,rgba(200,155,60,.11),transparent 62%); }
+    .value-inner { position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:54px 20px; }
+    .value-inner .sec-eyebrow { color:var(--gold-br); }
+    .value-inner .sec-h2 { color:#fff; }
+    .value-inner .sec-sub { color:rgba(255,255,255,.6); }
+    .vgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.09); border-radius:8px; overflow:hidden; margin-top:26px; }
+    .vcard { background:var(--ink-2); padding:22px 20px; }
+    .vcard-n { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gold); letter-spacing:.12em; }
+    .vcard h4 { font-size:15px; font-weight:700; color:#fff; margin-top:9px; letter-spacing:-.01em; }
+    .vcard p { font-size:13px; color:rgba(255,255,255,.55); line-height:1.62; margin-top:6px; }
+    .value-foot { margin-top:22px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:rgba(255,255,255,.4); line-height:1.7; }
 
-    /* ===== MAIN LAYOUT ===== */
-    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
-    .two-col { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+    /* how it works */
+    .flow { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-top:24px; }
+    .fstep { background:#fff; border:1px solid #e6e3dc; border-radius:8px; padding:20px; position:relative; }
+    .fstep-n { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--gold); }
+    .fstep h4 { font-size:15.5px; font-weight:700; color:var(--ink); margin-top:8px; letter-spacing:-.01em; }
+    .fstep p { font-size:13.5px; color:var(--muted); line-height:1.65; margin-top:6px; }
 
-    /* ===== FILTER BAR ===== */
-    .filter-bar { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
-    .filter-search-wrap { flex: 1; min-width: 200px; display: flex; align-items: center; gap: 8px; background: #f8f9fa; border: 1.5px solid var(--border); border-radius: 20px; padding: 8px 14px; transition: border-color .2s, box-shadow .2s; }
-    .filter-search-wrap:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10,102,194,0.1); background: #fff; }
-    .filter-search-wrap svg { width: 14px; height: 14px; color: #aaa; flex-shrink: 0; }
-    .filter-search-wrap input { border: none; outline: none; background: transparent; font-size: 13px; font-family: inherit; color: var(--text); width: 100%; }
-    .filter-search-wrap input::placeholder { color: #aaa; }
-    .filter-select-wrap { display: flex; align-items: center; gap: 7px; background: #f8f9fa; border: 1.5px solid var(--border); border-radius: 20px; padding: 8px 14px; transition: border-color .2s; }
-    .filter-select-wrap:focus-within { border-color: var(--blue); background: #fff; }
-    .filter-select-wrap svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
-    .filter-select-wrap select { border: none; outline: none; background: transparent; font-size: 13px; font-family: inherit; color: #555; cursor: pointer; appearance: none; padding-right: 2px; }
-    .filter-btn { padding: 9px 20px; background: var(--blue); color: #fff; border-radius: 20px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all .2s; }
-    .filter-btn:hover { background: var(--blue-dark); }
-    .filter-clear { padding: 9px 14px; color: var(--muted); font-size: 13px; font-weight: 500; border: 1.5px solid var(--border); border-radius: 20px; cursor: pointer; background: transparent; font-family: inherit; transition: all .2s; display: none; }
-    .filter-clear:hover { border-color: var(--blue); color: var(--blue); }
-    .filter-clear.show { display: block; }
+    /* comparison */
+    .cmp-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
+    .cmp { border-radius:8px; padding:28px 24px; border:1px solid var(--border); background:#fff; }
+    .cmp.bad { background:#fdf6f5; border-color:#f0d9d5; }
+    .cmp.good { background:var(--ink); border-color:var(--gold); }
+    .cmp-lbl { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#a08f8b; }
+    .cmp.good .cmp-lbl { color:var(--gold); }
+    .cmp-amt { font-size:clamp(30px,4.6vw,46px); font-weight:800; letter-spacing:-.03em; margin-top:9px; color:#b4433a; }
+    .cmp.good .cmp-amt { color:var(--gold-br); }
+    .cmp-note { font-size:13.5px; line-height:1.65; margin-top:11px; color:#7a6a67; }
+    .cmp.good .cmp-note { color:rgba(255,255,255,.66); }
+    .lakh-line { margin-top:24px; background:var(--sand); border:1px solid #e7dcc0; border-left:3px solid var(--gold); border-radius:6px; padding:20px 22px; }
+    .lakh-line b { display:block; font-size:clamp(18px,2.6vw,25px); font-weight:800; letter-spacing:-.02em; color:var(--ink); }
+    .lakh-line p { font-size:14px; line-height:1.72; color:#5d5648; margin-top:9px; max-width:72ch; }
+    .lakh-line p strong { color:var(--ink); font-weight:700; }
+    .lakh-line p + p { margin-top:10px; }
 
-    /* ===== RESULTS HEADER ===== */
-    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-    .results-title { font-size: 17px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
-    .results-badge { background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 100px; }
-    .results-meta { font-size: 13px; color: var(--muted); }
+    /* disclaimer */
+    .disc-box { background:#fff; border:1px solid var(--border); border-left:3px solid var(--muted); border-radius:6px; padding:18px 22px; }
+    .disc-box h5 { font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); margin-bottom:8px; }
+    .disc-box p { font-size:13.5px; line-height:1.75; color:#57534e; }
+    .disc-box p + p { margin-top:9px; }
 
-    /* ===== JOB CARD ===== */
-    .job-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; transition: box-shadow .2s, border-color .2s, transform .15s; cursor: pointer; animation: fadeUp .3s ease both; }
-    .job-card:hover { box-shadow: 0 4px 20px rgba(10,102,194,0.1); border-color: rgba(10,102,194,0.3); transform: translateY(-2px); }
-    .jc-body { padding: 18px 20px 12px; display: flex; align-items: flex-start; gap: 14px; }
-    .jc-logo { width: 46px; height: 46px; flex-shrink: 0; border-radius: 9px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 700; color: #fff; }
-    .jc-main { flex: 1; min-width: 0; }
-    .jc-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
-    .jc-meta { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-    .jc-meta-dot { color: #ddd; }
-    .jc-badges { padding: 0 20px 10px; display: flex; flex-wrap: wrap; gap: 6px; }
-    .badge { font-size: 11.5px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
-    .badge-type { background: #f5f5f5; color: #555; border: 1px solid #eee; }
-    .badge-sal  { background: #f0fdf4; color: #065f46; border: 1px solid #bbf7d0; }
-    .badge-exp  { background: #fefce8; color: #854d0e; border: 1px solid #fde68a; }
-    .badge-visa { background: var(--blue-light); color: var(--blue); border: 1px solid #bfdbfe; }
-    .jc-desc { padding: 0 20px 12px; font-size: 13px; color: var(--muted); line-height: 1.7; }
-    .jc-skills { padding: 0 20px 14px; display: flex; flex-wrap: wrap; gap: 5px; }
-    .skill-tag { background: var(--blue-light); color: var(--blue); font-size: 11.5px; font-weight: 500; padding: 3px 10px; border-radius: 100px; }
-    .jc-footer { padding: 10px 20px; background: #fafafa; border-top: 1px solid #f5f5f5; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .jc-deadline { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
-    .jc-deadline svg { width: 12px; height: 12px; }
-    .jc-actions { display: flex; gap: 8px; }
-    .btn-view { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--text); background: #fff; cursor: pointer; font-family: inherit; transition: all .2s; display: flex; align-items: center; gap: 4px; }
-    .btn-view:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-    .btn-apply { padding: 7px 16px; background: var(--blue); color: #fff; border-radius: 20px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all .2s; display: flex; align-items: center; gap: 4px; }
-    .btn-apply:hover { background: var(--blue-dark); }
-    .btn-view svg, .btn-apply svg { width: 12px; height: 12px; }
+    /* ── FORM (on page, not modal) ── */
+    .apply-sec { background:var(--sand); border-top:1px solid #e7dcc0; border-bottom:1px solid #e7dcc0; }
+    .apply-inner { max-width:760px; margin:0 auto; padding:52px 20px; }
+    .card { background:#fff; border:1px solid #e6e3dc; border-radius:10px; overflow:hidden; }
+    .card-head { background:var(--ink); padding:20px 24px; position:relative; }
+    .card-head::after { content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:linear-gradient(90deg,var(--gold),transparent 60%); }
+    .card-head .k-ref { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--gold); text-transform:uppercase; }
+    .card-head h3 { font-size:22px; font-weight:800; color:#fff; letter-spacing:-.02em; margin-top:6px; }
+    .card-head p { font-size:13.5px; color:rgba(255,255,255,.55); margin-top:6px; }
+    .card-body { padding:24px; }
 
-    /* No results */
-    .no-results { text-align: center; padding: 56px 24px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; }
-    .no-results-icon { font-size: 40px; margin-bottom: 12px; }
-    .no-results h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .no-results p { font-size: 13px; color: var(--muted); }
+    .steps { display:flex; border:1px solid #ebe7de; border-radius:6px; overflow:hidden; margin-bottom:22px; }
+    .step-t { flex:1; padding:11px 8px; text-align:center; background:#fbfaf7; border-right:1px solid #ebe7de; }
+    .step-t:last-child { border-right:none; }
+    .step-t.on { background:var(--ink); }
+    .step-t.done { background:#f2f6f3; }
+    .step-n { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em; color:#9b978e; }
+    .step-t.on .step-n { color:var(--gold); }
+    .step-t.done .step-n { color:var(--ok); }
+    .step-l { font-size:12px; font-weight:600; color:#6b6b6b; margin-top:3px; }
+    .step-t.on .step-l { color:#fff; }
+    .step-t.done .step-l { color:var(--ok); }
 
-    /* ===== COMING SOON CARD ===== */
-    .jobs-cs { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 64px 32px; text-align: center; margin-bottom: 16px; position: relative; overflow: hidden; }
-    .jobs-cs-bg { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(10,102,194,0.02) 0%, rgba(10,102,194,0.05) 100%); }
-    .jobs-cs-dots { position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, rgba(10,102,194,0.06) 1px, transparent 1px); background-size: 24px 24px; }
-    .orbit-wrap { width: 200px; height: 200px; position: relative; margin: 0 auto 32px; }
-    .orbit-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 72px; height: 72px; background: var(--blue-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: float 3s ease-in-out infinite; z-index: 2; box-shadow: 0 0 0 12px rgba(10,102,194,0.06); }
-    .orbit-center svg { width: 34px; height: 34px; color: var(--blue); }
-    .orbit-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1.5px dashed rgba(10,102,194,0.15); }
-    .orbit-ring-1 { width: 120px; height: 120px; }
-    .orbit-ring-2 { width: 156px; height: 156px; }
-    .orbit-ring-3 { width: 196px; height: 196px; }
-    .orbit-dot { position: absolute; top: 50%; left: 50%; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: -14px 0 0 -14px; }
-    .orbit-dot-1 { animation: orbit 5s linear infinite; }
-    .orbit-dot-2 { animation: orbit2 7s linear infinite; }
-    .orbit-dot-3 { animation: orbit3 9s linear infinite; }
-    .cs-badge-main { display: inline-flex; align-items: center; gap: 6px; background: #fff3e0; color: #b45309; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 4px 14px; border-radius: 100px; margin-bottom: 20px; border: 1px solid #fde68a; position: relative; z-index: 2; }
-    .cs-badge-main svg { width: 12px; height: 12px; }
-    .cs-main-title { font-size: clamp(22px, 3.5vw, 36px); font-weight: 700; color: var(--text); margin-bottom: 12px; position: relative; z-index: 2; }
-    .cs-main-title em { color: var(--blue); font-style: normal; }
-    .cs-main-sub { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 500px; margin: 0 auto 32px; position: relative; z-index: 2; }
-    .cs-progress-wrap { max-width: 380px; margin: 0 auto 10px; position: relative; z-index: 2; }
-    .cs-prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .cs-prog-label { font-size: 12px; font-weight: 600; color: #555; }
-    .cs-prog-pct { font-size: 12px; font-weight: 700; color: var(--blue); }
-    .cs-progress-bar { background: #e8e8e8; border-radius: 100px; height: 8px; overflow: hidden; }
-    .cs-progress-fill { height: 100%; border-radius: 100px; width: 0%; background: linear-gradient(90deg, var(--blue), #38bdf8); transition: width 1.8s cubic-bezier(.4,0,.2,1); background-size: 200% 100%; animation: shimmer 2s linear infinite; }
-    .cs-features { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 28px 0 32px; position: relative; z-index: 2; }
-    .cs-feature { display: flex; align-items: center; gap: 6px; background: #f8f9fa; border: 1px solid var(--border); color: #444; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 100px; }
-    .cs-feature svg { width: 13px; height: 13px; color: var(--blue); }
-    .cs-notify-form { display: flex; gap: 0; max-width: 400px; margin: 0 auto; background: #f8f9fa; border: 1.5px solid var(--border); border-radius: 28px; overflow: hidden; position: relative; z-index: 2; transition: border-color .2s, box-shadow .2s; }
-    .cs-notify-form:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10,102,194,0.1); }
-    .cs-notify-form input { flex: 1; border: none; outline: none; background: transparent; padding: 12px 18px; font-size: 13px; font-family: inherit; color: var(--text); }
-    .cs-notify-form input::placeholder { color: #aaa; }
-    .cs-notify-form button { background: var(--blue); color: #fff; border: none; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; border-radius: 24px; margin: 3px; transition: background .2s; display: flex; align-items: center; gap: 6px; }
-    .cs-notify-form button:hover { background: var(--blue-dark); }
-    .cs-notify-form button svg { width: 14px; height: 14px; }
-    .cs-success { display: none; align-items: center; justify-content: center; gap: 8px; background: #f0fdf4; border: 1.5px solid rgba(5,118,66,0.25); border-radius: 28px; padding: 12px 24px; max-width: 400px; margin: 0 auto; position: relative; z-index: 2; }
-    .cs-success.show { display: flex; animation: slideUp .4s ease; }
-    .cs-success svg { width: 18px; height: 18px; color: var(--green); }
-    .cs-success span { font-size: 13px; font-weight: 600; color: var(--green); }
-    .wave-divider { display: flex; align-items: center; gap: 3px; justify-content: center; margin: 20px 0 0; position: relative; z-index: 2; }
-    .wave-bar { width: 3px; border-radius: 3px; background: var(--blue); opacity: 0.3; }
-    .wave-bar:nth-child(1) { height: 8px; animation: wave 1.2s ease-in-out infinite; }
-    .wave-bar:nth-child(2) { height: 14px; animation: wave 1.2s ease-in-out infinite; animation-delay: .1s; }
-    .wave-bar:nth-child(3) { height: 20px; animation: wave 1.2s ease-in-out infinite; animation-delay: .2s; }
-    .wave-bar:nth-child(4) { height: 14px; animation: wave 1.2s ease-in-out infinite; animation-delay: .3s; }
-    .wave-bar:nth-child(5) { height: 8px; animation: wave 1.2s ease-in-out infinite; animation-delay: .4s; }
+    .fpane { display:none; }
+    .fpane.on { display:block; animation:slideUp .28s ease; }
+    .frow { margin-bottom:14px; }
+    .fgrid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .flabel { display:block; font-size:12.5px; font-weight:600; color:#454545; margin-bottom:6px; }
+    .req { color:#c0392b; }
+    .fin { width:100%; padding:11px 13px; border:1.5px solid var(--border); border-radius:5px; font-size:14px; font-family:inherit; outline:none; background:#fbfaf7; color:var(--text); transition:border-color .18s,background .18s; }
+    .fin:focus { border-color:var(--gold); background:#fff; }
+    .fin.err { border-color:#c0392b; background:#fdf6f5; }
+    textarea.fin { resize:vertical; min-height:80px; }
+    select.fin { cursor:pointer; }
+    .hint { font-size:12px; color:#918d84; margin-top:5px; line-height:1.5; }
 
-    /* ===== SKELETON ===== */
-    .skeleton-section { margin-bottom: 16px; }
-    .skel { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.8s infinite; border-radius: 6px; }
-    .skel-sm  { height: 10px; width: 60px; }
-    .skel-md  { height: 12px; width: 120px; }
-    .skel-lg  { height: 14px; width: 180px; }
-    .skel-xl  { height: 16px; width: 220px; }
-    .skel-round  { border-radius: 100px; }
-    .skel-circle { border-radius: 50%; }
-    .skeleton-job { padding: 18px 22px; border-bottom: 1px solid #f8f8f8; display: flex; gap: 14px; align-items: flex-start; position: relative; }
-    .skeleton-job:last-child { border: none; }
-    .skel-logo { width: 44px; height: 44px; flex-shrink: 0; }
-    .skel-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    .skel-tags { display: flex; gap: 6px; }
-    .skel-tag { height: 22px; width: 70px; }
-    .skel-action { width: 80px; height: 32px; flex-shrink: 0; }
-    .skeleton-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.95) 100%); pointer-events: none; }
-    .locked-badge { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; background: #fff; border: 1.5px solid var(--border); padding: 8px 18px; border-radius: 100px; font-size: 12px; color: var(--muted); font-weight: 600; box-shadow: 0 2px 12px rgba(0,0,0,0.08); white-space: nowrap; }
-    .locked-badge svg { width: 14px; height: 14px; color: var(--blue); }
+    .cgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px; }
+    .cbox { display:flex; align-items:center; gap:9px; padding:11px 13px; border:1.5px solid var(--border); border-radius:5px; background:#fbfaf7; cursor:pointer; transition:all .16s; font-size:13.5px; font-weight:500; color:#454545; }
+    .cbox:hover { border-color:var(--gold); }
+    .cbox input { width:16px; height:16px; accent-color:var(--gold); cursor:pointer; flex-shrink:0; }
+    .cbox.sel { border-color:var(--gold); background:var(--sand); color:var(--ink); font-weight:600; }
 
-    /* ===== SIDEBAR ===== */
-    .sidebar-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
-    .sc-pad { padding: 18px 20px; }
-    .profile-av { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; margin: 0 auto 12px; }
-    .profile-name { font-size: 15px; font-weight: 700; color: var(--text); text-align: center; }
-    .profile-tag { font-size: 12px; color: var(--muted); text-align: center; margin: 4px 0 14px; line-height: 1.5; }
-    .pstat { display: flex; justify-content: space-between; font-size: 13px; padding: 8px 0; border-top: 1px solid #f5f5f5; }
-    .pstat span:first-child { color: #555; }
-    .pstat span:last-child { font-weight: 700; color: var(--blue); }
-    .pb { display: block; width: 100%; background: var(--blue); color: #fff; text-align: center; padding: 10px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 14px; transition: all .2s; }
-    .pb:hover { background: var(--blue-dark); }
-    .ql-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-    .ql-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f8f8f8; color: #333; font-size: 13px; font-weight: 500; transition: color .15s; }
-    .ql-item:last-child { border: none; }
-    .ql-item:hover { color: var(--blue); }
-    .ql-item svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
-    .cs-title-sm { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
-    .cs-title-sm svg { width: 16px; height: 16px; color: var(--blue); }
-    .ci { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #333; margin-bottom: 10px; }
-    .ci svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
-    .ci a { color: var(--blue); }
-    .ci a:hover { text-decoration: underline; }
-    .wa-btn { display: flex; align-items: center; justify-content: center; gap: 7px; background: #25d366; color: #fff; padding: 10px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 14px; transition: background .2s; }
-    .wa-btn:hover { background: #1db954; }
-    .wa-btn svg { width: 16px; height: 16px; }
-    .loc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .loc-chip { background: #f5f5f5; color: #333; font-size: 12px; padding: 5px 12px; border-radius: 100px; border: 1px solid var(--border); font-weight: 500; cursor: pointer; transition: all .2s; }
-    .loc-chip:hover { background: var(--blue-light); border-color: rgba(10,102,194,0.3); color: var(--blue); }
-    .sb-cs { background: linear-gradient(135deg, var(--blue-light), #f0f7ff); border: 1px solid rgba(10,102,194,0.15); border-radius: var(--radius); padding: 18px 20px; text-align: center; margin-bottom: 16px; }
-    .sb-cs-icon { width: 40px; height: 40px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; animation: pulse 2.5s infinite; }
-    .sb-cs-icon svg { width: 20px; height: 20px; color: #fff; }
-    .sb-cs-t { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
-    .sb-cs-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .drop { border:2px dashed #d8d4cb; border-radius:8px; padding:22px; text-align:center; cursor:pointer; position:relative; background:#fbfaf7; transition:all .18s; }
+    .drop:hover,.drop.drag { border-color:var(--gold); background:var(--sand); }
+    .drop.ok { border-color:var(--ok); background:#f2f8f4; border-style:solid; }
+    .drop input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .drop-t { font-size:14px; font-weight:600; color:var(--ink); }
+    .drop-h { font-size:12px; color:var(--muted); margin-top:4px; }
+    .drop-f { font-size:12.5px; font-weight:600; color:var(--ok); margin-top:8px; display:none; }
+    .drop-f.show { display:block; }
 
-    /* ===== JOB DETAIL MODAL ===== */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9998; align-items: center; justify-content: center; padding: 16px; }
-    .modal-overlay.open { display: flex; animation: fadeUp .2s ease; }
-    .modal-box { background: #fff; border-radius: 14px; width: 100%; max-width: 680px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
-    .modal-header { background: linear-gradient(135deg, #0d47a1, var(--blue)); padding: 20px 24px; flex-shrink: 0; }
-    .modal-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-    .modal-logo { width: 50px; height: 50px; border-radius: 10px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; flex-shrink: 0; }
-    .modal-title-area { flex: 1; }
-    .modal-title { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 5px; }
-    .modal-company { font-size: 13px; color: rgba(255,255,255,0.75); display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-    .modal-close { background: rgba(255,255,255,0.2); border: none; color: #fff; cursor: pointer; width: 28px; height: 28px; border-radius: 50%; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: background .2s; flex-shrink: 0; }
-    .modal-close:hover { background: rgba(255,255,255,0.35); }
-    .modal-badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
-    .modal-badge { background: rgba(255,255,255,0.18); color: #fff; font-size: 11.5px; font-weight: 500; padding: 4px 11px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.25); }
-    .modal-body { padding: 22px 24px; overflow-y: auto; flex: 1; }
-    .modal-body::-webkit-scrollbar { width: 5px; }
-    .modal-body::-webkit-scrollbar-track { background: #f1f5f9; }
-    .modal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    .modal-section { margin-bottom: 20px; }
-    .modal-section-label { font-size: 11px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 10px; }
-    .modal-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .modal-info-item { background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
-    .modal-info-key { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
-    .modal-info-val { font-size: 13px; font-weight: 600; color: var(--text); }
-    .modal-desc { font-size: 14px; color: #374151; line-height: 1.8; white-space: pre-wrap; }
-    .modal-skills { display: flex; flex-wrap: wrap; gap: 6px; }
-    .modal-skill-tag { background: var(--blue-light); color: var(--blue); font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
-    .modal-footer { padding: 14px 24px; border-top: 1px solid var(--border); background: #fafafa; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }
-    .modal-deadline { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
-    .modal-deadline svg { width: 12px; height: 12px; }
-    .btn-modal-close { padding: 9px 16px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text); background: #fff; cursor: pointer; font-family: inherit; transition: all .2s; }
-    .btn-modal-close:hover { border-color: #aaa; }
-    .btn-modal-apply { padding: 9px 22px; background: var(--blue); color: #fff; border-radius: 20px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; font-family: inherit; transition: all .2s; display: flex; align-items: center; gap: 6px; }
-    .btn-modal-apply:hover { background: var(--blue-dark); }
-    .btn-modal-apply svg { width: 14px; height: 14px; }
+    .fnav { display:flex; gap:10px; margin-top:22px; }
+    .btn-next { flex:1; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--ink); color:#fff; border:none; border-radius:5px; padding:13px; font-size:14.5px; font-weight:600; font-family:inherit; cursor:pointer; transition:background .18s; }
+    .btn-next:hover { background:var(--steel); }
+    .btn-next:disabled { opacity:.55; cursor:not-allowed; }
+    .btn-back { padding:13px 20px; background:#fff; border:1.5px solid var(--border); border-radius:5px; font-size:14px; font-weight:600; color:#555; cursor:pointer; font-family:inherit; }
+    .btn-back:hover { border-color:#b9b5ac; }
+    .form-err { display:none; background:#fdf6f5; border:1px solid #f0d9d5; border-radius:5px; padding:11px 14px; font-size:13px; color:#b4433a; margin-bottom:14px; line-height:1.55; }
+    .form-err.show { display:block; }
+    .spin { animation:spin .8s linear infinite; }
 
-    /* ===== APPLY MODAL ===== */
-    .apply-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; align-items: center; justify-content: center; padding: 16px; }
-    .apply-overlay.open { display: flex; animation: fadeUp .2s ease; }
-    .apply-box { background: #fff; border-radius: 14px; width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.25); }
-    .apply-box::-webkit-scrollbar { width: 4px; }
-    .apply-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    .apply-header { background: linear-gradient(135deg, #0d47a1, var(--blue)); padding: 18px 22px; display: flex; align-items: flex-start; justify-content: space-between; border-radius: 14px 14px 0 0; }
-    .apply-h-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-    .apply-h-sub { font-size: 12px; color: rgba(255,255,255,0.7); }
-    .apply-close { background: rgba(255,255,255,0.2); border: none; color: #fff; cursor: pointer; width: 28px; height: 28px; border-radius: 50%; font-size: 15px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
-    .apply-close:hover { background: rgba(255,255,255,0.35); }
-    .apply-form-body { padding: 22px; }
-    .form-row { margin-bottom: 13px; }
-    .form-label { display: block; font-size: 12px; font-weight: 600; color: #444; margin-bottom: 5px; }
-    .form-req { color: #ef4444; }
-    .form-input { width: 100%; padding: 10px 13px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; outline: none; background: #f8f9fa; color: var(--text); transition: border-color .2s, box-shadow .2s; }
-    .form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10,102,194,0.1); background: #fff; }
-    .form-textarea { resize: vertical; min-height: 76px; }
-    .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    /* Resume upload */
-    .resume-area { border: 2px dashed var(--border); border-radius: 10px; padding: 18px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; position: relative; background: #f8f9fa; }
-    .resume-area:hover, .resume-area.dragging { border-color: var(--blue); background: var(--blue-light); }
-    .resume-area.has-file { border-color: var(--green); background: #f0fdf4; }
-    .resume-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .resume-upload-icon { width: 32px; height: 32px; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
-    .resume-upload-icon svg { width: 16px; height: 16px; color: var(--blue); }
-    .resume-upload-text { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .resume-upload-hint { font-size: 11.5px; color: var(--muted); }
-    .resume-file-name { font-size: 12.5px; font-weight: 600; color: var(--green); margin-top: 6px; display: none; }
-    .resume-file-name.show { display: block; }
-    /* Progress */
-    #uploadProgress { display: none; margin-bottom: 12px; }
-    #uploadProgressText { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
-    #uploadProgressBar-wrap { background: #e8e8e8; border-radius: 100px; height: 5px; overflow: hidden; }
-    #uploadProgressBar { height: 100%; background: linear-gradient(90deg, var(--blue), #38bdf8); border-radius: 100px; width: 0%; transition: width .3s; }
-    /* Error */
-    .apply-error { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 9px 13px; font-size: 12.5px; color: #dc2626; margin-bottom: 12px; }
-    /* Submit btn */
-    .apply-submit { width: 100%; padding: 12px; background: var(--blue); color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 7px; }
-    .apply-submit:hover { background: var(--blue-dark); }
-    .apply-submit:disabled { opacity: .6; cursor: not-allowed; }
-    .apply-submit svg { width: 15px; height: 15px; }
-    .spin { animation: spin .8s linear infinite; }
-    /* Success */
-    .apply-success { display: none; padding: 36px 24px; text-align: center; }
-    .apply-success.show { display: block; animation: slideUp .4s ease; }
-    .success-icon { width: 58px; height: 58px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-    .success-icon svg { width: 28px; height: 28px; color: var(--green); }
-    .success-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .success-msg { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
-    .success-close { background: var(--blue); color: #fff; border: none; padding: 10px 24px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    /* checkout step */
+    .pay-hero { background:var(--ink); border-radius:8px; padding:24px; text-align:center; }
+    .pay-hero .cmp-lbl { color:var(--gold); }
+    .pay-amt { display:flex; align-items:baseline; justify-content:center; gap:12px; margin-top:10px; }
+    .pay-amt s { font-size:18px; color:rgba(255,255,255,.35); }
+    .pay-amt b { font-size:46px; font-weight:800; color:var(--gold-br); letter-spacing:-.03em; }
+    .pay-cover { font-size:13.5px; line-height:1.75; color:rgba(255,255,255,.62); margin-top:12px; max-width:54ch; margin-left:auto; margin-right:auto; }
+    .incl { margin-top:18px; border:1px solid #ebe7de; border-radius:6px; overflow:hidden; }
+    .incl-r { display:flex; align-items:flex-start; gap:10px; padding:11px 15px; background:#fbfaf7; border-bottom:1px solid #ebe7de; font-size:13.5px; color:#3f3f3f; line-height:1.5; }
+    .incl-r:last-child { border-bottom:none; }
+    .incl-r svg { width:15px; height:15px; color:var(--ok); flex-shrink:0; margin-top:2px; }
+    .btn-pay { width:100%; margin-top:18px; display:flex; align-items:center; justify-content:center; gap:9px; background:linear-gradient(180deg,var(--gold-br),var(--gold)); color:#20160A; border:none; border-radius:6px; padding:15px; font-size:16px; font-weight:700; font-family:inherit; cursor:pointer; transition:transform .16s; }
+    .btn-pay:hover { transform:translateY(-1px); }
+    .btn-pay:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .pay-methods { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:14px; }
+    .pm { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; color:#8b8880; border:1px solid #e6e3dc; padding:4px 10px; border-radius:3px; background:#fff; }
 
-    /* ===== FOOTER ===== */
-    footer { background: #fff; border-top: 1px solid var(--border); margin-top: 20px; padding: 40px 20px 24px; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 28px; border-bottom: 1px solid #eee; }
-    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.75; margin: 12px 0 16px; }
-    .footer-social { display: flex; gap: 8px; }
-    .fs-btn { width: 32px; height: 32px; border-radius: 6px; background: #f5f5f5; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: #555; transition: all .2s; }
-    .fs-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
-    .fs-btn svg { width: 14px; height: 14px; }
-    .fc h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .fc ul li a { font-size: 13px; color: var(--muted); transition: color .2s; }
-    .fc ul li a:hover { color: var(--blue); }
-    .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding-top: 20px; }
-    .footer-bottom p { font-size: 12px; color: #aaa; }
-    .footer-links { display: flex; gap: 16px; }
-    .footer-links a { font-size: 12px; color: #888; transition: color .2s; }
-    .footer-links a:hover { color: var(--blue); }
+    /* success */
+    .done-pane { display:none; padding:8px 0 0; text-align:center; }
+    .done-pane.show { display:block; animation:slideUp .35s ease; }
+    .done-mark { width:60px; height:60px; border-radius:50%; background:#f2f8f4; border:1px solid #cfe6d8; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+    .done-mark svg { width:28px; height:28px; color:var(--ok); }
+    .done-h { font-size:22px; font-weight:800; letter-spacing:-.02em; color:var(--ink); }
+    .done-p { font-size:14px; color:var(--muted); line-height:1.7; margin:9px auto 0; max-width:48ch; }
+    .receipt { text-align:left; margin:22px auto 0; max-width:460px; border:1px solid #ebe7de; border-radius:6px; overflow:hidden; }
+    .rrow { display:flex; justify-content:space-between; gap:14px; padding:11px 15px; background:#fbfaf7; border-bottom:1px solid #ebe7de; }
+    .rrow:last-child { border-bottom:none; }
+    .rk { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#9b978e; }
+    .rv { font-size:13.5px; font-weight:600; color:var(--ink); text-align:right; word-break:break-all; }
+    .rv.mono { font-family:'IBM Plex Mono',monospace; font-size:12.5px; }
+    .rv.paid { color:var(--ok); }
+    .done-btns { display:flex; gap:10px; justify-content:center; margin-top:22px; flex-wrap:wrap; }
+    .btn-wa { display:inline-flex; align-items:center; gap:8px; background:#25d366; color:#fff; padding:12px 20px; border-radius:5px; font-size:14px; font-weight:600; }
+    .btn-wa:hover { background:#1db954; }
+    .btn-wa svg { width:16px; height:16px; }
+    .btn-ln { display:inline-flex; align-items:center; padding:12px 20px; border:1.5px solid var(--border); background:#fff; border-radius:5px; font-size:14px; font-weight:600; color:var(--text); cursor:pointer; font-family:inherit; }
+    .btn-ln:hover { border-color:#b9b5ac; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 960px) {
-      .two-col { grid-template-columns: 1fr; }
-      .sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-      .sidebar-card, .sb-cs { margin-bottom: 0; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-    }
-    @media (max-width: 680px) {
-      .nav-search, .nav-links { display: none; }
-      .hamburger { display: block; }
-      .nav-cta { display: none; }
-      .nav-inner { height: 56px; }
-      .sidebar { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
-      .filter-bar { flex-direction: column; align-items: stretch; }
-      .jobs-cs { padding: 48px 20px; }
-      .cs-notify-form { flex-direction: column; border-radius: 12px; }
-      .cs-notify-form input { padding: 12px 16px; }
-      .cs-notify-form button { margin: 0 6px 6px; border-radius: 20px; justify-content: center; }
-      .modal-info-grid { grid-template-columns: 1fr; }
-      .form-two-col { grid-template-columns: 1fr; }
+    /* FAQ */
+    .faq { border:1px solid #e6e3dc; border-radius:8px; overflow:hidden; background:#fff; margin-top:24px; }
+    .faq details { border-bottom:1px solid #f0ede6; }
+    .faq details:last-child { border-bottom:none; }
+    .faq summary { padding:16px 20px; font-size:14.5px; font-weight:600; color:var(--ink); cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:'+'; font-size:19px; color:var(--gold); font-weight:400; flex-shrink:0; }
+    .faq details[open] summary::after { content:'−'; }
+    .faq p { padding:0 20px 16px; font-size:13.5px; line-height:1.75; color:#57534e; }
+
+    /* sticky */
+    .sticky-cta { display:none; position:fixed; left:0; right:0; bottom:0; z-index:880; background:rgba(10,22,40,.97); backdrop-filter:blur(8px); border-top:1px solid var(--hair); padding:11px 14px calc(11px + env(safe-area-inset-bottom)); }
+    .sticky-cta button { width:100%; display:flex; align-items:center; justify-content:center; gap:9px; background:linear-gradient(180deg,var(--gold-br),var(--gold)); color:#20160A; border:none; border-radius:6px; padding:14px; font-size:15.5px; font-weight:700; font-family:inherit; cursor:pointer; }
+    .sticky-cta small { display:block; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(255,255,255,.42); margin-top:7px; }
+
+    /* footer */
+    footer { background:#fff; border-top:1px solid var(--border); padding:40px 20px 24px; }
+    .footer-inner { max-width:1200px; margin:0 auto; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:28px; border-bottom:1px solid #eee; }
+    .footer-brand p { font-size:13px; color:var(--muted); line-height:1.75; margin:12px 0 16px; }
+    .footer-social { display:flex; gap:8px; }
+    .fs-btn { width:32px; height:32px; border-radius:6px; background:#f5f5f5; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:#555; transition:all .2s; }
+    .fs-btn:hover { background:var(--blue); border-color:var(--blue); color:#fff; }
+    .fs-btn svg { width:14px; height:14px; }
+    .fc h4 { font-size:13px; font-weight:700; color:var(--text); margin-bottom:12px; }
+    .fc ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .fc ul li a { font-size:13px; color:var(--muted); }
+    .fc ul li a:hover { color:var(--blue); }
+    .footer-legal { padding:18px 0 0; font-size:12px; line-height:1.7; color:#8b8880; }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:16px; }
+    .footer-bottom p { font-size:12px; color:#aaa; }
+    .footer-links { display:flex; gap:16px; }
+    .footer-links a { font-size:12px; color:#888; }
+    .footer-links a:hover { color:var(--blue); }
+
+    @media (max-width:960px){ .footer-grid{grid-template-columns:1fr 1fr;gap:28px} .cmp-grid{grid-template-columns:1fr} .derrick{opacity:.26} }
+    @media (max-width:680px){
+      .nav-links,.nav-cta{display:none} .hamburger{display:block} .nav-inner{height:56px}
+      .footer-grid{grid-template-columns:1fr;gap:24px} .footer-bottom{flex-direction:column;align-items:flex-start}
+      .fgrid2{grid-template-columns:1fr} .sticky-cta{display:block} body{padding-bottom:82px}
+      .step-l{display:none} .derrick{display:none} .hero-inner{padding:38px 20px 42px}
+      .card-body{padding:18px} .apply-inner{padding:38px 14px}
     }
   </style>
 </head>
 <body>
-  <div id="progress"></div>
+<div id="progress"></div>
 
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <p>
-      <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-      <strong>Free for Employers</strong> — Zero fees. Now expanding across Gulf, Asia, Europe & beyond.
-    </p>
-    <a href="/contact.html">Get Started →</a>
-  </div>
+<div class="topbar">
+  <p>
+    <svg style="width:13px;height:13px;display:inline;vertical-align:-1px;margin-right:4px" viewBox="0 0 24 24" fill="#4ade80"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+    <strong>Free for Employers</strong> — Zero fees. Now expanding across Gulf, Asia, Europe &amp; beyond.
+  </p>
+  <a href="/contact.html">Get Started →</a>
+</div>
 
-  <!-- NAVBAR -->
-  <nav>
-    <div class="nav-inner">
-      <a href="/" class="logo">
-        <div class="logo-icon">N</div>
-        <div class="logo-text">
-          <div class="logo-name">North Asia <span>Consultants</span></div>
-          <div class="logo-tagline">Global Recruitment Experts</div>
-        </div>
-      </a>
-      <div class="nav-search">
-        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" placeholder="Search jobs, roles, countries...">
-      </div>
-      <div class="nav-links">
-        <a href="/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>Home</a>
-        <a href="/jobs.html" class="active"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>Jobs</a>
-        <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
-        <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>About</a>
-      </div>
-      <div class="nav-cta">
-        <a href="/candidates.html" class="btn-outline-nav">Find Jobs</a>
-        <a href="/employers.html" class="btn-solid-nav">Hire Talent</a>
-      </div>
-      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-    <div id="mobileMenu">
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-icon">N</div>
+      <div><div class="logo-name">North Asia <span>Consultants</span></div><div class="logo-tagline">Global Recruitment Experts</div></div>
+    </a>
+    <div class="nav-links">
       <a href="/"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"/><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"/></svg>Home</a>
-      <a href="/jobs.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>Browse Jobs</a>
+      <a href="/jobs.html" class="active"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>Careers</a>
       <a href="/industries.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Industries</a>
-      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5A.75.75 0 0012 9z" clip-rule="evenodd"/></svg>About Us</a>
-      <a href="/contact.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact</a>
-      <div class="mob-cta-row">
-        <a href="/candidates.html" class="mc-outline">Find Jobs</a>
-        <a href="/employers.html" class="mc-solid">Hire Talent</a>
-      </div>
+      <a href="/about.html"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About</a>
     </div>
-  </nav>
+    <div class="nav-cta">
+      <a href="/candidates.html" class="btn-outline-nav">Gulf Jobs</a>
+      <a href="/employers.html" class="btn-solid-nav">Hire Talent</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu">
+    <a href="/">Home</a><a href="/jobs.html">Gulf Jobs</a><a href="/industries.html">Industries</a><a href="/about.html">About Us</a><a href="/contact.html">Contact</a>
+    <div class="mob-cta-row"><a href="/candidates.html" class="mc-outline">Gulf Jobs</a><a href="/employers.html" class="mc-solid">Hire Talent</a></div>
+  </div>
+</nav>
 
-  <!-- PAGE HERO -->
-  <div class="page-hero">
-    <div class="page-hero-dots"></div>
-    <div class="page-hero-glow"></div>
-    <div class="page-hero-inner">
-      <div class="breadcrumb">
-        <a href="/">Home</a><span>›</span><span class="current">Jobs</span>
-      </div>
-      <h1 class="page-hero-h1">Browse Open Positions</h1>
-      <p class="page-hero-sub">Discover roles across Gulf, Asia, Europe and global markets. All placements are free for candidates.</p>
-    </div>
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="derrick" aria-hidden="true">
+    <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#C89B3C" stroke-width="1.4" opacity=".85">
+        <path d="M62 300 L92 40 M138 300 L108 40 M92 40 L108 40"/>
+        <path d="M70 232 L130 232 M74 196 L126 196 M78 160 L122 160 M82 124 L118 124 M86 88 L114 88"/>
+        <path d="M70 232 L126 196 M130 232 L74 196 M74 196 L122 160 M126 196 L78 160 M78 160 L118 124 M122 160 L82 124 M82 124 L114 88 M118 124 L86 88 M86 88 L108 40 M114 88 L92 40"/>
+        <path d="M30 300 L30 262 L170 262 L170 300" opacity=".6"/><path d="M30 262 L170 262"/>
+      </g>
+      <g class="flare"><path d="M100 40 L94 14 L100 22 L106 12 L100 40Z" fill="#E8722C" opacity=".8"/></g>
+      <circle cx="100" cy="46" r="3" fill="#E8BE63"/>
+    </svg>
   </div>
 
-  <!-- PAGE BODY -->
-  <div class="page-wrap">
-    <div class="two-col">
+  <div class="hero-inner">
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span class="cur">Gulf Job Placement Assistance</span></nav>
+    <div class="eyebrow"><i></i> Gulf oil &amp; gas job placement assistance</div>
 
-      <!-- MAIN COLUMN -->
-      <div class="main-col">
+    <h1 class="hero-h1">Get Your <em>Gulf Job</em> With Professional Placement Assistance.</h1>
+    <p class="hero-lede">We help candidates prepare, position and align their profiles for Gulf Oil &amp; Gas opportunities — from professional resume preparation to job matching, interview alignment and recruitment follow-up.</p>
 
-        <!-- FILTER BAR -->
-        <div class="filter-bar reveal">
-          <div class="filter-search-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <input type="text" id="searchInput" placeholder="Search job titles, companies, skills...">
-          </div>
-          <div class="filter-select-wrap">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.218-4.366 3.218-6.901a8.25 8.25 0 00-16.5 0c0 2.535 1.274 4.822 3.218 6.9a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-            <select id="locationFilter"><option value="">All Locations</option></select>
-          </div>
-          <div class="filter-select-wrap">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>
-            <select id="industryFilter"><option value="">All Industries</option></select>
-          </div>
-          <div class="filter-select-wrap">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/><path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 011.5 14.625v-9.75z" clip-rule="evenodd"/></svg>
-            <select id="typeFilter">
-              <option value="">All Types</option>
-              <option>Full-time</option><option>Part-time</option>
-              <option>Contract</option><option>Freelance</option>
-            </select>
-          </div>
-          <button class="filter-clear" id="clearBtn" onclick="clearFilters()">Clear</button>
-        </div>
-
-        <!-- LIVE JOBS -->
-        <div id="liveJobsSection" style="display:none;">
-          <div class="results-header reveal">
-            <div class="results-title">Open Positions <span class="results-badge" id="jobCountBadge">0</span></div>
-            <div class="results-meta" id="resultsMeta">Updated live</div>
-          </div>
-          <div id="liveJobsList"></div>
-        </div>
-
-        <!-- COMING SOON -->
-        <div class="jobs-cs reveal" id="comingSoonSection">
-          <div class="jobs-cs-bg"></div>
-          <div class="jobs-cs-dots"></div>
-          <div class="orbit-wrap">
-            <div class="orbit-ring orbit-ring-1"></div>
-            <div class="orbit-ring orbit-ring-2"></div>
-            <div class="orbit-ring orbit-ring-3"></div>
-            <div class="orbit-center">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
-            </div>
-            <div class="orbit-dot orbit-dot-1">🛢</div>
-            <div class="orbit-dot orbit-dot-2">💻</div>
-            <div class="orbit-dot orbit-dot-3">🏗</div>
-          </div>
-          <div class="cs-badge-main">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg>
-            Coming Soon
-          </div>
-          <h2 class="cs-main-title">Our Job Board is <em>Launching Soon</em></h2>
-          <p class="cs-main-sub">We're building a world-class jobs platform featuring hundreds of live roles across the Gulf, Asia, Europe and beyond. Enter your email to be the first to know.</p>
-          <div class="cs-progress-wrap">
-            <div class="cs-prog-header"><span class="cs-prog-label">Platform development</span><span class="cs-prog-pct">65%</span></div>
-            <div class="cs-progress-bar"><div class="cs-progress-fill" id="csProgressFill"></div></div>
-          </div>
-          <div class="cs-features">
-            <div class="cs-feature"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd"/></svg>Pre-vetted roles</div>
-            <div class="cs-feature"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477z"/></svg>Global locations</div>
-            <div class="cs-feature"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>Instant alerts</div>
-            <div class="cs-feature"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7.5a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z"/></svg>Salary visible</div>
-            <div class="cs-feature"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/></svg>Free for candidates</div>
-          </div>
-          <div class="cs-notify-form" id="notifyForm">
-            <input type="email" id="emailInput" placeholder="Enter your email for early access...">
-            <button onclick="handleNotify()">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25A6.75 6.75 0 005.25 9v.75a8.217 8.217 0 01-2.119 5.52.75.75 0 00.298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 107.48 0 24.583 24.583 0 004.83-1.244.75.75 0 00.298-1.205 8.217 8.217 0 01-2.118-5.52V9A6.75 6.75 0 0012 2.25z" clip-rule="evenodd"/></svg>
-              Notify Me
-            </button>
-          </div>
-          <div class="cs-success" id="notifySuccess">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-            <span>You're on the early access list!</span>
-          </div>
-          <div class="wave-divider">
-            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-            <div class="wave-bar"></div><div class="wave-bar"></div>
-          </div>
-        </div>
-
-        <!-- SKELETON -->
-        <div id="skeletonSection" class="skeleton-section reveal reveal-delay-1" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:relative;margin-bottom:16px;">
-          <div style="padding:18px 22px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:10px;"><div class="skel skel-xl"></div><div class="skel skel-sm skel-round" style="height:22px;width:50px;"></div></div><div class="skel skel-md"></div></div>
-          <div class="skeleton-job"><div class="skel skel-circle skel-logo"></div><div class="skel-body"><div class="skel skel-lg"></div><div class="skel skel-md"></div><div class="skel-tags"><div class="skel skel-tag skel-round"></div><div class="skel skel-tag skel-round"></div><div class="skel skel-tag skel-round" style="width:90px;"></div></div></div><div class="skel skel-action" style="border-radius:20px;"></div></div>
-          <div class="skeleton-job"><div class="skel skel-circle skel-logo"></div><div class="skel-body"><div class="skel" style="height:14px;width:200px;border-radius:6px;"></div><div class="skel skel-md"></div><div class="skel-tags"><div class="skel skel-tag skel-round"></div><div class="skel skel-tag skel-round" style="width:80px;"></div></div></div><div class="skel skel-action" style="border-radius:20px;"></div></div>
-          <div class="skeleton-job"><div class="skel skel-circle skel-logo"></div><div class="skel-body"><div class="skel" style="height:14px;width:170px;border-radius:6px;"></div><div class="skel skel-md"></div><div class="skel-tags"><div class="skel skel-tag skel-round" style="width:85px;"></div><div class="skel skel-tag skel-round"></div></div></div><div class="skel skel-action" style="border-radius:20px;"></div></div>
-          <div class="skeleton-job"><div class="skel skel-circle skel-logo"></div><div class="skel-body"><div class="skel" style="height:14px;width:220px;border-radius:6px;"></div><div class="skel skel-md"></div><div class="skel-tags"><div class="skel skel-tag skel-round"></div><div class="skel skel-tag skel-round" style="width:100px;"></div></div></div><div class="skel skel-action" style="border-radius:20px;"></div></div>
-          <div class="skeleton-overlay"></div>
-          <div class="locked-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>Job listings unlock soon</div>
-        </div>
-
-      </div><!-- /main-col -->
-
-      <!-- SIDEBAR -->
-      <div class="sidebar">
-        <div class="sb-cs reveal">
-          <div class="sb-cs-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg></div>
-          <div class="sb-cs-t">Jobs Launching Soon</div>
-          <div class="sb-cs-p">Hundreds of Gulf & global roles across 8+ industries. Coming very soon.</div>
-        </div>
-        <div class="sidebar-card reveal reveal-delay-1">
-          <div class="sc-pad" style="text-align:center;">
-            <div class="profile-av">N</div>
-            <div class="profile-name">North Asia Consultants</div>
-            <div class="profile-tag">Global Recruitment Experts.<br>Zero cost for employers.</div>
-            <div class="pstat"><span>Industries</span><span>8+</span></div>
-            <div class="pstat"><span>GCC Countries</span><span>6</span></div>
-            <div class="pstat"><span>Employer Fees</span><span>₹0 Free</span></div>
-            <div class="pstat"><span>Expanding To</span><span>Global 🌐</span></div>
-            <a href="/candidates.html" class="pb">Submit Your CV</a>
-          </div>
-        </div>
-        <div class="sidebar-card reveal reveal-delay-2">
-          <div class="sc-pad">
-            <div class="ql-title">Quick Links</div>
-            <a href="/candidates.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg>Submit Your Resume</a>
-            <a href="/employers.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5h-.75V3.75a.75.75 0 000-1.5h-15z" clip-rule="evenodd"/></svg>Post a Job — Free</a>
-            <a href="/industries.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 007.5 9.75c.627.005 1.247-.178 1.75-.547.502.369 1.122.552 1.75.547a3.75 3.75 0 003.75-3.75 3.75 3.75 0 003.75 3.75c.628.005 1.247-.178 1.75-.547.502.369 1.122.552 1.75.547a3.75 3.75 0 004.902-3.652l-1.3-1.299a1.875 1.875 0 00-1.325-.549H5.223z" clip-rule="evenodd"/></svg>Browse Industries</a>
-            <a href="/about.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12z" clip-rule="evenodd"/></svg>About Us</a>
-            <a href="/contact.html" class="ql-item"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Contact Us</a>
-          </div>
-        </div>
-        <div class="sidebar-card reveal reveal-delay-3">
-          <div class="sc-pad">
-            <div class="cs-title-sm"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>Reach Us Directly</div>
-            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg><a href="tel:+919326051900">+91 93260 51900</a></div>
-            <div class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg><a href="mailto:info@northasiaconsultants.com">info@northasiaconsultants.com</a></div>
-            <a href="https://wa.me/918988590035" target="_blank" class="wa-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Chat on WhatsApp
-            </a>
-          </div>
-        </div>
-        <div class="sidebar-card reveal">
-          <div class="sc-pad">
-            <div class="ql-title" style="margin-bottom:10px">We Place Talent In</div>
-            <div class="loc-chips">
-              <span class="loc-chip">🇦🇪 UAE</span><span class="loc-chip">🇸🇦 Saudi Arabia</span>
-              <span class="loc-chip">🇶🇦 Qatar</span><span class="loc-chip">🇰🇼 Kuwait</span>
-              <span class="loc-chip">🇧🇭 Bahrain</span><span class="loc-chip">🇴🇲 Oman</span>
-              <span class="loc-chip">🌏 Asia</span><span class="loc-chip">🌍 Europe</span>
-              <span class="loc-chip">🌐 Global</span>
-            </div>
-          </div>
-        </div>
-      </div><!-- /sidebar -->
+    <div class="promise-set">
+      <div class="promise">
+        <b>100% Guaranteed Placement Assistance</b>
+        <small>Our team provides structured recruitment assistance including profile preparation, job matching, interview alignment and recruitment follow-up.</small>
+      </div>
+      <div class="promise">
+        <b>Guaranteed Recruitment Support Until Your Profile Is Properly Submitted &amp; Interview-Aligned</b>
+        <small>We support you through profile preparation, suitable opportunity matching, interview preparation and the applicable recruitment process.</small>
+      </div>
     </div>
+
+    <div class="hero-cta-row">
+      <button class="btn-gold" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd"/></svg>
+        Start — ₹4,999
+      </button>
+      <a href="#deliverables" class="btn-ghost">See exactly what you get</a>
+    </div>
+    <p class="hero-note">Professional Gulf job support from profile preparation to interview alignment.</p>
   </div>
+</header>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="/" class="logo">
-            <div class="logo-icon">N</div>
-            <div class="logo-text"><div class="logo-name">North Asia <span>Consultants</span></div><div class="logo-tagline">Global Recruitment Experts</div></div>
-          </a>
-          <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers. Delivering excellence in global recruitment.</p>
-          <div class="footer-social">
-            <a href="#" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
-            <a href="https://wa.me/918988590035" class="fs-btn" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-            <a href="mailto:info@northasiaconsultants.com" class="fs-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
-          </div>
-        </div>
-        <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/services.html">Our Services</a></li><li><a href="/industries.html">Industries</a></li><li><a href="/contact.html">Contact Us</a></li></ul></div>
-        <div class="fc"><h4>For Employers</h4><ul><li><a href="/employers.html">Post a Job</a></li><li><a href="/employers.html">Our Process</a></li><li><a href="/employers.html">Why Choose Us</a></li></ul></div>
-        <div class="fc"><h4>For Candidates</h4><ul><li><a href="/candidates.html">Browse Jobs</a></li><li><a href="/candidates.html">Submit Resume</a></li><li><a href="/candidates.html">Career Advice</a></li></ul></div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 North Asia Consultants. All rights reserved.</p>
-        <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="/sitemap.html">Sitemap</a></div>
-      </div>
+<div class="fee-strip">
+  <div class="fee-inner">
+    <div><div class="fee-tag">Gulf Job Placement Assistance</div><div class="fee-amt"><s>₹9,999</s><b>₹4,999</b></div></div>
+    <span class="off-badge">50% OFF · LIMITED</span>
+    <p class="fee-when"><b>Complete recruitment assistance for ₹4,999.</b> Resume preparation, profile development, job matching, interview alignment and recruitment follow-up in one program.</p>
+  </div>
+</div>
+
+<!-- ═══ DELIVERABLES ═══ -->
+<section class="value-sec" id="deliverables">
+  <div class="value-inner">
+    <div class="sec-head reveal">
+      <div class="sec-eyebrow">Scope of service</div>
+      <h2 class="sec-h2">What You Get for ₹4,999</h2>
+      <p class="sec-sub">A complete recruitment assistance program designed to help you become job-ready and aligned with suitable Gulf opportunities.</p>
     </div>
-  </footer>
+    <div class="vgrid reveal rd1" id="valueGrid"></div>
+    <p class="value-foot reveal rd2">
+      Not included: submitting your CV to employers, applying on your behalf, visa processing, or any guarantee of employment.<br>
+      You apply directly to employers and agencies yourself — we show you where and how.
+    </p>
+  </div>
+</section>
 
-  <!-- ═══ JOB DETAIL MODAL ═══ -->
-  <div id="jobDetailModal" class="modal-overlay" onclick="if(event.target===this)closeModal('jobDetailModal')">
-    <div class="modal-box">
-      <div class="modal-header">
-        <div class="modal-header-top">
-          <div class="modal-logo" id="mdLogo">J</div>
-          <div class="modal-title-area">
-            <div class="modal-title" id="mdTitle"></div>
-            <div class="modal-company" id="mdCompany"></div>
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">Process</div>
+    <h2 class="sec-h2">How it runs</h2>
+    <p class="sec-sub">Your profile enters the recruitment assistance process after payment, with timing depending on your documents, profile and available opportunities.</p>
+  </div>
+  <div class="flow reveal rd1">
+    <div class="fstep"><div class="fstep-n">01</div><h4>You fill the form</h4><p>Your trade, experience, tickets and target country. Takes about ten minutes. Upload your existing CV if you have one — even a rough one helps.</p></div>
+    <div class="fstep"><div class="fstep-n">02</div><h4>You pay ₹4,999</h4><p>Complete the ₹4,999 payment securely through Razorpay and receive your payment confirmation.</p></div>
+    <div class="fstep"><div class="fstep-n">03</div><h4>We review your profile</h4><p>Our team reviews your experience, trade, certifications and job preferences to prepare your recruitment profile.</p></div>
+    <div class="fstep"><div class="fstep-n">04</div><h4>Job Matching & Interview Alignment</h4><p>We align your profile with suitable opportunities and support you with interview preparation and recruitment follow-up.</p></div>
+  </div>
+</section>
+
+<!-- ═══ APPLICATION + PAYMENT ═══ -->
+<section class="apply-sec" id="apply">
+  <div class="apply-inner">
+    <div class="sec-head reveal" style="text-align:center">
+      <div class="sec-eyebrow">Get started</div>
+      <h2 class="sec-h2">Start Your Gulf Job Application</h2>
+      <p class="sec-sub" style="margin-left:auto;margin-right:auto">Complete your details so our recruitment team can prepare your profile and align you with suitable Gulf opportunities.</p>
+    </div>
+
+    <div class="card reveal rd1">
+      <div class="card-head">
+        <div class="k-ref">Gulf Job Placement Assistance · ₹4,999</div>
+        <h3 id="cardTitle">Your details</h3>
+        <p id="cardSub">Four short steps, then checkout.</p>
+      </div>
+
+      <div class="card-body" id="formBody">
+        <div class="steps" id="stepTabs">
+          <div class="step-t on" data-s="1"><div class="step-n">01</div><div class="step-l">Personal</div></div>
+          <div class="step-t" data-s="2"><div class="step-n">02</div><div class="step-l">Professional</div></div>
+          <div class="step-t" data-s="3"><div class="step-n">03</div><div class="step-l">Certifications</div></div>
+          <div class="step-t" data-s="4"><div class="step-n">04</div><div class="step-l">Documents</div></div>
+          <div class="step-t" data-s="5"><div class="step-n">05</div><div class="step-l">Checkout</div></div>
+        </div>
+
+        <div class="form-err" id="fErr"></div>
+
+        <!-- STEP 1 -->
+        <div class="fpane on" data-p="1">
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="fName">Full name <span class="req">*</span></label><input id="fName" class="fin" type="text" placeholder="As on your passport"></div>
+            <div class="frow"><label class="flabel" for="fEmail">Email <span style="font-weight:400;color:#999;font-size:11.5px">(optional)</span></label><input id="fEmail" class="fin" type="email" placeholder="you@email.com"></div>
           </div>
-          <button class="modal-close" onclick="closeModal('jobDetailModal')">✕</button>
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="fMobile">Mobile number <span class="req">*</span></label><input id="fMobile" class="fin" type="tel" placeholder="+91 98765 43210"></div>
+            <div class="frow"><label class="flabel" for="fWa">WhatsApp number <span class="req">*</span></label><input id="fWa" class="fin" type="tel" placeholder="+91 98765 43210"><div class="hint">This is where we'll call you.</div></div>
+          </div>
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="fDob">Date of birth <span style="font-weight:400;color:#999;font-size:11.5px">(optional)</span></label><input id="fDob" class="fin" type="date"></div>
+            <div class="frow"><label class="flabel" for="fCity">Current city <span style="font-weight:400;color:#999;font-size:11.5px">(optional)</span></label><input id="fCity" class="fin" type="text" placeholder="e.g. Kochi"></div>
+          </div>
+          <div class="frow"><label class="flabel" for="fState">State <span style="font-weight:400;color:#999;font-size:11.5px">(optional)</span></label><input id="fState" class="fin" type="text" placeholder="e.g. Kerala"></div>
+          <div class="fnav"><button class="btn-next" onclick="goStep(2)">Continue</button></div>
         </div>
-        <div class="modal-badge-row" id="mdBadges"></div>
-      </div>
-      <div class="modal-body">
-        <div class="modal-section">
-          <div class="modal-section-label">Job Details</div>
-          <div class="modal-info-grid" id="mdInfoGrid"></div>
+
+        <!-- STEP 2 -->
+        <div class="fpane" data-p="2">
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="pTrade">Your trade <span class="req">*</span></label>
+              <select id="pTrade" class="fin"><option value="">Select</option><option>Roustabout</option><option>Roughneck</option><option>Derrickman</option><option>Assistant Driller</option><option>Driller</option><option>Assistant Mechanic</option><option>Offshore Mechanic</option><option>Mechanical Technician</option><option>Electrical Technician</option><option>6G Welder</option><option>Rig Welder</option><option>Crane Operator</option><option>Rigger</option><option>Scaffolder</option><option>HSE Officer</option><option>Other</option></select></div>
+            <div class="frow"><label class="flabel" for="pTitle">Current job title <span style="font-weight:400;color:#999;font-size:11.5px">(optional)</span></label><input id="pTitle" class="fin" type="text" placeholder="e.g. Roustabout"></div>
+          </div>
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="pTotal">Total experience <span class="req">*</span></label>
+              <select id="pTotal" class="fin"><option value="">Select</option><option>Under 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–8 years</option><option>8–12 years</option><option>12+ years</option></select></div>
+            <div class="frow"><label class="flabel" for="pOG">Oil &amp; gas experience <span class="req">*</span></label>
+              <select id="pOG" class="fin"><option value="">Select</option><option>None yet</option><option>Under 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–8 years</option><option>8+ years</option></select></div>
+          </div>
+          <div class="fgrid2">
+            <div class="frow"><label class="flabel" for="pOff">Offshore experience</label>
+              <select id="pOff" class="fin"><option value="">Select</option><option>None</option><option>Under 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5+ years</option></select></div>
+            <div class="frow"><label class="flabel" for="pQual">Highest qualification <span class="req">*</span></label>
+              <select id="pQual" class="fin"><option value="">Select</option><option>Below 10th</option><option>10th / SSLC</option><option>12th / HSC</option><option>ITI</option><option>Diploma</option><option>Bachelor's degree</option><option>Postgraduate</option></select></div>
+          </div>
+          <div class="frow"><label class="flabel" for="pPrev">Rigs / companies worked</label><input id="pPrev" class="fin" type="text" placeholder="e.g. KDC Rig 45, Shelf Drilling"><div class="hint">List what you can — we'll go through the detail on the call.</div></div>
+          <div class="frow"><label class="flabel" for="pPref">Target country <span class="req">*</span></label>
+            <select id="pPref" class="fin"><option value="">Select</option><option>Kuwait</option><option>Saudi Arabia</option><option>UAE</option><option>Qatar</option><option>Oman</option><option>Bahrain</option><option>Any Gulf country</option></select></div>
+          <div class="fnav"><button class="btn-back" onclick="goStep(1)">Back</button><button class="btn-next" onclick="goStep(3)">Continue</button></div>
         </div>
-        <div class="modal-section">
-          <div class="modal-section-label">Job Description</div>
-          <div class="modal-desc" id="mdDesc"></div>
+
+        <!-- STEP 3 -->
+        <div class="fpane" data-p="3">
+          <p class="hint" style="margin-bottom:14px;font-size:13.5px">Tick what you currently hold and can produce. Leave blank if you hold none — part of what we do is tell you which tickets your trade actually needs and which are a waste of money.</p>
+          <div class="cgrid" id="certGrid"></div>
+          <div class="frow" style="margin-top:14px"><label class="flabel" for="cOther">Other certifications</label><input id="cOther" class="fin" type="text" placeholder="Comma separated"></div>
+          <div class="fnav"><button class="btn-back" onclick="goStep(2)">Back</button><button class="btn-next" onclick="goStep(4)">Continue</button></div>
         </div>
-        <div class="modal-section" id="mdSkillsSection" style="display:none;">
-          <div class="modal-section-label">Skills Required</div>
-          <div class="modal-skills" id="mdSkills"></div>
+
+        <!-- STEP 4 -->
+        <div class="fpane" data-p="4">
+          <div class="frow">
+            <label class="flabel">Existing CV <span style="font-weight:400;color:#999;font-size:11.5px">(optional — max 700 KB)</span></label>
+            <div class="drop" id="dropCv">
+              <input type="file" id="fileCv" accept=".pdf,.doc,.docx" onchange="pickFile(this,'CV')">
+              <div class="drop-t">Upload your current CV</div>
+              <div class="drop-h">PDF, DOC or DOCX · under 700 KB</div>
+              <div class="drop-f" id="nameCv"></div>
+            </div>
+            <div class="hint">Even an old or rough CV speeds things up. If you don't have one, skip this — we'll build from scratch.</div>
+          </div>
+          <div class="frow">
+            <label class="flabel">Certificates <span style="font-weight:400;color:#999;font-size:11.5px">(optional — combine into one file)</span></label>
+            <div class="drop" id="dropCt">
+              <input type="file" id="fileCt" accept=".pdf,.jpg,.jpeg,.png" onchange="pickFile(this,'Certificates')">
+              <div class="drop-t">Upload certificates</div>
+              <div class="drop-h">PDF or image · under 700 KB</div>
+              <div class="drop-f" id="nameCt"></div>
+            </div>
+          </div>
+          <div class="frow"><label class="flabel" for="fNote">Anything else we should know</label><textarea id="fNote" class="fin" placeholder="Passport validity, notice period, rig types, anything unusual in your history…"></textarea></div>
+          <div class="fnav"><button class="btn-back" onclick="goStep(3)">Back</button><button class="btn-next" onclick="goStep(5)">Continue to checkout</button></div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div class="modal-deadline" id="mdDeadline"></div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn-modal-close" onclick="closeModal('jobDetailModal')">Close</button>
-          <button class="btn-modal-apply" id="mdApplyBtn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg>
-            Apply Now
+
+        <!-- STEP 5 -->
+        <div class="fpane" data-p="5">
+          <div class="pay-hero">
+            <div class="cmp-lbl">Regular ₹9,999 · today</div>
+            <div class="pay-amt"><s>₹9,999</s><b>₹4,999</b></div>
+            <p class="pay-cover">Your ₹4,999 payment covers Gulf job placement assistance including profile preparation, professional resume development, job matching, interview alignment and recruitment follow-up.</p>
+          </div>
+          <div class="incl" id="inclList"></div>
+          <div class="form-err" id="payErr" style="margin-top:14px"></div>
+          <button class="btn-pay" id="payBtn" onclick="goToPayment()">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:17px;height:17px"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            Pay ₹4,999 securely
           </button>
+          <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9b978e;margin-top:11px;line-height:1.6">Payment is handled securely by Razorpay.<br>Your details are saved before payment and you will return here after checkout.</p>
+          <div class="pay-methods"><span class="pm">UPI</span><span class="pm">Google Pay</span><span class="pm">PhonePe</span><span class="pm">Paytm</span><span class="pm">Cards</span><span class="pm">Net Banking</span></div>
+          <div class="fnav"><button class="btn-back" onclick="goStep(4)" style="flex:1">Back to documents</button></div>
+          <div class="disc-box" style="margin-top:20px">
+            <h5>Important</h5>
+            <p>The ₹4,999 fee is for Gulf Job Placement Assistance services including profile preparation, professional resume preparation, job matching, interview alignment and recruitment follow-up. Final employment is subject to candidate eligibility, employer requirements, available vacancies, document verification and interview performance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="card-body done-pane" id="donePane">
+        <div class="done-mark"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></div>
+        <h3 class="done-h">You're registered ✓</h3>
+        <p class="done-p">Thank you for registering with North Asia Consultants. We'll confirm your payment and message you on WhatsApp within 24 hours to go through your rig history and start on your CV.</p>
+        <div class="receipt">
+          <div class="rrow"><span class="rk">Name</span><span class="rv" id="dName"></span></div>
+          <div class="rrow"><span class="rk">Trade</span><span class="rv" id="dTrade"></span></div>
+          <div class="rrow"><span class="rk">Mobile</span><span class="rv mono" id="dMobile"></span></div>
+          <div class="rrow"><span class="rk">Reference ID</span><span class="rv mono" id="dId"></span></div>
+          <div class="rrow"><span class="rk">Service</span><span class="rv">Gulf Job Placement Assistance</span></div>
+          <div class="rrow"><span class="rk">Amount</span><span class="rv">₹4,999</span></div>
+          <div class="rrow"><span class="rk">Payment status</span><span class="rv" id="dPayStatus">Confirming</span></div>
+        </div>
+        <p class="done-p" style="margin-top:18px;font-size:13px">We match your payment using the mobile number above. If you paid from someone else's account or a different number, message us the reference ID so we can link it. Razorpay emails a receipt separately — if it hasn't arrived within an hour, send us the reference and we'll check.</p>
+        <div class="done-btns">
+          <a class="btn-wa" id="dWa" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Message us on WhatsApp
+          </a>
+          <a class="btn-ln" href="/">Back to home</a>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ═══ APPLY MODAL ═══ -->
-  <div id="applyModal" class="apply-overlay" onclick="if(event.target===this)closeModal('applyModal')">
-    <div class="apply-box">
-      <div class="apply-header">
-        <div><div class="apply-h-title" id="applyModalTitle">Apply for this Job</div><div class="apply-h-sub" id="applyModalCompany"></div></div>
-        <button class="apply-close" onclick="closeModal('applyModal')">✕</button>
-      </div>
-      <div id="applyFormBody" class="apply-form-body">
-        <input type="hidden" id="applyJobId">
-        <div class="form-two-col">
-          <div class="form-row" style="margin-bottom:0">
-            <label class="form-label">Full Name <span class="form-req">*</span></label>
-            <input id="applyName" type="text" class="form-input" placeholder="Your full name">
-          </div>
-          <div class="form-row" style="margin-bottom:0">
-            <label class="form-label">Email <span class="form-req">*</span></label>
-            <input id="applyEmail" type="email" class="form-input" placeholder="your@email.com">
-          </div>
-        </div>
-        <div class="form-row" style="margin-top:13px">
-          <label class="form-label">Phone Number</label>
-          <input id="applyPhone" type="tel" class="form-input" placeholder="+91 or +971...">
-        </div>
-        <!-- RESUME UPLOAD -->
-        <div class="form-row">
-          <label class="form-label">Resume / CV <span class="form-req">*</span> <span style="font-weight:400;color:#aaa;font-size:11px;">(PDF, DOC, DOCX — max 700 KB)</span></label>
-          <div class="resume-area" id="resumeArea">
-            <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" onchange="handleFileSelect(this)">
-            <div class="resume-upload-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg></div>
-            <div class="resume-upload-text" id="resumeUploadText">Click or drag to upload your CV</div>
-            <div class="resume-upload-hint">PDF, DOC, DOCX — max 700 KB</div>
-            <div class="resume-file-name" id="resumeFileName"></div>
-          </div>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Cover Note <span style="font-weight:400;color:#aaa;">(optional)</span></label>
-          <textarea id="applyMessage" class="form-input form-textarea" placeholder="Why are you a great fit for this role?"></textarea>
-        </div>
-        <div class="apply-error" id="applyError"></div>
-        <div id="uploadProgress">
-          <div id="uploadProgressText">Processing...</div>
-          <div id="uploadProgressBar-wrap"><div id="uploadProgressBar"></div></div>
-        </div>
-        <button class="apply-submit" id="applySubmitBtn" onclick="submitApplication()">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg>
-          Submit Application
-        </button>
-      </div>
-      <div class="apply-success" id="applySuccess">
-        <div class="success-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg></div>
-        <div class="success-title">Application Sent! 🎉</div>
-        <p class="success-msg">Your application and CV have been submitted. Our team will review it and contact you within 48 hours.</p>
-        <button class="success-close" onclick="closeModal('applyModal')">Close</button>
-      </div>
+<!-- ═══ COMPARISON ═══ -->
+<section class="wrap">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">Cost comparison</div>
+    <h2 class="sec-h2">Professional preparation without the traditional high upfront charge</h2>
+  </div>
+  <div class="cmp-grid reveal rd1">
+    <div class="cmp bad">
+      <div class="cmp-lbl">What agents demand for a "job"</div>
+      <div class="cmp-amt">₹1,00,000+</div>
+      <p class="cmp-note">Taken upfront against a vacancy you never see, with no receipt and no recourse. Above the legal limit, and frequently against nothing at all.</p>
+    </div>
+    <div class="cmp good">
+      <div class="cmp-lbl">North Asia Consultants</div>
+      <div class="cmp-amt">₹4,999</div>
+      <p class="cmp-note">For preparation you receive and keep. Receipted, itemised, and honest about what it is — we don't sell jobs, so there's nothing to be strung along about.</p>
     </div>
   </div>
 
-  <!-- ═══ FIREBASE + LOGIC ═══ -->
-  <script type="module">
-    import { initializeApp }  from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, serverTimestamp }
-                               from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+  <div class="lakh-line reveal rd2">
+    <b>We don't charge lakhs.</b>
+    <p>Agents who demand ₹1,00,000 or more upfront for a Gulf job are charging illegally. The legal cap on recruitment service charges for Indian workers is <strong>₹30,000 plus GST</strong>, and it can only be collected <strong>after you have been selected and hold a valid employment offer</strong>. Any agent asking for money before an employer has selected you is breaking the law — that is your signal to walk away.</p>
+    <p>We charge ₹4,999 and we're not charging it for a job. We're charging it for a CV, coaching and guidance you receive in your hand within about ten days. <strong>If someone promises you a Gulf job for money, they are lying to you</strong> — including if they're cheaper than the ones asking for lakhs.</p>
+  </div>
+</section>
 
-    const firebaseConfig = {
-      apiKey:            "AIzaSyD9Qf2modSb1JEaR21ynEBv4WYBZaX1oJQ",
-      authDomain:        "northasiawebsite.firebaseapp.com",
-      projectId:         "northasiawebsite",
-      storageBucket:     "northasiawebsite.firebasestorage.app",
-      messagingSenderId: "643873729069",
-      appId:             "1:643873729069:web:01e9a5f35a0f4815ece6a4"
+<!-- ═══ FAQ ═══ -->
+<section class="wrap" style="padding-top:0">
+  <div class="sec-head reveal">
+    <div class="sec-eyebrow">Straight answers</div>
+    <h2 class="sec-h2">Questions worth asking</h2>
+  </div>
+  <div class="faq reveal rd1">
+    <details><summary>What does the ₹4,999 placement assistance include?</summary><p>It includes professional Gulf resume preparation, candidate profile development, job matching, application alignment, interview preparation, documentation guidance and recruitment follow-up.</p></details>
+    <details><summary>How does the placement assistance work?</summary><p>After registration and payment, our team reviews your profile, prepares your resume and candidate profile, aligns suitable Gulf opportunities, supports interview preparation and provides recruitment follow-up.</p></details>
+    <details><summary>What if I'm not happy with the CV?</summary><p>We revise it until you are. There's no revision limit and no time limit on getting it right.</p></details>
+    <details><summary>How do I know an agency is legitimate?</summary><p>Check their Registration Certificate on the eMigrate portal, insist on a receipt for anything you pay, and refuse to pay before you hold a written employment offer. Those three habits filter out most of what goes wrong.</p></details>
+    <details><summary>Do I need BOSIET and HUET before applying?</summary><p>Depends entirely on your trade and whether the work is offshore. Some candidates spend ₹40,000 on tickets they didn't need for the roles they're targeting. Part of the package is telling you honestly which ones matter for you.</p></details>
+    <details><summary>Is the ₹4,999 refundable?</summary><p>Before we've started work, yes — message us on WhatsApp. Once your CV is drafted and delivered, the work has been done and the fee stands.</p></details>
+  </div>
+</section>
+
+<!-- ═══ DISCLAIMER ═══ -->
+<div class="wrap" style="padding-top:0">
+  <div class="disc-box reveal">
+    <h5>Important</h5>
+    <p>The ₹4,999 fee covers Gulf Job Placement Assistance including professional resume preparation, candidate profile development, job matching, interview alignment, documentation guidance and recruitment follow-up.</p>
+    <p>“100% Guaranteed Placement Assistance” and “Guaranteed Recruitment Support Until Your Profile Is Properly Submitted &amp; Interview-Aligned” refer to the recruitment assistance and support services provided. Final employment depends on your eligibility, employer requirements, available vacancies, document verification and interview performance.</p>
+    <p>Recruitment outcomes depend on employer selection and current vacancies. This service provides structured assistance and support throughout the applicable recruitment process.</p>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo"><div class="logo-icon">N</div><div><div class="logo-name">North Asia <span>Consultants</span></div><div class="logo-tagline">Global Recruitment Experts</div></div></a>
+        <p>Connecting companies with skilled professionals across the Gulf, Asia, Europe and beyond — at zero cost to employers. Delivering excellence in global recruitment.</p>
+        <div class="footer-social">
+          <a href="#" class="fs-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></a>
+          <a href="https://wa.me/918988590035" class="fs-btn" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          <a href="mailto:info@northasiaconsultants.com" class="fs-btn" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+        </div>
+      </div>
+      <div class="fc"><h4>Company</h4><ul><li><a href="/about.html">About Us</a></li><li><a href="/services.html">Our Services</a></li><li><a href="/industries.html">Industries</a></li><li><a href="/contact.html">Contact Us</a></li></ul></div>
+      <div class="fc"><h4>For Employers</h4><ul><li><a href="/employers.html">Post a Job</a></li><li><a href="/employers.html">Our Process</a></li><li><a href="/employers.html">Why Choose Us</a></li></ul></div>
+      <div class="fc"><h4>For Candidates</h4><ul><li><a href="/jobs.html">Gulf Jobs</a></li><li><a href="/candidates.html">Submit Resume</a></li><li><a href="/candidates.html">Career Advice</a></li></ul></div>
+    </div>
+    <div class="footer-legal">
+      <strong>Important:</strong> The ₹4,999 fee covers Gulf Job Placement Assistance including professional resume preparation, candidate profile development, job matching, interview alignment, documentation guidance and recruitment follow-up. Final employment depends on eligibility, employer requirements, available vacancies, document verification and interview performance.
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 North Asia Consultants. All rights reserved.</p>
+      <div class="footer-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="/sitemap.html">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <button onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Get started — ₹4,999</button>
+  <small>Resume · job matching · interview alignment · recruitment support</small>
+</div>
+
+<!-- ═══ CONFIG ═══ -->
+<script>
+window.NAC = {
+  /* ── EDIT THESE ─────────────────────────────── */
+  whatsapp: '918988590035',
+
+  // Razorpay Dashboard → Payment Pages → create a ₹4,999 page → copy its URL.
+  paymentPageUrl: 'https://rzp.io/rzp/1Ks5jiP',
+
+  // In that Payment Page's settings, set the post-payment redirect to:
+  //     https://northasiaconsultants.com/jobs.html?paid=1
+  // That is what brings the customer back to the confirmation screen below.
+  /* ───────────────────────────────────────────── */
+  certs: ['BOSIET','HUET','H2S','HLA','IMIST','PTW','RigPass','First Aid','Fire Fighting','Sea Survival'],
+  value: [
+    ['Professional Gulf Resume',   'A professionally prepared Gulf-standard resume highlighting your experience, trade, certifications and relevant Oil & Gas background.'],
+    ['Candidate Profile Preparation', 'A structured candidate profile designed to present your skills, experience and job preferences clearly to recruitment channels.'],
+    ['Job Matching',               'Match your profile with suitable Gulf Oil & Gas, offshore, rig and technical opportunities based on your experience and target country.'],
+    ['Application Alignment',      'Align your profile and application information with suitable job opportunities and recruitment requirements.'],
+    ['Interview Alignment',        'Guidance to help you prepare for recruiter and employer interviews relevant to your target role.'],
+    ['Interview Preparation',      'Technical, HR and trade-focused preparation so you can approach interviews with greater confidence.'],
+    ['Documentation Guidance',     'Guidance on commonly required recruitment and travel documents, certifications and the next steps in the process.'],
+    ['Recruitment Follow-up',      'Continued recruitment support and follow-up regarding your profile, suitable opportunities and applicable interview stages.']
+  ]
+};
+</script>
+
+<!-- ═══ APP ═══ -->
+<!-- ═══ UI — plain script, runs even if Firebase is unavailable ═══ -->
+<script>
+(function () {
+  const C   = window.NAC;
+  const $   = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  let STEP = 1, DRAFT_ID = null;
+
+  /* ── deliverable cards ── */
+  $('valueGrid').innerHTML = C.value.map(([h, p], i) =>
+    `<div class="vcard"><div class="vcard-n">${String(i+1).padStart(2,'0')}</div><h4>${esc(h)}</h4><p>${esc(p)}</p></div>`).join('');
+
+  /* ── checkout inclusion list ── */
+  const tick = `<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 011.04-.207z" clip-rule="evenodd"/></svg>`;
+  $('inclList').innerHTML = C.value.map(([h]) => `<div class="incl-r">${tick}<span>${esc(h)}</span></div>`).join('');
+
+  /* ── certification checkboxes ── */
+  $('certGrid').innerHTML = C.certs.map(c =>
+    `<label class="cbox"><input type="checkbox" value="${esc(c)}"><span>${esc(c)}</span></label>`).join('');
+  $('certGrid').addEventListener('change', e => {
+    if (e.target.type === 'checkbox') e.target.parentElement.classList.toggle('sel', e.target.checked);
+  });
+
+  /* ── steps ── */
+  function paintSteps() {
+    document.querySelectorAll('#stepTabs .step-t').forEach(t => {
+      const n = +t.dataset.s;
+      t.classList.toggle('on', n === STEP);
+      t.classList.toggle('done', n < STEP);
+    });
+  }
+  function showPane(n) {
+    document.querySelectorAll('.fpane').forEach(p => p.classList.toggle('on', +p.dataset.p === n));
+  }
+
+  const RULES = {
+    1: [['fName','full name'],['fMobile','mobile number'],['fWa','WhatsApp number']],
+    2: [['pTrade','your trade'],['pTotal','total experience'],['pOG','oil & gas experience'],['pQual','highest qualification'],['pPref','target country']],
+    3: [], 4: [], 5: []
+  };
+
+  function err(msg) { const e = $('fErr'); e.textContent = msg; e.classList.add('show'); e.scrollIntoView({behavior:'smooth', block:'center'}); }
+
+  function validate(step) {
+    const missing = [];
+    document.querySelectorAll('.fin').forEach(el => el.classList.remove('err'));
+    (RULES[step] || []).forEach(([id, label]) => {
+      const el = $(id);
+      if (el && !el.value.trim()) { missing.push(label); el.classList.add('err'); }
+    });
+    if (step === 1) {
+      const v = $('fEmail').value.trim();
+      if (v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { missing.push('a valid email'); $('fEmail').classList.add('err'); }
+    }
+    if (missing.length) { err(`Fill in ${missing.join(', ')} to continue.`); return false; }
+    $('fErr').classList.remove('show');
+    return true;
+  }
+
+  window.goStep = function (n) {
+    if (n > STEP && !validate(STEP)) return;
+    STEP = n; paintSteps(); showPane(n);
+    $('cardTitle').textContent = n === 5 ? 'Secure Payment' : 'Your details';
+    $('cardSub').textContent   = n === 5 ? 'Pay ₹4,999 securely to start your placement assistance.' : 'Four short steps, then secure payment.';
+    document.querySelector('.card').scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+
+  /* ── files ── */
+  const MAXB = 700 * 1024;
+  const SLOT = { CV: ['fileCv','nameCv','dropCv'], Certificates: ['fileCt','nameCt','dropCt'] };
+
+  window.pickFile = function (input, kind) {
+    const [, ni, di] = SLOT[kind];
+    const f = input.files[0]; if (!f) return;
+    if (f.size > MAXB) {
+      err(`${kind} is ${(f.size/1024).toFixed(0)} KB. Compress it under 700 KB and try again — or skip it and bring it to the call.`);
+      input.value = ''; $(ni).classList.remove('show'); $(di).classList.remove('ok'); return;
+    }
+    $('fErr').classList.remove('show');
+    $(ni).textContent = '✓ ' + f.name; $(ni).classList.add('show'); $(di).classList.add('ok');
+  };
+
+  Object.entries(SLOT).forEach(([kind, [fi, ni, di]]) => {
+    const d = $(di); if (!d) return;
+    d.addEventListener('dragover',  e => { e.preventDefault(); d.classList.add('drag'); });
+    d.addEventListener('dragleave', () => d.classList.remove('drag'));
+    d.addEventListener('drop', e => {
+      e.preventDefault(); d.classList.remove('drag');
+      if (e.dataTransfer.files[0]) { $(fi).files = e.dataTransfer.files; window.pickFile($(fi), kind); }
+    });
+  });
+
+  const toB64 = f => new Promise((res, rej) => {
+    const r = new FileReader(); r.onload = e => res(e.target.result); r.onerror = rej; r.readAsDataURL(f);
+  });
+
+  /* ── collect everything the form holds ── */
+  async function collect() {
+    const certs = [...document.querySelectorAll('#certGrid input:checked')].map(c => c.value);
+    const other = $('cOther').value.trim();
+    if (other) certs.push(...other.split(',').map(s => s.trim()).filter(Boolean));
+    const cv = $('fileCv').files[0], ct = $('fileCt').files[0];
+    return {
+      name: $('fName').value.trim(), email: $('fEmail').value.trim(),
+      mobile: $('fMobile').value.trim(), whatsapp: $('fWa').value.trim(),
+      dob: $('fDob').value, city: $('fCity').value.trim(), state: $('fState').value.trim(),
+      trade: $('pTrade').value, currentTitle: $('pTitle').value.trim(),
+      totalExp: $('pTotal').value, oilGasExp: $('pOG').value, offshoreExp: $('pOff').value,
+      qualification: $('pQual').value, previousCompanies: $('pPrev').value.trim(),
+      targetCountry: $('pPref').value, certifications: certs, note: $('fNote').value.trim(),
+      cvName: cv ? cv.name : null, cvBase64: cv ? await toB64(cv) : null,
+      certsName: ct ? ct.name : null, certsBase64: ct ? await toB64(ct) : null
     };
+  }
 
-    const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
+  /* ── hand off to the hosted Razorpay Payment Page ── */
+  window.goToPayment = async function () {
+    const btn = $('payBtn'), pe = $('payErr');
+    const reset = () => { btn.disabled = false; btn.innerHTML = 'Pay ₹4,999 securely'; };
+    const fail  = m => { pe.textContent = m; pe.classList.add('show'); reset(); };
 
-    let allJobs = [], filteredJobs = [];
+    pe.classList.remove('show');
 
-    // ── LOAD JOBS ──────────────────────────────────────────────
-    async function loadJobs() {
-      try {
-        const snap = await getDocs(collection(db, 'jobs'));
-        allJobs = [];
-        snap.forEach(d => {
-          const data = d.data();
-          const status = (data.Status || data.status || '').toString().toLowerCase().trim();
-          if (status === 'active' || status.includes('active')) allJobs.push({ id: d.id, data });
-        });
-        allJobs.sort((a,b) => (b.data.postedAt?.seconds||0) - (a.data.postedAt?.seconds||0));
+    if (!C.paymentPageUrl || C.paymentPageUrl.includes('XXXX')) {
+      return fail('Payment is not configured yet. Message us on WhatsApp and we will send you a payment link directly.');
+    }
 
-        if (allJobs.length > 0) {
-          populateDropdowns();
-          filteredJobs = [...allJobs];
-          showJobs(filteredJobs);
-          document.getElementById('comingSoonSection').style.display = 'none';
-          const sk = document.getElementById('skeletonSection');
-          if (sk) sk.style.display = 'none';
-        } else {
-          document.getElementById('comingSoonSection').style.display = 'block';
-          const sk = document.getElementById('skeletonSection');
-          if (sk) sk.style.display = 'none';
-        }
-      } catch(e) {
-        console.error('Jobs load error:', e.message);
-        document.getElementById('comingSoonSection').style.display = 'block';
+    btn.disabled = true;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin" style="width:16px;height:16px"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Opening secure payment…`;
+
+    /* Save the record before sending anyone to pay — never take money
+       without a record of who paid and what for. */
+    if (!DRAFT_ID) {
+      if (typeof window.__saveDraft !== 'function') {
+        return fail("We couldn't save your details just now. Refresh and try again, or message us on WhatsApp and we'll take them directly.");
       }
-    }
-
-    function populateDropdowns() {
-      const locs = [...new Set(allJobs.map(j => j.data.Country || j.data.Location).filter(Boolean))].sort();
-      const inds = [...new Set(allJobs.map(j => j.data.Industry).filter(Boolean))].sort();
-      const lSel = document.getElementById('locationFilter');
-      const iSel = document.getElementById('industryFilter');
-      locs.forEach(l => { const o = document.createElement('option'); o.value=l; o.textContent=l; lSel.appendChild(o); });
-      inds.forEach(i => { const o = document.createElement('option'); o.value=i; o.textContent=i; iSel.appendChild(o); });
-    }
-
-    function showJobs(jobs) {
-      document.getElementById('jobCountBadge').textContent = jobs.length;
-      document.getElementById('resultsMeta').textContent = jobs.length === allJobs.length
-        ? 'Updated live from our database'
-        : `${jobs.length} of ${allJobs.length} jobs match your filters`;
-      document.getElementById('liveJobsList').innerHTML = jobs.length === 0
-        ? `<div class="no-results"><div class="no-results-icon">🔍</div><h3>No jobs found</h3><p>Try adjusting your filters or check back soon.</p></div>`
-        : jobs.map((j,i) => buildCard(j.id, j.data, i)).join('');
-      document.getElementById('liveJobsSection').style.display = 'block';
-    }
-
-    function buildCard(id, j, idx) {
-      const salary = (j.SalaryMin && j.SalaryMax)
-        ? `💰 ${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()}–${Number(j.SalaryMax).toLocaleString()}/mo`
-        : j.SalaryMin ? `💰 ${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()}+/mo`
-        : '💰 Competitive salary';
-      const skills = (j.skillsArray||[]).slice(0,5).map(s=>`<span class="skill-tag">${s}</span>`).join('');
-      const deadline = j.Deadline
-        ? `<span class="jc-deadline"><svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"/></svg>Apply by ${new Date(j.Deadline).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>`
-        : '<span></span>';
-      const esc = s => (s||'').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
-      return `
-      <div class="job-card" style="animation-delay:${idx*.06}s" onclick="window._openDetail('${id}')">
-        <div class="jc-body">
-          <div class="jc-logo">${(j.Title||'J').charAt(0)}</div>
-          <div class="jc-main">
-            <div class="jc-title">${j.Title||''}</div>
-            <div class="jc-meta">
-              <span>${j.Company||'North Asia Consultants'}</span>
-              <span class="jc-meta-dot">·</span>
-              <span>📍 ${j.Location||''}, ${j.Country||''}</span>
-              ${j.Industry?`<span class="jc-meta-dot">·</span><span>🏢 ${j.Industry}</span>`:''}
-            </div>
-          </div>
-          ${j.Visa==='yes'?'<span class="badge badge-visa">✈ Visa Sponsored</span>':''}
-        </div>
-        <div class="jc-badges">
-          <span class="badge badge-type">${j.Type||'Full-time'}</span>
-          <span class="badge badge-sal">${salary}</span>
-          ${j.Experience?`<span class="badge badge-exp">${j.Experience}</span>`:''}
-        </div>
-        <div class="jc-desc">${(j.Description||'').substring(0,200)}${(j.Description||'').length>200?'...':''}</div>
-        ${skills?`<div class="jc-skills">${skills}</div>`:''}
-        <div class="jc-footer">
-          ${deadline}
-          <div class="jc-actions">
-            <button class="btn-view" onclick="event.stopPropagation();window._openDetail('${id}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              View Details
-            </button>
-            <button class="btn-apply" onclick="event.stopPropagation();window._openApply('${id}','${esc(j.Title)}','${esc(j.Company||'North Asia Consultants')}')">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg>
-              Apply Now
-            </button>
-          </div>
-        </div>
-      </div>`;
-    }
-
-    // ── FILTERS ────────────────────────────────────────────────
-    window._applyFilters = function() {
-      const q   = document.getElementById('searchInput').value.trim().toLowerCase();
-      const loc = document.getElementById('locationFilter').value.toLowerCase();
-      const ind = document.getElementById('industryFilter').value.toLowerCase();
-      const typ = document.getElementById('typeFilter').value.toLowerCase();
-      filteredJobs = allJobs.filter(({data:j}) => {
-        const text = `${j.Title||''} ${j.Company||''} ${j.Description||''} ${(j.skillsArray||[]).join(' ')}`.toLowerCase();
-        return (!q || text.includes(q))
-          && (!loc || (j.Country||'').toLowerCase().includes(loc) || (j.Location||'').toLowerCase().includes(loc))
-          && (!ind || (j.Industry||'').toLowerCase().includes(ind))
-          && (!typ || (j.Type||'').toLowerCase().includes(typ));
-      });
-      showJobs(filteredJobs);
-      document.getElementById('clearBtn').classList.toggle('show', !!(q||loc||ind||typ));
-    };
-    window._clearFilters = function() {
-      ['searchInput','locationFilter','industryFilter','typeFilter'].forEach(id => {
-        const el = document.getElementById(id); if(el) el.value='';
-      });
-      document.getElementById('clearBtn').classList.remove('show');
-      filteredJobs = [...allJobs];
-      showJobs(filteredJobs);
-    };
-
-    // ── JOB DETAIL MODAL ──────────────────────────────────────
-    window._openDetail = function(jobId) {
-      const job = allJobs.find(j => j.id === jobId);
-      if (!job) return;
-      const j = job.data;
-      const salary = (j.SalaryMin && j.SalaryMax)
-        ? `${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()} – ${Number(j.SalaryMax).toLocaleString()} / month`
-        : j.SalaryMin ? `${j.Currency||''} ${Number(j.SalaryMin).toLocaleString()}+ / month`
-        : 'Not disclosed';
-
-      document.getElementById('mdLogo').textContent  = (j.Title||'J').charAt(0);
-      document.getElementById('mdTitle').textContent = j.Title||'';
-      document.getElementById('mdCompany').innerHTML = `
-        <span>${j.Company||'North Asia Consultants'}</span>
-        <span style="opacity:.45">·</span>
-        <span>📍 ${j.Location||''}, ${j.Country||''}</span>
-        ${j.Industry?`<span style="opacity:.45">·</span><span>🏢 ${j.Industry}</span>`:''}`;
-
-      document.getElementById('mdBadges').innerHTML = [
-        j.Type       ? `<span class="modal-badge">${j.Type}</span>` : '',
-        j.SalaryMin  ? `<span class="modal-badge">💰 ${salary}</span>` : '',
-        j.Experience ? `<span class="modal-badge">⏱ ${j.Experience}</span>` : '',
-        j.Visa==='yes' ? `<span class="modal-badge">✈ Visa Sponsored</span>` : '',
-      ].join('');
-
-      document.getElementById('mdInfoGrid').innerHTML = [
-        {k:'Job Title',    v: j.Title||'—'},
-        {k:'Company',      v: j.Company||'North Asia Consultants'},
-        {k:'Location',     v: `${j.Location||''} ${j.Country||''}`.trim()||'—'},
-        {k:'Industry',     v: j.Industry||'—'},
-        {k:'Job Type',     v: j.Type||'Full-time'},
-        {k:'Salary',       v: salary},
-        {k:'Experience',   v: j.Experience||'Not specified'},
-        {k:'Visa Support', v: j.Visa==='yes'?'✅ Sponsored':'Not mentioned'},
-      ].map(i=>`<div class="modal-info-item"><div class="modal-info-key">${i.k}</div><div class="modal-info-val">${i.v}</div></div>`).join('');
-
-      document.getElementById('mdDesc').textContent = j.Description || 'Full job description not available.';
-      const skills = j.skillsArray||[];
-      if (skills.length > 0) {
-        document.getElementById('mdSkillsSection').style.display = 'block';
-        document.getElementById('mdSkills').innerHTML = skills.map(s=>`<span class="modal-skill-tag">${s}</span>`).join('');
-      } else {
-        document.getElementById('mdSkillsSection').style.display = 'none';
-      }
-      document.getElementById('mdDeadline').innerHTML = j.Deadline
-        ? `<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"/></svg> Apply by ${new Date(j.Deadline).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}`
-        : '';
-      document.getElementById('mdApplyBtn').onclick = () => {
-        closeModal('jobDetailModal');
-        setTimeout(() => window._openApply(jobId, j.Title||'', j.Company||'North Asia Consultants'), 200);
-      };
-      openModal('jobDetailModal');
-    };
-
-    // ── APPLY MODAL ───────────────────────────────────────────
-    window._openApply = function(jobId, title, company) {
-      document.getElementById('applyJobId').value             = jobId;
-      document.getElementById('applyModalTitle').textContent  = title;
-      document.getElementById('applyModalCompany').textContent = company;
-      document.getElementById('applyFormBody').style.display  = '';
-      document.getElementById('applySuccess').classList.remove('show');
-      document.getElementById('applyError').style.display     = 'none';
-      document.getElementById('uploadProgress').style.display = 'none';
-      document.getElementById('resumeFile').value             = '';
-      document.getElementById('resumeFileName').classList.remove('show');
-      document.getElementById('resumeFileName').textContent   = '';
-      document.getElementById('resumeUploadText').textContent = 'Click or drag to upload your CV';
-      document.getElementById('resumeArea').classList.remove('has-file');
-      document.getElementById('applySubmitBtn').disabled      = false;
-      document.getElementById('applySubmitBtn').innerHTML     = `<svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg> Submit Application`;
-      openModal('applyModal');
-    };
-
-    // ── SUBMIT (base64 into Firestore — no Storage needed) ────
-    window._submitApplication = async function() {
-      const jobId   = document.getElementById('applyJobId').value;
-      const name    = document.getElementById('applyName').value.trim();
-      const email   = document.getElementById('applyEmail').value.trim();
-      const phone   = document.getElementById('applyPhone').value.trim();
-      const message = document.getElementById('applyMessage').value.trim();
-      const file    = document.getElementById('resumeFile').files[0];
-      const errEl   = document.getElementById('applyError');
-      errEl.style.display = 'none';
-
-      if (!name)  return showErr('Please enter your full name.');
-      if (!email) return showErr('Please enter your email address.');
-      if (!file)  return showErr('Please upload your resume / CV.');
-      if (file.size > 700*1024) return showErr('File too large. Please keep your CV under 700 KB (compress your PDF or use .docx).');
-
-      const btn = document.getElementById('applySubmitBtn');
-      btn.disabled = true;
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin" style="width:15px;height:15px"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Processing...`;
-
-      const prog     = document.getElementById('uploadProgress');
-      const progBar  = document.getElementById('uploadProgressBar');
-      const progText = document.getElementById('uploadProgressText');
-      prog.style.display = 'block';
-      progText.textContent = 'Reading your CV...';
-      progBar.style.width  = '30%';
-
       try {
-        const resumeBase64 = await new Promise((res, rej) => {
-          const r = new FileReader();
-          r.onload  = e => res(e.target.result);
-          r.onerror = rej;
-          r.readAsDataURL(file);
-        });
-
-        progBar.style.width  = '65%';
-        progText.textContent = 'Saving application...';
-        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="spin" style="width:15px;height:15px"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Submitting...`;
-
-        const jobMeta = (allJobs.find(j=>j.id===jobId)||{data:{}}).data;
-        await addDoc(collection(db, 'applications'), {
-          jobId,
-          jobTitle:       jobMeta.Title   || '',
-          jobCompany:     jobMeta.Company || 'North Asia Consultants',
-          jobLocation:    `${jobMeta.Location||''} ${jobMeta.Country||''}`.trim(),
-          name, email, phone, message,
-          resumeFileName: file.name,
-          resumeType:     file.type,
-          resumeBase64,          /* full file as data-URI — open in browser to download */
-          appliedAt:      serverTimestamp(),
-          status:         'new'
-        });
-
-        progBar.style.width = '100%';
-        prog.style.display  = 'none';
-        document.getElementById('applyFormBody').style.display = 'none';
-        document.getElementById('applySuccess').classList.add('show');
-
-      } catch(e) {
+        DRAFT_ID = await window.__saveDraft(await collect());
+      } catch (e) {
         console.error(e);
-        showErr('Submission failed. Please try again or WhatsApp us directly.');
-        btn.disabled = false;
-        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 011.06 0l4.5 4.5a.75.75 0 01-1.06 1.06l-3.22-3.22V16.5a.75.75 0 01-1.5 0V4.81L8.03 8.03a.75.75 0 01-1.06-1.06l4.5-4.5z" clip-rule="evenodd"/><path d="M3 15.75a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"/></svg> Submit Application`;
+        return fail("Your details didn't save. Check your connection and try again — nothing has been charged.");
       }
-    };
-
-    function showErr(msg) { const e = document.getElementById('applyError'); e.textContent=msg; e.style.display='block'; }
-
-    loadJobs();
-  </script>
-
-  <script>
-    /* ── MODAL HELPERS — on window so module script can call them ── */
-    window.openModal = function(id) {
-      document.getElementById(id).classList.add('open');
-      document.body.style.overflow = 'hidden';
-    };
-    window.closeModal = function(id) {
-      document.getElementById(id).classList.remove('open');
-      document.body.style.overflow = '';
-    };
-
-    /* proxy fns for inline HTML onclicks */
-    function closeModal(id) { window.closeModal(id); }
-    function clearFilters()  { window._clearFilters && window._clearFilters(); }
-    function submitApplication() { window._submitApplication && window._submitApplication(); }
-
-    /* File upload UI */
-    function handleFileSelect(input) {
-      const file = input.files[0]; if(!file) return;
-      const area = document.getElementById('resumeArea');
-      area.classList.add('has-file');
-      const fn = document.getElementById('resumeFileName');
-      fn.textContent = '✓ ' + file.name; fn.classList.add('show');
-      document.getElementById('resumeUploadText').textContent = 'CV selected — ready to submit';
-    }
-    /* Drag & drop */
-    const ra = document.getElementById('resumeArea');
-    if (ra) {
-      ra.addEventListener('dragover',  e => { e.preventDefault(); ra.classList.add('dragging'); });
-      ra.addEventListener('dragleave', () => ra.classList.remove('dragging'));
-      ra.addEventListener('drop', e => {
-        e.preventDefault(); ra.classList.remove('dragging');
-        if (e.dataTransfer.files[0]) {
-          document.getElementById('resumeFile').files = e.dataTransfer.files;
-          handleFileSelect(document.getElementById('resumeFile'));
-        }
-      });
     }
 
-    /* Live filter on every input/change */
-    document.getElementById('searchInput').addEventListener('input', () => window._applyFilters && window._applyFilters());
-    ['locationFilter','industryFilter','typeFilter'].forEach(id =>
-      document.getElementById(id).addEventListener('change', () => window._applyFilters && window._applyFilters())
-    );
+    const ref = 'NAC-' + DRAFT_ID.slice(-8).toUpperCase();
+    try {
+      sessionStorage.setItem('nac_pending', JSON.stringify({
+        ref, id: DRAFT_ID,
+        name:   $('fName').value.trim(),
+        trade:  $('pTrade').value,
+        mobile: $('fMobile').value.trim()
+      }));
+    } catch (e) { /* private browsing — fallback below covers it */ }
 
-    /* Notify form */
-    function handleNotify() {
-      const email = document.getElementById('emailInput').value.trim();
-      if (!email || !email.includes('@')) { document.getElementById('emailInput').style.borderColor='#ef4444'; setTimeout(()=>document.getElementById('emailInput').style.borderColor='',2000); return; }
-      document.getElementById('notifyForm').style.display = 'none';
-      document.getElementById('notifySuccess').classList.add('show');
+    /* Field names must match the Payment Page's own fields. Adjust if you
+       renamed them when building the page in the Razorpay dashboard. */
+    const qs = new URLSearchParams({
+      name:      $('fName').value.trim(),
+      email:     $('fEmail').value.trim(),
+      phone:     $('fMobile').value.trim(),
+      reference: ref
+    });
+    location.href = `${C.paymentPageUrl}?${qs}`;
+  };
+
+  /* ── returning from the Payment Page ── */
+  function showConfirmation() {
+    let d = null;
+    try { d = JSON.parse(sessionStorage.getItem('nac_pending') || 'null'); } catch (e) {}
+
+    if (d) {
+      $('dName').textContent   = d.name;
+      $('dTrade').textContent  = d.trade;
+      $('dMobile').textContent = d.mobile || '—';
+      $('dId').textContent     = d.ref;
+      $('dWa').href = `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(`Hi, I've registered for Gulf Job Placement Assistance and completed payment. Reference ${d.ref}, mobile ${d.mobile || ''}, trade ${d.trade}.`)}`;
+      sessionStorage.removeItem('nac_pending');
+    } else {
+      $('dName').textContent   = '—';
+      $('dTrade').textContent  = '—';
+      $('dMobile').textContent = '—';
+      $('dId').textContent     = 'Check your Razorpay receipt';
+      $('dWa').href = `https://wa.me/${C.whatsapp}?text=${encodeURIComponent("Hi, I've completed payment for Gulf Job Placement Assistance. Sending my details now.")}`;
     }
+    $('formBody').style.display = 'none';
+    $('donePane').classList.add('show');
+    document.querySelector('.card').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
 
-    /* Nav */
-    function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  if (new URLSearchParams(location.search).get('paid') === '1') showConfirmation();
 
-    /* Scroll progress */
-    window.addEventListener('scroll', () => {
-      const s = document.documentElement.scrollTop;
-      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      document.getElementById('progress').style.width = (s/h*100) + '%';
-    }, { passive: true });
+  paintSteps();
+})();
+</script>
 
-    /* Reveal on scroll */
-    const ro = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+<!-- ═══ Firestore write — isolated, so a load failure can't freeze the form ═══ -->
+<script type="module">
+import { db } from './js/firebase.js';
+import { collection, addDoc, serverTimestamp }
+       from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-    /* Progress bar animation */
-    const po = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) { setTimeout(()=>{ const f=document.getElementById('csProgressFill'); if(f) f.style.width='65%'; },500); po.unobserve(e.target); } });
-    }, { threshold: 0.3 });
-    const cs = document.querySelector('.jobs-cs'); if(cs) po.observe(cs);
-  </script>
+window.__saveDraft = async function (data) {
+  const ref = await addDoc(collection(db, 'careerServiceClients'), {
+    ...data,
+    service:       'gulf_job_placement_assistance',
+    paymentStatus: 'pending',
+    createdAt:     serverTimestamp()
+  });
+  return ref.id;
+};
+</script>
+
+<script>
+  function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('open'); }
+  addEventListener('scroll', () => {
+    const s = document.documentElement.scrollTop;
+    const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progress').style.width = (h > 0 ? s/h*100 : 0) + '%';
+  }, { passive:true });
+  const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }), { threshold:.08, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
 </body>
 </html>
